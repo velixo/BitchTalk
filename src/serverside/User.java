@@ -10,11 +10,15 @@ public class User {
 	private ObjectOutputStream output;
 	protected static int userCount = 0;
 	
-	
 	public User(Socket c) throws IOException{
 		connection = c;
 		input = new ObjectInputStream(connection.getInputStream());
 		output = new ObjectOutputStream(connection.getOutputStream());
 		name = "Bitch nr" + userCount++;
+	}
+	
+	public void send(String message) throws IOException{
+		output.writeObject(message);
+		output.flush();
 	}
 }
