@@ -6,19 +6,13 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 
-public class ConversationWindow extends JFrame implements Observer {
+public class ConversationWindow extends JFrame {
 	private String windowTitle = "Talking to: ";
 	private String selfUsername;
 	private String selfIP;
 	private Map<String, String> ipUsernameMap;
 	
 	public ConversationWindow() {
-		
-	}
-
-	@Override
-	public void update(Observable observable, Object extraInfo) {
-		// TODO Auto-generated method stub
 		
 	}
 	
