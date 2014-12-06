@@ -46,6 +46,7 @@ public class Client {
 			else if(output!=null){
 				output.writeObject(message);
 				output.flush();
+				System.out.println("flushed, bitch");
 			}
 			else{
 				gui.showMessage("You are not connected to any server.");
