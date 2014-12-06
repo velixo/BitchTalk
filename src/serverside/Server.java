@@ -21,8 +21,10 @@ public class Server {
 		gui = g;
 		gui.showMessage("Welcome, bitch king. This realm is yours.");
 		userList = new ArrayList<User>();
-		waitForConnection();
-		listenForMessages();
+//		waitForConnection();
+		waitForConnectionThread.start();
+		listenForMessagesThread.start();
+//		listenForMessages();
 	}
 	
 	
@@ -38,7 +40,7 @@ public class Server {
 	}
 	
 	private void waitForConnection(){
-		thr.start();
+		waitForConnectionThread.start();
 	}
 	
 	private void listenForMessages(){
@@ -57,15 +59,16 @@ public class Server {
 			}
 		}while(true);
 	}
+	
 	private void wreck(User u){
 		u.closeCrap();
 		userList.remove(u);
 		gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
 	}
 
-/********************************************************************************************/
+/******************************** THREAD DECLARATIONS *********************************************/
 	
-	Thread thr = new Thread() {
+	Thread waitForConnectionThread = new Thread() {
 		public void run() {
 			while(!Thread.currentThread().isInterrupted()) {
 				Socket s;
@@ -78,6 +81,25 @@ public class Server {
 					// TODO Auto-generated catch block
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
+				}
+			}
+		}
+	};
+	
+	Thread listenForMessagesThread = new Thread() {
+		public void run() {
+			String message = "Bitch, Server's up!";
+			while(!Thread.currentThread().isInterrupted()) {
+				for(User u : userList){
+					try {
+						if(u.hasMessage()){
+							message = u.readMessage();
+							broadcast(message);
+						}
+					} catch (ClassNotFoundException | IOException e) {
+						wreck(u);
+					}
+					
 				}
 			}
 		}
