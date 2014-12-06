@@ -1,4 +1,6 @@
-package command;
+package command.serverside;
+
+import command.Command;
 
 import serverside.Server;
 
