@@ -29,6 +29,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatInput = new JTextField();
 		chatInput.setEditable(true);
 		chatInput.addActionListener(new ServerSendMessageListener());
+		add(chatInput, BorderLayout.SOUTH);
 		
 		setSize(450,550);
 		setVisible(true);
