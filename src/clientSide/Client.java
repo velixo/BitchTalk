@@ -21,10 +21,13 @@ public class Client {
 	
 	public void connect(String ip){
 		try {
+			gui.showMessage("Bitch, I'm trying to connect. Get off my fucking back, OK???");
 			connection = new Socket(InetAddress.getByName(ip),9513);
-			input = new ObjectInputStream(connection.getInputStream());
+			System.out.println("BITCH1");
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
+			input = new ObjectInputStream(connection.getInputStream());
+			System.out.println("AAAAYYYY BITCH");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
