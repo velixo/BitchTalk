@@ -73,6 +73,7 @@ public class Client {
 			while(true) {
 				try {
 					String message = (String) input.readObject();
+					gui.showMessage(message);
 				} catch (ClassNotFoundException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
