@@ -20,12 +20,17 @@ public class Server {
 		}
 		gui = g;
 		userList = new ArrayList<User>();
+		showWelcomeMessage();
 	}
 	
 	
 	
 	private void waitForConnection(){
 		thr.start();
+	}
+	
+	private void showWelcomeMessage() {
+		gui.showMessage("Welcome, bitch king. This realm is yours.");
 	}
 	
 
