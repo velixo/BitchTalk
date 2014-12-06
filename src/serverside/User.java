@@ -28,6 +28,9 @@ public class User {
 	public String name(){
 		return name;
 	}
+	public void setName(String newName){
+		name = newName;
+	}
 	public void closeCrap(){
 		try{
 			output.close();
