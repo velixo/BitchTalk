@@ -10,7 +10,6 @@ import serverside.ServerGui;
 
 public class ServerWindow extends JFrame implements ServerGui {
 	private JTextArea chatWindow;
-	private String windowTitle = "BitchTalk Server: ";
 
 	public ServerWindow() {
 		super("BitchTalk Server: ");
