@@ -1,12 +1,14 @@
 package command;
 
+import java.util.StringTokenizer;
+
 import serverside.Server;
 import serverside.User;
 
 import command.clientside.SetName;
 
 public class UserCommandFactory {
-	public final static String SETNAME= "setname";
+	public final static String SETNAME= "/setname";
 	private Server server;
 	private User u;
 
@@ -15,14 +17,13 @@ public class UserCommandFactory {
 	}
 	
 	public Command build(String input) {
-		switch (input) {
-
+		StringTokenizer st = new StringTokenizer(input);
+		switch (st.nextToken()) {
 		case SETNAME:
-			return new SetName(u, input);
+			return new SetName(u, st.nextToken());
 		
 		default:
-			break;
+			return new NotACommand(u);
 		}
-		return null;
 	}
 }

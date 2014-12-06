@@ -3,6 +3,8 @@ package serverside;
 import java.io.*;
 import java.net.*;
 
+import command.UserCommandFactory;
+
 public class User {
 	private String name;
 	private Socket connection;
@@ -11,6 +13,7 @@ public class User {
 	protected static int userCount = 0;
 	private Server server;
 	private User me = this;
+	UserCommandFactory commander;
 	
 	public User(Socket c, Server s) throws IOException{
 		connection = c;
@@ -19,6 +22,7 @@ public class User {
 		output.flush();
 		name = "Bitch nr" + userCount++;
 		server = s;
+		commander = new UserCommandFactory(this);
 		checkmail.start();
 	}
 	public void send(String message) throws IOException{
@@ -48,7 +52,7 @@ public class User {
 				try {
 					String m = (String) input.readObject();
 					if(m.charAt(0)=='/'){
-						
+						commander.build(m);
 					}
 					server.broadcast(name() + ": " + m);
 				} catch (ClassNotFoundException | IOException e) {
