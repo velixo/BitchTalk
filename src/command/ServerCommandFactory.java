@@ -7,6 +7,7 @@ import command.serverside.Gaffeltruck;
 public class ServerCommandFactory {
 	public final static String WOOLOOLOO= "woolooloo";
 	public final static String GAFFELTRUCK = "gaffeltruck";
+	public final static String BITCHSAYMYNAME = "bitchsaymyname";
 	
 	private Server server;
 	
