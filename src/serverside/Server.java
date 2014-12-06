@@ -27,9 +27,9 @@ public class Server {
 	
 	
 	private void broadcast(String m){
+		gui.showMessage(m);
 		for(User u : userList){
 			try {
-				gui.showMessage(m);
 				u.send(m);
 			} catch (IOException e) {
 				wreck(u);
@@ -70,8 +70,9 @@ public class Server {
 				Socket s;
 				try {
 					s = gatekeeper.accept();
-					userList.add(new User(s));
-					broadcast("some bitch has joined.");
+					User u = new User(s);
+					userList.add(u);
+					broadcast(u.getName() + " has joined.");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					gui.showMessage("some bitch really sucks at connecting.");
