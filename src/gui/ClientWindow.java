@@ -51,8 +51,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("HEY FUCKER IM HERE");
 			String message = chatInput.getText();
-			client.send(message);
-			chatInput.setText("");
+			if (!message.equals("")) {
+				client.send(message);
+				chatInput.setText("");
+			}
 		}
 	}
 	
