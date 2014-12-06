@@ -37,7 +37,7 @@ public class ServerBitch {
 					gui.showMessage("some bitch has joined.");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					gui.showMessage("någon är för dålig för att connecta.");
+					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
 				}
 			}
