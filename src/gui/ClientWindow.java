@@ -9,29 +9,52 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ClientWindow extends JFrame {
-	private String selfUsername;
+import clientSide.Client;
+import clientSide.ClientGui;
+
+public class ClientWindow extends JFrame implements ClientGui {
+	private Client client;
 	
 	private JTextArea chatWindow;
 	private JTextField chatInput;
 	
 	public ClientWindow() {
-		super("Talking to: ");
+		super("Talking to dem bitchez: ");
+		
 		chatWindow = new JTextArea();
 		chatWindow.setEditable(false);
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
 		
 		chatInput = new JTextField();
-		chatInput.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						//TODO:
-					}
-				});
+		chatInput.setEditable(true);
+		chatInput.addActionListener(new ServerSendMessageListener());
 		
 		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+	
+	public void addClient(Client client) {
+		this.client = client;
+	}
+
+	@Override
+	public void showMessage(String m) {
+		chatWindow.append(m);
+	}
+	
+	private class ServerSendMessageListener implements ActionListener {
+		
+		public ServerSendMessageListener() {
+			
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String message = chatInput.getText();
+			if (client == null)
+				client.send(message);
+		}
 	}
 	
 }
