@@ -45,13 +45,11 @@ public class Server {
 	
 	private void listenForMessages(){
 		String message = "Bitch, Server's up!";
-		System.out.println("bitch im listenin");
 		do{
 			for(User u : userList){
 				try {
 					if(u.hasMessage()){
 						message = u.readMessage();
-						System.out.println("dis bitch got shit to say");
 						broadcast(message);
 					}
 				} catch (ClassNotFoundException | IOException e) {
@@ -91,13 +89,18 @@ public class Server {
 	Thread listenForMessagesThread = new Thread() {
 		public void run() {
 			String message = "Bitch, Server's up!";
-			while(!Thread.currentThread().isInterrupted()) {
+			System.out.println("bitch im listenin");
+//			while(!Thread.currentThread().isInterrupted()) {
+			while(true) {
 				for(User u : userList){
+					System.out.println("in da for, bietch");
 					try {
-						if(u.hasMessage()){
+						System.out.println("bitch got summin to say?");
+//						if(u.hasMessage()){
+							System.out.println("dis bitch got shit to say");
 							message = u.readMessage();
 							broadcast(message);
-						}
+//						}
 					} catch (ClassNotFoundException | IOException e) {
 						wreck(u);
 					}
