@@ -19,7 +19,7 @@ public class Server {
 			e.printStackTrace();
 		}
 		gui = g;
-		showWelcomeMessage();
+		gui.showMessage("Welcome, bitch king. This realm is yours.");
 	}
 	
 	
@@ -28,9 +28,6 @@ public class Server {
 		thr.start();
 	}
 	
-	private void showWelcomeMessage() {
-		gui.showMessage("Welcome, bitch king. This realm is yours.");
-	}
 	
 
 	
