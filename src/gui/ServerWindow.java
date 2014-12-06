@@ -17,7 +17,7 @@ public class ServerWindow extends JFrame implements ServerGui {
 		chatWindow.setEditable(false);
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
 		
-		setSize(300,550);
+		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
