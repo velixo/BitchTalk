@@ -15,7 +15,12 @@ public class ServerWindow extends JFrame implements ServerGui {
 	public ServerWindow() {
 		super("BitchTalk Server: ");
 		chatWindow = new JTextArea();
+		chatWindow.setEditable(false);
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+		
+		setSize(300,550);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	@Override
