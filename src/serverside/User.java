@@ -25,7 +25,7 @@ public class User {
 		output.writeObject(message);
 		output.flush();
 	}
-	public String getName(){
+	public String name(){
 		return name;
 	}
 	public void closeCrap(){
@@ -40,11 +40,13 @@ public class User {
 	
 	Thread checkmail = new Thread(){
 		public void run(){
-			while(true){
+			boolean wrecked = false;
+			while(!wrecked){
 				try {
 					String m = (String) input.readObject();
-					server.broadcast(m);
+					server.broadcast(name() + ": " + m);
 				} catch (ClassNotFoundException | IOException e) {
+					wrecked = true;
 					server.wreck(me);
 				}				
 			}
