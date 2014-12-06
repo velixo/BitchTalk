@@ -11,10 +11,17 @@ public class Server {
 	ServerGui gui;
 	ArrayList<User> userList = new ArrayList<User>();
 	
-	public Server(){
-		gatekeeper = new ServerSocket();
-		
+	public Server(ServerGui g){
+		try {
+			gatekeeper = new ServerSocket();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		gui = g;
 	}
+	
+	
 	
 	private void waitForConnection(){
 		thr.start();
