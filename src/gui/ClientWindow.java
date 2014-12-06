@@ -33,12 +33,12 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		setSize(450,550);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	@Override
 	public void showMessage(String m) {
-		chatWindow.append(m);
+		chatWindow.append(m + "\n");
 	}
 	
 	private class ServerSendMessageListener implements ActionListener {
@@ -49,9 +49,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("HEY FUCKER IM HERE");
 			String message = chatInput.getText();
-			if (client == null)
-				client.send(message);
+			client.send(message);
+			chatInput.setText("");
 		}
 	}
 	
