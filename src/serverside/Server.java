@@ -46,9 +46,10 @@ public class Server {
 		do{
 			for(User u : userList){
 				try {
-					System.out.println("u-loop");
-					message = u.readMessage();
-					broadcast(message);
+					if(u.hasMessage()){
+						message = u.readMessage();
+						broadcast(message);
+					}
 				} catch (ClassNotFoundException | IOException e) {
 					wreck(u);
 				}

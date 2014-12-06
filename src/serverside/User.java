@@ -25,6 +25,9 @@ public class User {
 	public String readMessage() throws ClassNotFoundException, IOException{
 		return (String) input.readObject();
 	}
+	public boolean hasMessage() throws IOException{
+		return input.available()>0;
+	}
 	public String getName(){
 		return name;
 	}
