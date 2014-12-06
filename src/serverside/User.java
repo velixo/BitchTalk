@@ -22,6 +22,9 @@ public class User {
 		output.writeObject(message);
 		output.flush();
 	}
+	public String readMessage() throws ClassNotFoundException, IOException{
+		return (String) input.readObject();
+	}
 	public String getName(){
 		return name;
 	}

@@ -22,7 +22,9 @@ public class Server {
 		gui.showMessage("Welcome, bitch king. This realm is yours.");
 		userList = new ArrayList<User>();
 		waitForConnection();
+		listenForMessages();
 	}
+	
 	
 	private void broadcast(String m){
 		for(User u : userList){
@@ -40,18 +42,24 @@ public class Server {
 		thr.start();
 	}
 	
-	
+	private void listenForMessages(){
+		String message = "Bitch, Server's up!";
+		do{
+			for(User u : userList){
+				try {
+					message = u.readMessage();
+					gui.showMessage(message);
+					broadcast(message);
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}while(true);
+	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+/********************************************************************************************/
 	
 	Thread thr = new Thread() {
 		public void run() {
