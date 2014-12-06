@@ -11,10 +11,15 @@ public class Server {
 	ServerGui gui;
 	ArrayList<User> userList = new ArrayList<User>();
 	
+	public Server(){
+		gatekeeper = new ServerSocket();
+		
+	}
 	
 	private void waitForConnection(){
 		thr.start();
 	}
+	
 
 	
 	
