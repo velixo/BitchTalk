@@ -44,6 +44,9 @@ public class User {
 			while(!wrecked){
 				try {
 					String m = (String) input.readObject();
+					if(m.charAt(0)=='/'){
+						
+					}
 					server.broadcast(name() + ": " + m);
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
