@@ -9,17 +9,18 @@ public class Server {
 	
 	ServerSocket gatekeeper;
 	ServerGui gui;
-	ArrayList<User> userList = new ArrayList<User>();
+	ArrayList<User> userList;
 	
 	public Server(ServerGui g){
 		try {
-			gatekeeper = new ServerSocket();
+			gatekeeper = new ServerSocket(9513);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		gui = g;
 		gui.showMessage("Welcome, bitch king. This realm is yours.");
+		userList = new ArrayList<User>();
 	}
 	
 	
