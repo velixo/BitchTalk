@@ -33,7 +33,7 @@ public class Client {
 	public void send(String message){
 		try {
 			StringTokenizer tkn = new StringTokenizer(message);
-			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){
+			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){	// >=2?
 				System.out.println("I am in client.send()!");
 				//TODO: Kanske stänga eventuell nuvarande streams/sockets?
 				

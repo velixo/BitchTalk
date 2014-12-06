@@ -21,6 +21,7 @@ public class Server {
 		gui = g;
 		gui.showMessage("Welcome, bitch king. This realm is yours.");
 		userList = new ArrayList<User>();
+		waitForConnection();
 	}
 	
 	
