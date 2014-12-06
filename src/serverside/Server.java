@@ -1,8 +1,10 @@
 package serverside;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class Server {
@@ -15,14 +17,14 @@ public class Server {
 	public Server(ServerGui g){
 		try {
 			gatekeeper = new ServerSocket(9513);
+			gui = g;
+			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
+			userList = new ArrayList<User>();
+			waitForConnectionThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		gui = g;
-		gui.showMessage("Welcome, bitch king. This realm is yours.");
-		userList = new ArrayList<User>();
-		waitForConnectionThread.start();
 	}
 	
 	
