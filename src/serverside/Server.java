@@ -29,11 +29,10 @@ public class Server {
 	private void broadcast(String m){
 		for(User u : userList){
 			try {
+				gui.showMessage(m);
 				u.send(m);
 			} catch (IOException e) {
-				u.closeCrap();
-				userList.remove(u);
-				gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
+				wreck(u);
 			}
 		}
 	}
@@ -47,16 +46,21 @@ public class Server {
 		do{
 			for(User u : userList){
 				try {
+					System.out.println("u-loop");
 					message = u.readMessage();
 					gui.showMessage(message);
 					broadcast(message);
 				} catch (ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					wreck(u);
 				}
 				
 			}
 		}while(true);
+	}
+	private void wreck(User u){
+		u.closeCrap();
+		userList.remove(u);
+		gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
 	}
 
 /********************************************************************************************/
@@ -68,7 +72,7 @@ public class Server {
 				try {
 					s = gatekeeper.accept();
 					userList.add(new User(s));
-					gui.showMessage("some bitch has joined.");
+					broadcast("some bitch has joined.");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					gui.showMessage("some bitch really sucks at connecting.");
