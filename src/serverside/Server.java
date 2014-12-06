@@ -19,8 +19,8 @@ public class Server {
 			e.printStackTrace();
 		}
 		gui = g;
+		gui.showMessage("Welcome, bitch king. This realm is yours.");
 		userList = new ArrayList<User>();
-		showWelcomeMessage();
 	}
 	
 	
@@ -29,9 +29,6 @@ public class Server {
 		thr.start();
 	}
 	
-	private void showWelcomeMessage() {
-		gui.showMessage("Welcome, bitch king. This realm is yours.");
-	}
 	
 
 	
