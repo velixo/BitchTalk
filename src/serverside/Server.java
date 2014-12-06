@@ -24,7 +24,17 @@ public class Server {
 		waitForConnection();
 	}
 	
-	
+	private void broadcast(String m){
+		for(User u : userList){
+			try {
+				u.send(m);
+			} catch (IOException e) {
+				u.closeCrap();
+				userList.remove(u);
+				gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
+			}
+		}
+	}
 	
 	private void waitForConnection(){
 		thr.start();

@@ -22,4 +22,16 @@ public class User {
 		output.writeObject(message);
 		output.flush();
 	}
+	public String getName(){
+		return name;
+	}
+	public void closeCrap(){
+		try{
+			output.close();
+			input.close();
+			connection.close();
+         }catch(IOException ioe){
+        	ioe.printStackTrace();
+         }
+	}
 }
