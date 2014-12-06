@@ -48,7 +48,6 @@ public class Server {
 				try {
 					System.out.println("u-loop");
 					message = u.readMessage();
-					gui.showMessage(message);
 					broadcast(message);
 				} catch (ClassNotFoundException | IOException e) {
 					wreck(u);
