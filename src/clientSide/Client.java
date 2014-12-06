@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 public class Client {
 	
@@ -31,7 +32,16 @@ public class Client {
 	}
 	public void send(String message){
 		try {
-			output.writeObject(message);
+			StringTokenizer tkn = new StringTokenizer(message);
+			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){
+				connect(tkn.nextToken());
+			}
+			else if(output!=null){
+				output.writeObject(message);				
+			}
+			else{
+				gui.showMessage("You are not connected to any server");
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
