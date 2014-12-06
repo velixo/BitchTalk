@@ -28,6 +28,7 @@ public class Client {
 			output.flush();
 			input = new ObjectInputStream(connection.getInputStream());
 			System.out.println("AAAAYYYY BITCH");
+			listenForMessagesThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,4 +66,19 @@ public class Client {
         	ioe.printStackTrace();
          }
 	}
+	
+	private Thread listenForMessagesThread = new Thread() {
+		public void run() {
+			//TODO disconnect functionality
+			while(true) {
+				try {
+					String message = (String) input.readObject();
+					gui.showMessage(message);
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	};
 }
