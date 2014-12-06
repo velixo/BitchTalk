@@ -34,7 +34,7 @@ public class Client {
 		try {
 			StringTokenizer tkn = new StringTokenizer(message);
 			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){
-				
+				System.out.println("I am in client.send()!");
 				//TODO: Kanske stänga eventuell nuvarande streams/sockets?
 				
 				connect(tkn.nextToken());
@@ -61,5 +61,5 @@ public class Client {
          }catch(IOException ioe){
         	ioe.printStackTrace();
          }
-}
+	}
 }
