@@ -34,13 +34,17 @@ public class Client {
 		try {
 			StringTokenizer tkn = new StringTokenizer(message);
 			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){
+				
+				//TODO: Kanske stänga eventuell nuvarande streams/sockets?
+				
 				connect(tkn.nextToken());
 			}
 			else if(output!=null){
-				output.writeObject(message);				
+				output.writeObject(message);
+				output.flush();
 			}
 			else{
-				gui.showMessage("You are not connected to any server");
+				gui.showMessage("You are not connected to any server.");
 			}
 			
 		} catch (IOException e) {
@@ -48,4 +52,14 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	private void closeCrap(){
+		gui.showMessage("bitch, I'm out.");
+		try{
+			output.close();
+			input.close();
+			connection.close();
+         }catch(IOException ioe){
+        	ioe.printStackTrace();
+         }
+}
 }
