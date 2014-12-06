@@ -20,6 +20,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
+		client = new Client(this);
 		
 		chatWindow = new JTextArea();
 		chatWindow.setEditable(false);
@@ -34,10 +35,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
-	public void addClient(Client client) {
-		this.client = client;
-	}
-
 	@Override
 	public void showMessage(String m) {
 		chatWindow.append(m);
