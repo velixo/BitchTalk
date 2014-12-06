@@ -1,17 +1,34 @@
 package command;
 
 public class CommandFactory {
-	public static String CONNECT= "connect";
-	public static String NAMECHANGE= "namechange";
+	public final static String CONNECT= "connect";
+	public final static String SETNAME= "setname";
 	
-	public static String WOOLOOLOO= "woolooloo";
-	public static String GAFFELTRUCK = "gaffeltruck";
+	public final static String WOOLOOLOO= "woolooloo";
+	public final static String GAFFELTRUCK = "gaffeltruck";
 
 	public CommandFactory() {
 		
 	}
 	
 	public Command build(String input) {
+		switch (input) {
+		case CONNECT:
+			
+			break;
+
+		case SETNAME:
+			break;
+		
+		case GAFFELTRUCK:
+			break;
+			
+		case WOOLOOLOO:
+			break;
+			
+		default:
+			break;
+		}
 		return null;
 	}
 }
