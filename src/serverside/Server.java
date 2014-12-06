@@ -28,7 +28,7 @@ public class Server {
 	}
 	
 	
-	void broadcast(String m){
+	public void broadcast(String m){
 		gui.showMessage(m);
 		for(User u : userList){
 			try {
