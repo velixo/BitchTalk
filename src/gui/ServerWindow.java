@@ -24,7 +24,7 @@ public class ServerWindow extends JFrame implements ServerGui {
 	
 	@Override
 	public void showMessage(String m) {
-		chatWindow.append(m);
+		chatWindow.append(m + "\n");
 	}
 
 }
