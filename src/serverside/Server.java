@@ -44,6 +44,10 @@ public class Server {
 		userList.remove(u);
 		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");
 	}
+	
+	public ServerGui getServerGui() {
+		return gui;
+	}
 
 /******************************** THREAD DECLARATIONS *********************************************/
 	
