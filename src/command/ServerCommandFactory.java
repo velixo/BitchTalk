@@ -3,6 +3,7 @@ package command;
 import serverside.Server;
 
 import command.serverside.Gaffeltruck;
+import command.serverside.Woolooloo;
 
 public class ServerCommandFactory {
 	public final static String WOOLOOLOO= "woolooloo";
@@ -19,8 +20,7 @@ public class ServerCommandFactory {
 	public Command build(String input) {
 		switch (input) {
 		case WOOLOOLOO:
-			
-			break;
+			return new Woolooloo(server);
 			
 		case GAFFELTRUCK:
 			return new Gaffeltruck(server);
