@@ -45,11 +45,13 @@ public class Server {
 	
 	private void listenForMessages(){
 		String message = "Bitch, Server's up!";
+		System.out.println("bitch im listenin");
 		do{
 			for(User u : userList){
 				try {
 					if(u.hasMessage()){
 						message = u.readMessage();
+						System.out.println("dis bitch got shit to say");
 						broadcast(message);
 					}
 				} catch (ClassNotFoundException | IOException e) {
