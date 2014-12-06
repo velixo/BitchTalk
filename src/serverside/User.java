@@ -14,6 +14,7 @@ public class User {
 		connection = c;
 		input = new ObjectInputStream(connection.getInputStream());
 		output = new ObjectOutputStream(connection.getOutputStream());
+		output.flush();
 		name = "Bitch nr" + userCount++;
 	}
 	
