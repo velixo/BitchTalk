@@ -14,6 +14,7 @@ public class Client {
 	private ObjectOutputStream output;
 	
 	private ClientGui gui;
+	private ListenForMessagesThread listenForMessagesThread = new ListenForMessagesThread();
 	
 	public Client(ClientGui g){
 		gui = g;
@@ -27,7 +28,9 @@ public class Client {
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
 			input = new ObjectInputStream(connection.getInputStream());
-			System.out.println("AAAAYYYY BITCH");
+			if (listenForMessagesThread != null)
+				listenForMessagesThread.stopThread();
+			listenForMessagesThread = new ListenForMessagesThread();
 			listenForMessagesThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -39,8 +42,6 @@ public class Client {
 			StringTokenizer tkn = new StringTokenizer(message);
 			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){	// >=2?
 				System.out.println("I am in client.send()!");
-				//TODO: Kanske stänga eventuell nuvarande streams/sockets?
-				
 				connect(tkn.nextToken());
 			}
 			else if(output!=null){
@@ -68,10 +69,16 @@ public class Client {
          }
 	}
 	
-	private Thread listenForMessagesThread = new Thread() {
+	
+	private class ListenForMessagesThread extends Thread {
+		private boolean runThread;
+		public ListenForMessagesThread() {
+			runThread = true;
+		}
+		
 		public void run() {
 			//TODO disconnect functionality
-			while(true) {
+			while(runThread) {
 				try {
 					String message = (String) input.readObject();
 					gui.showMessage(message);
@@ -81,5 +88,10 @@ public class Client {
 				}
 			}
 		}
-	};
+		
+		public void stopThread() {
+			runThread = false;
+		}
+	}
+	
 }
