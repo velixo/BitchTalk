@@ -3,7 +3,7 @@ package serverside;
 import java.io.*;
 import java.net.*;
 
-import command.UserCommandFactory;
+import command.*;
 
 public class User {
 	private String name;
@@ -52,9 +52,12 @@ public class User {
 				try {
 					String m = (String) input.readObject();
 					if(m.charAt(0)=='/'){
-						commander.build(m);
+						Command c = commander.build(m);
+						c.run();
 					}
-					server.broadcast(name() + ": " + m);
+					else{
+						server.broadcast(name() + ": " + m);						
+					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
 					server.wreck(me);
