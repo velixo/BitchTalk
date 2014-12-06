@@ -83,8 +83,9 @@ public class Client {
 					String message = (String) input.readObject();
 					gui.showMessage(message);
 				} catch (ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					gui.showMessage("Disconnected from server");
+					closeCrap();
+					break;
 				}
 			}
 		}

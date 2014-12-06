@@ -40,7 +40,7 @@ public class Server {
 	void wreck(User u){
 		u.closeCrap();
 		userList.remove(u);
-		gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
+		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");
 	}
 
 /******************************** THREAD DECLARATIONS *********************************************/
@@ -53,7 +53,7 @@ public class Server {
 					s = gatekeeper.accept();
 					User u = new User(s,me);
 					userList.add(u);
-					broadcast(u.getName() + " has joined.");
+					broadcast(u.name() + " has joined.");
 				} catch (IOException e) {
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
