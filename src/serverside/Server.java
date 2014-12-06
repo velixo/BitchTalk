@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServerBitch {
+public class Server {
 	
 	ServerSocket gatekeeper;
 	ServerGui gui;
