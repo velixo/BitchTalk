@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -17,6 +19,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	private JTextArea chatWindow;
 	private JTextField chatInput;
+	private JTextArea usersInConvoWindow;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -31,6 +34,11 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatInput.addActionListener(new ServerSendMessageListener());
 		add(chatInput, BorderLayout.SOUTH);
 		
+		usersInConvoWindow = new JTextArea();
+		usersInConvoWindow.setEditable(false);
+		usersInConvoWindow.append("Users currently in this chat: \n");
+		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
+		
 		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,6 +49,13 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatWindow.append(m + "\n");
 	}
 	
+	public void updateUsersWindow(List<String> users) {
+		usersInConvoWindow.setText("Users currently in this chat:\n");
+		for (String u : users) {
+			usersInConvoWindow.append(u + "\n");
+		}
+	}
+
 	private class ServerSendMessageListener implements ActionListener {
 		
 		public ServerSendMessageListener() {
@@ -49,15 +64,13 @@ public class ClientWindow extends JFrame implements ClientGui {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("HEY FUCKER IM HERE");
 			String message = chatInput.getText();
 			if (!message.equals("")) {
-				System.out.println("imma send shit: " + message);
 				client.send(message);
-				System.out.println("shit sent, bitch");
 				chatInput.setText("");
 			}
 		}
 	}
+	
 	
 }
