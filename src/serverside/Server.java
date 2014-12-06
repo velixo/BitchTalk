@@ -7,9 +7,10 @@ import java.util.ArrayList;
 
 public class Server {
 	
-	ServerSocket gatekeeper;
-	ServerGui gui;
-	ArrayList<User> userList;
+	private ServerSocket gatekeeper;
+	private ServerGui gui;
+	private ArrayList<User> userList;
+	private Server me = this;
 	
 	public Server(ServerGui g){
 		try {
@@ -21,14 +22,11 @@ public class Server {
 		gui = g;
 		gui.showMessage("Welcome, bitch king. This realm is yours.");
 		userList = new ArrayList<User>();
-//		waitForConnection();
 		waitForConnectionThread.start();
-		listenForMessagesThread.start();
-//		listenForMessages();
 	}
 	
 	
-	private void broadcast(String m){
+	void broadcast(String m){
 		gui.showMessage(m);
 		for(User u : userList){
 			try {
@@ -39,28 +37,7 @@ public class Server {
 		}
 	}
 	
-	private void waitForConnection(){
-		waitForConnectionThread.start();
-	}
-	
-	private void listenForMessages(){
-		String message = "Bitch, Server's up!";
-		do{
-			for(User u : userList){
-				try {
-					if(u.hasMessage()){
-						message = u.readMessage();
-						broadcast(message);
-					}
-				} catch (ClassNotFoundException | IOException e) {
-					wreck(u);
-				}
-				
-			}
-		}while(true);
-	}
-	
-	private void wreck(User u){
+	void wreck(User u){
 		u.closeCrap();
 		userList.remove(u);
 		gui.showMessage(u.getName() + " decided to be uncool. What a bitch.");
@@ -74,37 +51,12 @@ public class Server {
 				Socket s;
 				try {
 					s = gatekeeper.accept();
-					User u = new User(s);
+					User u = new User(s,me);
 					userList.add(u);
 					broadcast(u.getName() + " has joined.");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
-				}
-			}
-		}
-	};
-	
-	Thread listenForMessagesThread = new Thread() {
-		public void run() {
-			String message = "Bitch, Server's up!";
-			System.out.println("bitch im listenin");
-//			while(!Thread.currentThread().isInterrupted()) {
-			while(true) {
-				for(User u : userList){
-					System.out.println("in da for, bietch");
-					try {
-						System.out.println("bitch got summin to say?");
-//						if(u.hasMessage()){
-							System.out.println("dis bitch got shit to say");
-							message = u.readMessage();
-							broadcast(message);
-//						}
-					} catch (ClassNotFoundException | IOException e) {
-						wreck(u);
-					}
-					
 				}
 			}
 		}
