@@ -10,7 +10,6 @@ import command.clientside.SetName;
 public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
 	public final static String BITCHSAYMYNAME = "bitchsaymyname";
-
 	private Server server;
 	private User u;
 
