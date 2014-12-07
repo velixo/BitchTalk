@@ -94,8 +94,12 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 	
-	public void toggleMuteNotificationSound() {
-		notificationSoundMuted = !notificationSoundMuted;
+	public void setMuteNotificationSound(boolean b) {
+		notificationSoundMuted = b;
+	}
+	
+	public boolean getNotificationSoundMuted() {
+		return notificationSoundMuted;
 	}
 
 	private class ServerSendMessageListener implements ActionListener {
