@@ -38,7 +38,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
-		client = new Client(this);
 		
 		chatWindow = new JTextArea();
 		chatWindow.setEditable(false);
@@ -60,6 +59,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		client = new Client(this);
 	}
 	
 	@Override

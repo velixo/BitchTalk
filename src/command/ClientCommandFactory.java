@@ -19,6 +19,11 @@ public class ClientCommandFactory {
 	public ClientCommandFactory(ClientGui cg, Client c) {
 		clientGui = cg;
 		client = c;
+		
+	}
+	
+	public String help(){
+		return "type /connect <ip-address> to connect, bitch.";
 	}
 	
 	public Command build(String input) {

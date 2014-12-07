@@ -23,6 +23,7 @@ public class Client {
 	public Client(ClientGui g){
 		gui = g;
 		factory = new ClientCommandFactory(gui,this);
+		gui.showMessage(factory.help());
 	}
 	
 	public void connect(String ip){
@@ -44,11 +45,6 @@ public class Client {
 	}
 	public void send(String message){
 		try {
-//			StringTokenizer tkn = new StringTokenizer(message);
-//			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){	// >=2?
-//				System.out.println("I am in client.send()!");
-//				connect(tkn.nextToken());
-//			}
 			if (message.charAt(0) == '/' && !message.contains(":")) {
 				Command c = factory.build(message);
 				c.run();
