@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -17,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import sun.applet.Main;
 import clientSide.Client;
 import clientSide.ClientGui;
 
@@ -27,9 +27,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private JTextArea chatWindow;
 	private JTextField chatInput;
 	private JTextArea usersInConvoWindow;
+	private List<String> usersInConvo;
 	
-	private Clip clip;
-	private final String notificationSoundName = "notificationSound_16bit.wav";
+	private Clip notificationSound;
+	private final String notificationSoundName = "notificationSound.wav";
 	private boolean notificationSoundLoaded = false;
 	private boolean notificationSoundMuted = false;
 	
@@ -46,6 +47,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatInput.addActionListener(new ServerSendMessageListener());
 		add(chatInput, BorderLayout.SOUTH);
 		
+		usersInConvo = new ArrayList<String>();
 		usersInConvoWindow = new JTextArea();
 		usersInConvoWindow.setEditable(false);
 		usersInConvoWindow.append("Users currently in this chat: \n");
@@ -68,30 +70,40 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	public void playNotificationSound() {
 		if (notificationSoundLoaded && !notificationSoundMuted) {
-			clip.setMicrosecondPosition(0);
-			clip.start();
+			notificationSound.setMicrosecondPosition(0);
+			notificationSound.start();
 			System.out.println("clip start");
 		}
 	}
 	
 	public void loadNotificationSound() {
 		try {
-			clip = AudioSystem.getClip();
+			notificationSound = AudioSystem.getClip();
 			File file = new File("res/" + notificationSoundName);
 			System.out.println(file.toString());
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			clip.open(inputStream);
+			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
 		}
 	}
 	
-	public void updateUsersWindow(List<String> users) {
+	private void updateUsersWindow() {
 		usersInConvoWindow.setText("Users currently in this chat:\n");
-		for (String u : users) {
+		for (String u : usersInConvo) {
 			usersInConvoWindow.append(u + "\n");
 		}
+	}
+	
+	public void userJoined(String username) {
+		usersInConvo.add(username);
+		updateUsersWindow();
+	}
+	
+	public void userLeft(String username) {
+		usersInConvo.remove(username);
+		updateUsersWindow();
 	}
 	
 	public void setMuteNotificationSound(boolean b) {

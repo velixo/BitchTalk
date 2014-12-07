@@ -3,9 +3,13 @@ package command;
 import clientSide.ClientGui;
 
 import command.clientside.ToggleMute;
+import command.clientside.UserJoined;
+import command.clientside.UserLeft;
 
 public class ClientCommandFactory {
 	public final static String TOGGLEMUTE = "/togglemute";
+	public final static String USERJOINED = "/userjoined";
+	public final static String USERLEFT = "/userleft";
 	
 	private ClientGui clientGui;
 	
@@ -17,7 +21,13 @@ public class ClientCommandFactory {
 		switch (input) {
 		case TOGGLEMUTE:
 			return new ToggleMute(clientGui);
+			
+		case USERJOINED:
+			return new UserJoined(clientGui);
 
+		case USERLEFT:
+			return new UserLeft(clientGui);
+			
 		default:
 			break;
 		}
