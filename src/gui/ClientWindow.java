@@ -60,26 +60,25 @@ public class ClientWindow extends JFrame implements ClientGui {
 	@Override
 	public void showMessage(String m) {
 		chatWindow.append(m + "\n");
-		playNotificationSound();	//TODO remove, this is purely for testing
 		if (!isActive() || !isFocused()) {	//not sure which one to use or what the difference is
-//			playNotificationSound();
+			playNotificationSound();
 		}
 	}
 	
 	public void playNotificationSound() {
 		if (notificationSoundLoaded) {
+			clip.setMicrosecondPosition(0);
 			clip.start();
+			System.out.println("clip start");
 		}
 	}
 	
 	public void loadNotificationSound() {
 		try {
 			clip = AudioSystem.getClip();
-			//TODO fixa pathen till notifification sound
 			File file = new File("res/" + notificationSoundName);
 			System.out.println(file.toString());
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-//			AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("/res/" + notificationSoundName));
 			clip.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
