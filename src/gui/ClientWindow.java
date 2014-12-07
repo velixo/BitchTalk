@@ -47,6 +47,13 @@ public class ClientWindow extends JFrame implements ClientGui {
 	@Override
 	public void showMessage(String m) {
 		chatWindow.append(m + "\n");
+		if (isActive() || isFocused()) {	//not sure which one to use or what the difference is
+			playNotificationSound();
+		}
+	}
+	
+	public void playNotificationSound() {
+		
 	}
 	
 	public void updateUsersWindow(List<String> users) {
