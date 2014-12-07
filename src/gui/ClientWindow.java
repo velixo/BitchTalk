@@ -82,20 +82,19 @@ public class ClientWindow extends JFrame implements ClientGui {
 	}
 
 	
-	private void updateUsersWindow() {
-		usersInConvoWindow.setText("Users currently in this chat:\n");
-		for (String u : usersInConvo) {
-			usersInConvoWindow.append(u + "\n");
-		}
-	}
-	
-	
 	public void setMuteNotificationSound(boolean b) {
 		notificationSoundMuted = b;
 	}
 	
 	public boolean getNotificationSoundMuted() {
 		return notificationSoundMuted;
+	}
+
+	private void updateUsersWindow() {
+		usersInConvoWindow.setText("Users currently in this chat:\n");
+		for (String u : usersInConvo) {
+			usersInConvoWindow.append(u + "\n");
+		}
 	}
 
 	private void playNotificationSound() {
