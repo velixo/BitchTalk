@@ -59,6 +59,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	@Override
 	public void showMessage(String m) {
 		chatWindow.append(m + "\n");
+//		playNotificationSound();	//TODO remove, this is purely for testing
 		if (!isActive() || !isFocused()) {	//not sure which one to use or what the difference is
 			playNotificationSound();
 		}
