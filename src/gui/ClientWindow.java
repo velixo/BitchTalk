@@ -81,6 +81,12 @@ public class ClientWindow extends JFrame implements ClientGui {
 		updateUsersWindow();
 	}
 
+	private void updateUsersWindow() {
+		usersInConvoWindow.setText("Users currently in this chat:\n");
+		for (String u : usersInConvo) {
+			usersInConvoWindow.append(u + "\n");
+		}
+	}
 	
 	public void setMuteNotificationSound(boolean b) {
 		notificationSoundMuted = b;
@@ -90,31 +96,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 		return notificationSoundMuted;
 	}
 
-	private void updateUsersWindow() {
-		usersInConvoWindow.setText("Users currently in this chat:\n");
-		for (String u : usersInConvo) {
-			usersInConvoWindow.append(u + "\n");
-		}
-	}
-
-	private void playNotificationSound() {
-		if (notificationSoundLoaded && !notificationSoundMuted) {
-			notificationSound.setMicrosecondPosition(0);
-			notificationSound.start();
-		}
-	}
-	
-	private void playUserJoinedSound() {
-		if (userJoinedSoundLoaded) {
-			userJoinedSound.setMicrosecondPosition(0);
-			userJoinedSound.start();
-		}
-	}
-	
-	private void playUserLeftSound() {
-		
-	}
-	
 	private void loadSounds() {
 		try {
 			notificationSound = AudioSystem.getClip();
@@ -141,6 +122,24 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 
+	private void playNotificationSound() {
+		if (notificationSoundLoaded && !notificationSoundMuted) {
+			notificationSound.setMicrosecondPosition(0);
+			notificationSound.start();
+		}
+	}
+	
+	private void playUserJoinedSound() {
+		if (userJoinedSoundLoaded) {
+			userJoinedSound.setMicrosecondPosition(0);
+			userJoinedSound.start();
+		}
+	}
+	
+	private void playUserLeftSound() {
+		
+	}
+	
 	private class ServerSendMessageListener implements ActionListener {
 		
 		public ServerSendMessageListener() {
