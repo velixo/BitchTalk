@@ -40,6 +40,7 @@ public class Server {
 	}
 	
 	void wreck(User u){
+		//TODO remove user from chatroom window
 		u.closeCrap();
 		userList.remove(u);
 		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");
@@ -56,6 +57,7 @@ public class Server {
 			while(!Thread.currentThread().isInterrupted()) {
 				Socket s;
 				try {
+					//TODO add user to chatroom window
 					s = gatekeeper.accept();
 					User u = new User(s,me);
 					userList.add(u);

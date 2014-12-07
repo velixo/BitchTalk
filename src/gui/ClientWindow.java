@@ -31,6 +31,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private Clip clip;
 	private final String notificationSoundName = "notificationSound_16bit.wav";
 	private boolean notificationSoundLoaded = false;
+	private boolean notificationSoundMuted = false;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -66,7 +67,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	}
 	
 	public void playNotificationSound() {
-		if (notificationSoundLoaded) {
+		if (notificationSoundLoaded && !notificationSoundMuted) {
 			clip.setMicrosecondPosition(0);
 			clip.start();
 			System.out.println("clip start");
@@ -91,6 +92,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 		for (String u : users) {
 			usersInConvoWindow.append(u + "\n");
 		}
+	}
+	
+	public void toggleMuteNotificationSound() {
+		notificationSoundMuted = !notificationSoundMuted;
 	}
 
 	private class ServerSendMessageListener implements ActionListener {

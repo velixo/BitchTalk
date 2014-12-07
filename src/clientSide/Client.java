@@ -7,6 +7,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
+import command.ClientCommandFactory;
+import command.Command;
+
 public class Client {
 	
 	private Socket connection;
@@ -15,9 +18,11 @@ public class Client {
 	
 	private ClientGui gui;
 	private ListenForMessagesThread listenForMessagesThread = new ListenForMessagesThread();
+	private ClientCommandFactory factory;
 	
 	public Client(ClientGui g){
 		gui = g;
+		factory = new ClientCommandFactory(gui);
 	}
 	
 	public void connect(String ip){
@@ -43,6 +48,10 @@ public class Client {
 			if(tkn.nextToken().equals("/connect") && tkn.countTokens()>=1){	// >=2?
 				System.out.println("I am in client.send()!");
 				connect(tkn.nextToken());
+			}
+			else if (message.charAt(0) == '/' && !message.contains(":")) {
+				Command c = factory.build(message);
+				c.run();
 			}
 			else if(output!=null){
 				output.writeObject(message);
@@ -81,6 +90,9 @@ public class Client {
 			while(runThread) {
 				try {
 					String message = (String) input.readObject();
+					if (message.charAt(0) == '/' && !message.contains(":")) {
+						
+					}
 					gui.showMessage(message);
 				} catch (ClassNotFoundException | IOException e) {
 					gui.showMessage("Disconnected from server");
