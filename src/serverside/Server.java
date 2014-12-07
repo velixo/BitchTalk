@@ -44,6 +44,7 @@ public class Server {
 		u.closeCrap();
 		userList.remove(u);
 		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");
+		broadcast("/userleft " + u.name());
 	}
 	
 	public ServerGui getServerGui() {
@@ -62,6 +63,7 @@ public class Server {
 					User u = new User(s,me);
 					userList.add(u);
 					broadcast(u.name() + " has joined.");
+					broadcast("/userjoined " + u.name());
 				} catch (IOException e) {
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
