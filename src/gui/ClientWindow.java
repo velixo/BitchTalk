@@ -28,7 +28,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private JTextArea usersInConvoWindow;
 	
 	private Clip clip;
-	private final String notificationSoundName = "";
+	private final String notificationSoundName = "messageNotificationSound.wav";
 	private boolean notificationSoundLoaded = false;
 	
 	public ClientWindow() {
@@ -74,7 +74,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		try {
 			clip = AudioSystem.getClip();
 			//TODO fixa pathen till notifification sound
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("path/to/sounds/" + notificationSoundName));
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("res/" + notificationSoundName));
 			clip.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
