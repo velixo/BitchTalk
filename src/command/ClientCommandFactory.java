@@ -31,10 +31,16 @@ public class ClientCommandFactory {
 			return new ToggleMute(clientGui);
 			
 		case USERJOINED:
-			return new UserJoined(clientGui);
+			if (st.hasMoreTokens())
+				return new UserJoined(clientGui, st.nextToken());
+			else
+				return new NotACommand(clientGui);
 
 		case USERLEFT:
-			return new UserLeft(clientGui);
+			if (st.hasMoreTokens())
+				return new UserLeft(clientGui, st.nextToken());
+			else
+				return new NotACommand(clientGui);
 		
 		case CONNECT:
 			if(st.hasMoreTokens())
