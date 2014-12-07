@@ -8,7 +8,6 @@ import command.serverside.Woolooloo;
 public class ServerCommandFactory {
 	public final static String WOOLOOLOO= "woolooloo";
 	public final static String GAFFELTRUCK = "gaffeltruck";
-	public final static String BITCHSAYMYNAME = "bitchsaymyname";
 	public final static String RETARDBIRD = "retardbird";
 	
 	private Server server;
