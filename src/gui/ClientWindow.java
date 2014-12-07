@@ -83,8 +83,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			clip.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
 		}
 	}
 	
