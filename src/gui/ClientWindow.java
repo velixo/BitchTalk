@@ -30,9 +30,11 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private List<String> usersInConvo;
 	
 	private Clip notificationSound;
-	private final String notificationSoundName = "notificationSound.wav";
 	private boolean notificationSoundLoaded = false;
 	private boolean notificationSoundMuted = false;
+	
+	private Clip userJoinedSound;
+	private boolean userJoinedSoundLoaded = false;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -53,7 +55,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
-		loadNotificationSound();
+		loadSounds();
 		
 		setSize(450,550);
 		setVisible(true);
@@ -68,26 +70,17 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 	
-	public void playNotificationSound() {
-		if (notificationSoundLoaded && !notificationSoundMuted) {
-			notificationSound.setMicrosecondPosition(0);
-			notificationSound.start();
-			System.out.println("clip start");
-		}
+	public void userJoined(String username) {
+		usersInConvo.add(username);
+		updateUsersWindow();
+		playUserJoinedSound();
 	}
 	
-	public void loadNotificationSound() {
-		try {
-			notificationSound = AudioSystem.getClip();
-			File file = new File("res/" + notificationSoundName);
-			System.out.println(file.toString());
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			notificationSound.open(inputStream);
-			notificationSoundLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
-		}
+	public void userLeft(String username) {
+		usersInConvo.remove(username);
+		updateUsersWindow();
 	}
+
 	
 	private void updateUsersWindow() {
 		usersInConvoWindow.setText("Users currently in this chat:\n");
@@ -96,15 +89,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 	
-	public void userJoined(String username) {
-		usersInConvo.add(username);
-		updateUsersWindow();
-	}
-	
-	public void userLeft(String username) {
-		usersInConvo.remove(username);
-		updateUsersWindow();
-	}
 	
 	public void setMuteNotificationSound(boolean b) {
 		notificationSoundMuted = b;
@@ -112,6 +96,50 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	public boolean getNotificationSoundMuted() {
 		return notificationSoundMuted;
+	}
+
+	private void playNotificationSound() {
+		if (notificationSoundLoaded && !notificationSoundMuted) {
+			notificationSound.setMicrosecondPosition(0);
+			notificationSound.start();
+		}
+	}
+	
+	private void playUserJoinedSound() {
+		if (userJoinedSoundLoaded) {
+			userJoinedSound.setMicrosecondPosition(0);
+			userJoinedSound.start();
+		}
+	}
+	
+	private void playUserLeftSound() {
+		
+	}
+	
+	private void loadSounds() {
+		try {
+			notificationSound = AudioSystem.getClip();
+			File file = new File("res/notificationSound.wav");
+			System.out.println(file.toString());
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			notificationSound.open(inputStream);
+			notificationSoundLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
+			notificationSoundLoaded = false;
+		}
+		
+		try {
+			userJoinedSound = AudioSystem.getClip();
+			File file = new File("res/joinChatSound.wav");
+			System.out.println(file.toString());
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			userJoinedSound.open(inputStream);
+			userJoinedSoundLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("UserJoined sound could not be loaded. Deal with it, bitch.");
+			userJoinedSoundLoaded = false;
+		}
 	}
 
 	private class ServerSendMessageListener implements ActionListener {
