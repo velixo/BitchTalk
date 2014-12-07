@@ -70,6 +70,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 	
+	public void showSilentMessage(String m) {
+		chatWindow.append(m + "\n");
+	}
+	
 	public void userJoined(String username) {
 		usersInConvo.add(username);
 		updateUsersWindow();
