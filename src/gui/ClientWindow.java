@@ -1,16 +1,22 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import sun.applet.Main;
 import clientSide.Client;
 import clientSide.ClientGui;
 
@@ -20,6 +26,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private JTextArea chatWindow;
 	private JTextField chatInput;
 	private JTextArea usersInConvoWindow;
+	
+	private Clip clip;
+	private final String notificationSoundName = "";
+	private boolean notificationSoundLoaded = false;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -39,6 +49,8 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
+		loadNotificationSound();
+		
 		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +65,22 @@ public class ClientWindow extends JFrame implements ClientGui {
 	}
 	
 	public void playNotificationSound() {
-		
+		if (notificationSoundLoaded) {
+			clip.start();
+		}
+	}
+	
+	public void loadNotificationSound() {
+		try {
+			clip = AudioSystem.getClip();
+			//TODO fixa pathen till notifification sound
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("path/to/sounds/" + notificationSoundName));
+			clip.open(inputStream);
+			notificationSoundLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void updateUsersWindow(List<String> users) {
