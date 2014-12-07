@@ -16,6 +16,7 @@ public class UserLeft implements Command {
 	@Override
 	public void run() {
 		c.userLeft(username);
+		c.showSilentMessage(username + "decided to be uncool. What a bitch.");
 	}
 
 }

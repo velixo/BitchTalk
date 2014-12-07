@@ -30,7 +30,6 @@ public class Client {
 		try {
 			gui.showMessage("Bitch, I'm trying to connect. Get off my fucking back, OK???");
 			connection = new Socket(InetAddress.getByName(ip),9513);
-			System.out.println("BITCH1");
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
 			input = new ObjectInputStream(connection.getInputStream());
@@ -87,9 +86,11 @@ public class Client {
 				try {
 					String message = (String) input.readObject();
 					if (message.charAt(0) == '/' && !message.contains(":")) {
+						System.out.println("command being built");
 						Command c = factory.build(message);
 						c.run();
 					} else {
+						System.out.println("message being sent");
 						gui.showMessage(message);
 					}
 				} catch (ClassNotFoundException | IOException e) {
