@@ -87,9 +87,11 @@ public class Client {
 				try {
 					String message = (String) input.readObject();
 					if (message.charAt(0) == '/' && !message.contains(":")) {
-						
+						Command c = factory.build(message);
+						c.run();
+					} else {
+						gui.showMessage(message);
 					}
-					gui.showMessage(message);
 				} catch (ClassNotFoundException | IOException e) {
 					gui.showMessage("Disconnected from server");
 					closeCrap();
