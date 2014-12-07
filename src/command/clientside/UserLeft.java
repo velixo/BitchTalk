@@ -6,15 +6,16 @@ import command.Command;
 
 public class UserLeft implements Command {
 	private ClientGui c;
+	private String username;
 
-	public UserLeft(ClientGui c) {
+	public UserLeft(ClientGui c, String username) {
 		this.c = c;
+		this.username = username;
 	}
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		c.userLeft(username);
 	}
 
 }
