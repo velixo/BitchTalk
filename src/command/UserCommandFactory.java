@@ -9,6 +9,7 @@ import command.clientside.SetName;
 
 public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
+	public final static String MUTE= "/mute";	//ska mutea notificationljud
 	private Server server;
 	private User u;
 
