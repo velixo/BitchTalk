@@ -83,11 +83,14 @@ public class ClientWindow extends JFrame implements ClientGui {
 			usersInConvoWindow.append(u + "\n");
 		}
 		if (checkUserLeft(usernames, usersInConvo)) {
+			System.out.println("UserLeft");
 			playUserLeftSound();
 		}
 		if (checkUserJoined(usernames, usersInConvo)) {
+			System.out.println("UserJoined");
 			playUserJoinedSound();
 		}
+		usersInConvo = usernames;
 	}
 	
 	private boolean checkUserLeft(List<String> usernames, List<String> usersInConvo) {
