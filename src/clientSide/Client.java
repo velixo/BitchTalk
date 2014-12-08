@@ -43,7 +43,7 @@ public class Client {
 	}
 	public void send(String message){
 		try {
-			if (message.charAt(0) == '/') {
+			if (message.charAt(0) == '/' && factory.canBuild(message)) {
 				Command c = factory.build(message);
 				c.run();
 			}

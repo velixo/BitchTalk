@@ -21,7 +21,9 @@ public class ClientCommandFactory {
 		client = c;
 		
 	}
-	
+	public boolean canBuild(String in){
+		return !(build(in) instanceof NotACommand);
+	}
 	public String help(){
 		return "type /connect <ip-address> to connect, bitch.";
 	}
