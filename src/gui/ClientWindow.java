@@ -36,6 +36,9 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private Clip userJoinedSound;
 	private boolean userJoinedSoundLoaded = false;
 	
+	private Clip userLeftSound;
+	private boolean userLeftSoundLoaded = false;
+	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
 		
@@ -74,11 +77,35 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatWindow.append(m + "\n");
 	}
 	
-	public void updateUsersWindow(List<String> usersInConvo) {
+	public void updateUsersWindow(List<String> usernames) {
 		usersInConvoWindow.setText("Users currently in this chat:\n");
-		for (String u : usersInConvo) {
+		for (String u : usernames) {
 			usersInConvoWindow.append(u + "\n");
 		}
+		if (checkUserLeft(usernames, usersInConvo)) {
+			playUserLeftSound();
+		}
+		if (checkUserJoined(usernames, usersInConvo)) {
+			playUserJoinedSound();
+		}
+	}
+	
+	private boolean checkUserLeft(List<String> usernames, List<String> usersInConvo) {
+		for (String u : usersInConvo) {
+			if (!usernames.contains(u)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkUserJoined(List<String> usernames, List<String> usersInConvo) {
+		for (String u : usernames) {
+			if (!usersInConvo.contains(u)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void setMuteNotificationSound(boolean b) {
@@ -93,7 +120,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 		try {
 			notificationSound = AudioSystem.getClip();
 			File file = new File("res/notificationSound.wav");
-			System.out.println(file.toString());
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
@@ -105,12 +131,22 @@ public class ClientWindow extends JFrame implements ClientGui {
 		try {
 			userJoinedSound = AudioSystem.getClip();
 			File file = new File("res/joinChatSound.wav");
-			System.out.println(file.toString());
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userJoinedSound.open(inputStream);
 			userJoinedSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			showMessage("UserJoined sound could not be loaded. Deal with it, bitch.");
+			showMessage("joinChatSound.wav could not be loaded. Deal with it, bitch.");
+			userJoinedSoundLoaded = false;
+		}
+		
+		try {
+			userLeftSound = AudioSystem.getClip();
+			File file = new File("res/leaveChatSound.wav"); 	//TODO update this file reference
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			userLeftSound.open(inputStream);
+			userLeftSoundLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("leaveChatSound.wav could not be loaded. Deal with it, bitch.");
 			userJoinedSoundLoaded = false;
 		}
 	}
@@ -130,7 +166,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	}
 	
 	private void playUserLeftSound() {
-		
+		if (userLeftSoundLoaded) {
+			userLeftSound.setMicrosecondPosition(0);
+			userLeftSound.start();
+		}
 	}
 	
 	private class ServerSendMessageListener implements ActionListener {
