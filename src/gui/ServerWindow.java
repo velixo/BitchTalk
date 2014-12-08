@@ -10,6 +10,9 @@ import javax.swing.JTextArea;
 import serverside.ServerGui;
 
 public class ServerWindow extends JFrame implements ServerGui {
+	
+	private static final long serialVersionUID = -8948993873925401134L;
+	
 	private JTextArea chatWindow;
 	private JTextArea usersInConvoWindow;
 

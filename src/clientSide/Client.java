@@ -6,8 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
-import java.util.StringTokenizer;
-
 import command.ClientCommandFactory;
 import command.Command;
 
@@ -45,7 +43,7 @@ public class Client {
 	}
 	public void send(String message){
 		try {
-			if (message.charAt(0) == '/' && !message.contains(":")) {
+			if (message.charAt(0) == '/' && factory.canBuild(message)) {
 				Command c = factory.build(message);
 				c.run();
 			}
@@ -99,6 +97,7 @@ public class Client {
 							gui.showMessage(message);
 						}
 					} else if (received instanceof List){
+						@SuppressWarnings("unchecked")
 						List<String> usernames = (List<String>) received;
 						gui.updateUsersWindow(usernames);
 					}

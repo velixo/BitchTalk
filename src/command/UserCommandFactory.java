@@ -12,7 +12,8 @@ public class UserCommandFactory {
 	public final static String BITCHSAYMYNAME = "bitchsaymyname";
 	private Server server;
 	private User u;
-
+	
+	//TODO: flytta servercommands till usercommands.
 	public UserCommandFactory(User u) {
 		this.u = u;
 	}

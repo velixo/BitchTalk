@@ -21,7 +21,9 @@ public class ClientCommandFactory {
 		client = c;
 		
 	}
-	
+	public boolean canBuild(String in){
+		return !(build(in) instanceof NotACommand);
+	}
 	public String help(){
 		return "type /connect <ip-address> to connect, bitch.";
 	}
@@ -48,8 +50,7 @@ public class ClientCommandFactory {
 				return new NotACommand(clientGui);
 		
 		default:
-			break;
+			return new NotACommand(clientGui);
 		}
-		return new NotACommand(clientGui);
 	}
 }
