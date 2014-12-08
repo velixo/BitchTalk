@@ -7,6 +7,6 @@ public class TestServer {
 	
 	public static void main(String[] args) {
 		ServerWindow window = new ServerWindow();
-		Server server = new Server(window);
+		new Server(window);
 	}
 }

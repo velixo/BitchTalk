@@ -22,6 +22,9 @@ import clientSide.Client;
 import clientSide.ClientGui;
 
 public class ClientWindow extends JFrame implements ClientGui {
+
+	private static final long serialVersionUID = -2841093591038641088L;
+
 	private Client client;
 	
 	private JTextArea chatWindow;
