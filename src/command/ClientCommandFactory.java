@@ -48,8 +48,7 @@ public class ClientCommandFactory {
 				return new NotACommand(clientGui);
 		
 		default:
-			break;
+			return new NotACommand(clientGui);
 		}
-		return new NotACommand(clientGui);
 	}
 }

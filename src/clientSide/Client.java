@@ -43,7 +43,7 @@ public class Client {
 	}
 	public void send(String message){
 		try {
-			if (message.charAt(0) == '/' && !message.contains(":")) {
+			if (message.charAt(0) == '/') {
 				Command c = factory.build(message);
 				c.run();
 			}
