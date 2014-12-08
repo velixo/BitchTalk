@@ -15,10 +15,10 @@ public class ToggleMute implements Command {
 	public void run() {
 		if (c.getNotificationSoundMuted()) {
 			c.setMuteNotificationSound(false);
-			c.showMessage("Your notification sounds are now muted, bitch.");
+			c.showMessage("Your notification sounds are now unmuted, bitch.");
 		} else {
 			c.setMuteNotificationSound(true);
-			c.showMessage("Your notification sounds are now unmuted, bitch.");
+			c.showMessage("Your notification sounds are now muted, bitch.");
 		}
 	}
 
