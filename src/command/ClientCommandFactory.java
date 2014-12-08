@@ -9,8 +9,6 @@ import command.clientside.*;
 
 public class ClientCommandFactory {
 	public final static String TOGGLEMUTE = "/togglemute";
-	public final static String USERJOINED = "/userjoined";
-	public final static String USERLEFT = "/userleft";
 	public final static String CONNECT = "/connect";
 	
 	private Client client;
@@ -34,18 +32,6 @@ public class ClientCommandFactory {
 		switch (st.nextToken()) {
 		case TOGGLEMUTE:
 			return new ToggleMute(clientGui);
-			
-		case USERJOINED:
-			if (st.hasMoreTokens())
-				return new UserJoined(clientGui, st.nextToken());
-			else
-				return new NotACommand(clientGui);
-
-		case USERLEFT:
-			if (st.hasMoreTokens())
-				return new UserLeft(clientGui, st.nextToken());
-			else
-				return new NotACommand(clientGui);
 		
 		case CONNECT:
 			if(st.hasMoreTokens())

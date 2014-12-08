@@ -74,18 +74,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		chatWindow.append(m + "\n");
 	}
 	
-	public void userJoined(String username) {
-		usersInConvo.add(username);
-		updateUsersWindow();
-		playUserJoinedSound();
-	}
-	
-	public void userLeft(String username) {
-		usersInConvo.remove(username);
-		updateUsersWindow();
-	}
-
-	private void updateUsersWindow() {
+	public void updateUsersWindow(List<String> usersInConvo) {
 		usersInConvoWindow.setText("Users currently in this chat:\n");
 		for (String u : usersInConvo) {
 			usersInConvoWindow.append(u + "\n");

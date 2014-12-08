@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
 	
@@ -38,13 +38,34 @@ public class Server {
 			}
 		}
 	}
+	public void broadcastUsernameList() {
+		List<String> usernames = new ArrayList<String>();
+		for (User u : userList) {
+			usernames.add(u.name());
+		}
+		for(User u : userList) {
+			try {
+				u.send(usernames);
+			} catch (IOException e) {
+				wreck(u);
+			}
+		}
+	}
 	
 	void wreck(User u){
-		//TODO remove user from chatroom window
 		u.closeCrap();
 		userList.remove(u);
-		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");
-		broadcast("/userleft " + u.name());
+		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");	//TODO broadcast this?
+		updateUsersWindow();
+		broadcastUsernameList();
+	}
+	
+	private void updateUsersWindow() {
+		List<String> usernames = new ArrayList<String>();
+		for (User u : userList) {
+			usernames.add(u.name());
+		}
+		gui.updateUsersWindow(usernames);
 	}
 	
 	public ServerGui getServerGui() {
@@ -63,7 +84,8 @@ public class Server {
 					User u = new User(s,me);
 					userList.add(u);
 					broadcast(u.name() + " has joined.");
-					broadcast("/userjoined " + u.name());
+					updateUsersWindow();
+					broadcastUsernameList();
 				} catch (IOException e) {
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();

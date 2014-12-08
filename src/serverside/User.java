@@ -1,9 +1,13 @@
 package serverside;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.List;
 
-import command.*;
+import command.Command;
+import command.UserCommandFactory;
 
 public class User {
 	private String name;
@@ -15,7 +19,7 @@ public class User {
 	private User me = this;
 	UserCommandFactory commander;
 	
-	public User(Socket c, Server s) throws IOException{
+	public User(Socket c, Server s) throws IOException {
 		connection = c;
 		input = new ObjectInputStream(connection.getInputStream());
 		output = new ObjectOutputStream(connection.getOutputStream());
@@ -25,17 +29,27 @@ public class User {
 		commander = new UserCommandFactory(this);
 		checkmail.start();
 	}
-	public void send(String message) throws IOException{
+	
+	public void send(String message) throws IOException {
 		output.writeObject(message);
 		output.flush();
 	}
-	public String name(){
+	
+	public void send(List<String> list) throws IOException {
+		output.writeObject(list);
+		output.flush();
+	}
+	
+	public String name() {
 		return name;
 	}
-	public void setName(String newName){
+	
+	public void setName(String newName) {
 		name = newName;
+		server.broadcastUsernameList();
 	}
-	public void closeCrap(){
+	
+	public void closeCrap() {
 		try{
 			output.close();
 			input.close();

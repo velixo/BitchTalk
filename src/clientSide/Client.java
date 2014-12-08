@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import command.ClientCommandFactory;
@@ -84,14 +85,22 @@ public class Client {
 			//TODO disconnect functionality
 			while(runThread) {
 				try {
-					String message = (String) input.readObject();
-					if (message.charAt(0) == '/' && !message.contains(":")) {
-						System.out.println("command being built");
-						Command c = factory.build(message);
-						c.run();
-					} else {
-						System.out.println("message being sent");
-						gui.showMessage(message);
+					//TODO refactor this code. assuming the object is a String or a List<String> is iffy design.
+					Object received = input.readObject();
+					if (received instanceof String) {
+//						String message = (String) input.readObject();
+						String message = (String) received;
+						if (message.charAt(0) == '/' && !message.contains(":")) {
+							System.out.println("command being built");
+							Command c = factory.build(message);
+							c.run();
+						} else {
+							System.out.println("message being sent");
+							gui.showMessage(message);
+						}
+					} else if (received instanceof List){
+						List<String> usernames = (List<String>) received;
+						gui.updateUsersWindow(usernames);
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					gui.showMessage("Disconnected from server");
