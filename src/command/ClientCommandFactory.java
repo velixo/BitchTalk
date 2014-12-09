@@ -18,6 +18,7 @@ public class ClientCommandFactory {
 	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
 	public final static String CLIENTBOSSASSBITCH = "/:bossassbitch";
 	public final static String CLIENTWHATSGOINGON = "/:whatsgoingon";
+	public final static String MOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -57,6 +58,9 @@ public class ClientCommandFactory {
 			
 		case CLIENTWHATSGOINGON:
 			return new ClientWhatsGoingOn(clientGui);
+			
+		case MOVEBITCHGETOUTDAWAY:
+			return new MoveBitch(clientGui);
 		
 		case CONNECT:
 			if (client.connected())

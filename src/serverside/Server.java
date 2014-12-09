@@ -56,12 +56,32 @@ public class Server {
 		}
 	}
 	
-	void wreck(User u){
+	void wreck(User u) {
 		u.closeCrap();
 		userList.remove(u);
 		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");	//TODO broadcast this?
 		updateUsersWindow();
 		broadcastUsernameList();
+	}
+	
+	public void kick(User kicker, String username) {
+		for (User u : userList) {
+			if (u.name().equals(username)) {
+				u.closeCrap();
+				userList.remove(u);
+				broadcast(username + ", fuck off bitch.");
+				broadcast("/:movebitchgetoutdaway");
+				updateUsersWindow();
+				broadcastUsernameList();
+				return;
+			}
+		}
+		try {
+			kicker.send("That bitch isn't in this chat, yo.");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void updateUsersWindow() {

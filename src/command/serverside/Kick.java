@@ -18,6 +18,9 @@ public class Kick implements Command {
 
 	@Override
 	public void run() {
+		if (u.isAdmin()) {
+			s.kick(u, username);
+		}
 		// TODO Auto-generated method stub
 		
 	}
