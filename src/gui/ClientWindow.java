@@ -73,6 +73,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		client = new Client(this);
+		chatInput.requestFocus();
 	}
 	
 	@Override
