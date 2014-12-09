@@ -2,8 +2,6 @@ package command;
 
 import java.util.StringTokenizer;
 
-import org.omg.CosNaming.NamingContextPackage.AlreadyBound;
-
 import clientSide.Client;
 import clientSide.ClientGui;
 import command.clientside.*;
