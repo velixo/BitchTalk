@@ -44,6 +44,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private Clip wooloolooClip;
 	private boolean wooloolooLoaded = false;
 	
+	public final String BOSSASSBITCH = "bossassbitch";
+	private Clip bossAssBitchClip;
+	private boolean bossAssBitchLoaded = false;
+	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
 		
@@ -190,9 +194,15 @@ public class ClientWindow extends JFrame implements ClientGui {
 			}
 			break;
 
+		case BOSSASSBITCH:
+			if (bossAssBitchLoaded) {
+				bossAssBitchClip.setMicrosecondPosition(0);
+				bossAssBitchClip.start();
+			}
 		default:
 			break;
 		}
+		System.out.println("Play " + soundName);
 	}
 	
 	private void loadFunnySounds() {
@@ -203,8 +213,19 @@ public class ClientWindow extends JFrame implements ClientGui {
 			wooloolooClip.open(inputStream);
 			wooloolooLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			showMessage("Woolooloo.wav could not be loaded. Deal with it, bitch.");
+			showMessage("woolooloo.wav could not be loaded. Deal with it, bitch.");
 			wooloolooLoaded = false;
+		}
+		
+		try {
+			bossAssBitchClip = AudioSystem.getClip();
+			File file = new File("res/bossAssBitch.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			bossAssBitchClip.open(inputStream);
+			bossAssBitchLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
+			bossAssBitchLoaded = false;
 		}
 	}
 	
