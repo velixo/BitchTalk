@@ -26,7 +26,7 @@ public class User {
 		output.flush();
 		name = "Bitch nr" + userCount++;
 		server = s;
-		commander = new UserCommandFactory(this);
+		commander = new UserCommandFactory(this, server);	//lol
 		checkmail.start();
 	}
 	

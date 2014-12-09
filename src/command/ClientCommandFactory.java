@@ -13,6 +13,9 @@ public class ClientCommandFactory {
 	public final static String UNMUTE = "/unmute";
 	public final static String CONNECT = "/connect";
 	
+	//Commands that begin with "/:" can only come from server.
+	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
+	
 	private Client client;
 	private ClientGui clientGui;
 	
@@ -42,6 +45,9 @@ public class ClientCommandFactory {
 			
 		case UNMUTE:
 			return new Unmute(clientGui);
+			
+		case CLIENTWOOLOOLOO:
+			return new ClientWoolooloo(clientGui);
 		
 		case CONNECT:
 			if(st.hasMoreTokens())
@@ -53,4 +59,5 @@ public class ClientCommandFactory {
 			return new NotACommand(clientGui);
 		}
 	}
+	
 }

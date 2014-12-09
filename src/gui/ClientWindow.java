@@ -22,9 +22,7 @@ import clientSide.Client;
 import clientSide.ClientGui;
 
 public class ClientWindow extends JFrame implements ClientGui {
-
 	private static final long serialVersionUID = -2841093591038641088L;
-
 	private Client client;
 	
 	private JTextArea chatWindow;
@@ -41,6 +39,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	private Clip userLeftSound;
 	private boolean userLeftSoundLoaded = false;
+	
+	public final String WOOLOOLOO = "woolooloo";
+	private Clip wooloolooClip;
+	private boolean wooloolooLoaded = false;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -60,7 +62,8 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
-		loadSounds();
+		loadBasicSounds();
+		loadFunnySounds();
 		
 		setSize(450,550);
 		setVisible(true);
@@ -122,7 +125,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		return notificationSoundMuted;
 	}
 
-	private void loadSounds() {
+	private void loadBasicSounds() {
 		try {
 			notificationSound = AudioSystem.getClip();
 			File file = new File("res/notificationSound.wav");
@@ -130,7 +133,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
+			showMessage("notificationSound.wav could not be loaded. Deal with it, bitch.");
 			notificationSoundLoaded = false;
 		}
 		
@@ -175,6 +178,33 @@ public class ClientWindow extends JFrame implements ClientGui {
 		if (userLeftSoundLoaded) {
 			userLeftSound.setMicrosecondPosition(0);
 			userLeftSound.start();
+		}
+	}
+	
+	public void playSound(String soundName) {
+		switch (soundName) {
+		case WOOLOOLOO:
+			if (wooloolooLoaded) {
+				wooloolooClip.setMicrosecondPosition(0);
+				wooloolooClip.start();
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	private void loadFunnySounds() {
+		try {
+			wooloolooClip = AudioSystem.getClip();
+			File file = new File("res/woolooloo.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			wooloolooClip.open(inputStream);
+			wooloolooLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("Woolooloo.wav could not be loaded. Deal with it, bitch.");
+			wooloolooLoaded = false;
 		}
 	}
 	

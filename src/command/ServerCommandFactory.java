@@ -3,7 +3,7 @@ package command;
 import serverside.Server;
 
 import command.serverside.Gaffeltruck;
-import command.serverside.Woolooloo;
+import command.serverside.ServerWoolooloo;
 
 public class ServerCommandFactory {
 	public final static String WOOLOOLOO= "/woolooloo";
@@ -21,7 +21,7 @@ public class ServerCommandFactory {
 	public Command build(String input) {
 		switch (input) {
 		case WOOLOOLOO:
-			return new Woolooloo(server);
+			return new ServerWoolooloo(server);
 			
 		case GAFFELTRUCK:
 			return new Gaffeltruck(server);
@@ -30,6 +30,16 @@ public class ServerCommandFactory {
 			break;
 		}
 		return new NotACommand(server.getServerGui());
+	}
+	
+	public static boolean isAServerCommand(String input) {
+		switch (input) {
+		case WOOLOOLOO:
+			return true;
+
+		default:
+			return false;
+		}
 	}
 
 }
