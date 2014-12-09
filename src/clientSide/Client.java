@@ -37,6 +37,7 @@ public class Client {
 			connection = new Socket(InetAddress.getByName(ip),9513);
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
+			input = new ObjectInputStream(connection.getInputStream());
 			if (listenForMessagesThread != null)
 				listenForMessagesThread.stopThread();
 			listenForMessagesThread = new ListenForMessagesThread();
