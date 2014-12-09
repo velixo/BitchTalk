@@ -12,7 +12,9 @@ public class Server {
 	private ServerSocket gatekeeper;
 	private ServerGui gui;
 	private ArrayList<User> userList;
+	private ArrayList<InetAddress> blackList;
 	private Server me = this;
+	private String adminPin;
 	
 	public Server(ServerGui g){
 		try {
@@ -20,6 +22,8 @@ public class Server {
 			gui = g;
 			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
 			userList = new ArrayList<User>();
+			adminPin = randomizePin();
+			blackList = new ArrayList<InetAddress>();
 			waitForConnectionThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -71,6 +75,26 @@ public class Server {
 	public ServerGui getServerGui() {
 		return gui;
 	}
+	
+	public void ban(String username) {
+		for (User u : userList) {
+			if (u.name().equals(username)) {
+				wreck(u);
+				blackList.add(u.getInetAddress());
+			}
+		}
+	}
+	
+	public boolean pinIsCorrect(String pinGuess) {
+		return adminPin.equals(pinGuess);
+	}
+	
+	private String randomizePin() {
+		//TODO implement randomizePin() correctly
+		String newPin = "abc123";
+		gui.showMessage("Admin access pin: " + newPin);
+		return newPin;
+	}
 
 /******************************** THREAD DECLARATIONS *********************************************/
 	
@@ -81,11 +105,16 @@ public class Server {
 				try {
 					//TODO add user to chatroom window
 					s = gatekeeper.accept();
-					User u = new User(s,me);
-					userList.add(u);
-					broadcast(u.name() + " has joined.");
-					updateUsersWindow();
-					broadcastUsernameList();
+					if (!blackList.contains(s.getInetAddress())) {
+						User u = new User(s,me);
+						userList.add(u);
+						broadcast(u.name() + " has joined.");
+						updateUsersWindow();
+						broadcastUsernameList();
+					} else {
+						gui.showMessage(s.getInetAddress().toString() + " is banned and he tried to join. Lol, who dis bitch think he is?");
+						s.close();
+					}
 				} catch (IOException e) {
 					gui.showMessage("some bitch really sucks at connecting.");
 					e.printStackTrace();
@@ -93,4 +122,5 @@ public class Server {
 			}
 		}
 	};
+	
 }

@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 import command.clientside.SetName;
+import command.serverside.RequestAdmin;
 import command.serverside.ServerBossAssBitch;
 import command.serverside.ServerWoolooloo;
 
@@ -12,6 +13,7 @@ public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
 	public final static String WOOLOOLOO= "/woolooloo";
 	public final static String BOSSASSBITCH = "/bossassbitch";
+	public final static String REQUESTADMIN = "/requestadmin";
 	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 	public final static String GAFFELTRUCK = "/gaffeltruck";
 	public final static String RETARDBIRD = "/retardbird";
@@ -36,6 +38,9 @@ public class UserCommandFactory {
 			
 		case BOSSASSBITCH:
 			return new ServerBossAssBitch(server);
+			
+		case REQUESTADMIN:
+			return new RequestAdmin(server, u, st.nextToken());
 		
 		default:
 			return new NotACommand(u);
