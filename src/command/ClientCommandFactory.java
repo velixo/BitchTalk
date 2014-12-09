@@ -17,6 +17,7 @@ public class ClientCommandFactory {
 	//Commands that begin with "/:" can only come from server.
 	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
 	public final static String CLIENTBOSSASSBITCH = "/:bossassbitch";
+	public final static String CLIENTWHATSGOINGON = "/:whatsgoingon";
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -53,6 +54,9 @@ public class ClientCommandFactory {
 			
 		case CLIENTBOSSASSBITCH:
 			return new ClientBossAssBitch(clientGui);
+			
+		case CLIENTWHATSGOINGON:
+			return new ClientWhatsGoingOn(clientGui);
 		
 		case CONNECT:
 			if (client.connected())

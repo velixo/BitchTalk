@@ -7,13 +7,15 @@ import serverside.User;
 import command.clientside.SetName;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerBossAssBitch;
+import command.serverside.ServerWhatsGoingOn;
 import command.serverside.ServerWoolooloo;
 
 public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
-	public final static String WOOLOOLOO= "/woolooloo";
-	public final static String BOSSASSBITCH = "/bossassbitch";
 	public final static String REQUESTADMIN = "/requestadmin";
+	public final static String WOOLOOLOO= "/woolooloo";
+	public final static String WHATSGOINGON= "/whatsgoingon";
+	public final static String BOSSASSBITCH = "/bossassbitch";
 	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 	public final static String GAFFELTRUCK = "/gaffeltruck";
 	public final static String RETARDBIRD = "/retardbird";
@@ -33,14 +35,17 @@ public class UserCommandFactory {
 		case SETNAME:
 			return new SetName(u, st.nextToken());
 			
+		case REQUESTADMIN:
+			return new RequestAdmin(server, u, st.nextToken());
+
 		case WOOLOOLOO:
 			return new ServerWoolooloo(server);
 			
 		case BOSSASSBITCH:
 			return new ServerBossAssBitch(server);
-			
-		case REQUESTADMIN:
-			return new RequestAdmin(server, u, st.nextToken());
+		
+		case WHATSGOINGON:
+			return new ServerWhatsGoingOn(server, u);
 		
 		default:
 			return new NotACommand(u);

@@ -48,6 +48,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private Clip bossAssBitchClip;
 	private boolean bossAssBitchLoaded = false;
 	
+	public final String WHATSGOINGON = "whatsgoingon";
+	private Clip whatsGoingOnClip;
+	private boolean whatsGoingOnLoaded = false;
+	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
 		
@@ -200,6 +204,13 @@ public class ClientWindow extends JFrame implements ClientGui {
 				bossAssBitchClip.setMicrosecondPosition(0);
 				bossAssBitchClip.start();
 			}
+			
+		case WHATSGOINGON:
+			if (whatsGoingOnLoaded) {
+				whatsGoingOnClip.setMicrosecondPosition(0);
+				whatsGoingOnClip.start();
+			}
+			
 		default:
 			break;
 		}
@@ -227,6 +238,16 @@ public class ClientWindow extends JFrame implements ClientGui {
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
 			bossAssBitchLoaded = false;
+		}
+		
+		try {
+			whatsGoingOnClip = AudioSystem.getClip();
+			File file = new File("res/whatsGoingOn.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			whatsGoingOnClip.open(inputStream);
+			whatsGoingOnLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			whatsGoingOnLoaded = false;
 		}
 	}
 	
