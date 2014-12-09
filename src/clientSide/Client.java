@@ -25,6 +25,13 @@ public class Client {
 		gui.showMessage(factory.help());
 	}
 	
+	//TODO check that this code is correct
+	public boolean connected() {
+		if (connection != null)
+			return !connection.isClosed();
+		return false;
+	}
+	
 	public void connect(String ip){
 		try {
 			gui.showMessage("Bitch, I'm trying to connect. Get off my fucking back, OK???");
