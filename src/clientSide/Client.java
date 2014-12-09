@@ -34,18 +34,15 @@ public class Client {
 	
 	public void connect(String ip){
 		try {
-			gui.showMessage("Bitch, I'm trying to connect. Get off my fucking back, OK???");
 			connection = new Socket(InetAddress.getByName(ip),9513);
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
-			input = new ObjectInputStream(connection.getInputStream());
 			if (listenForMessagesThread != null)
 				listenForMessagesThread.stopThread();
 			listenForMessagesThread = new ListenForMessagesThread();
 			listenForMessagesThread.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			gui.showMessage("I'm afraid I can't let you do that, bitch.");
 		}
 	}
 	public void send(String message){
