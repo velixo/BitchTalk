@@ -3,6 +3,7 @@ package serverside;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class User {
 	private Server server;
 	private User me = this;
 	UserCommandFactory commander;
+	private boolean isAdmin = false;
 	
 	public User(Socket c, Server s) throws IOException {
 		connection = c;
@@ -26,7 +28,7 @@ public class User {
 		output.flush();
 		name = "Bitch nr" + userCount++;
 		server = s;
-		commander = new UserCommandFactory(this);
+		commander = new UserCommandFactory(this, server);	//lol
 		checkmail.start();
 	}
 	
@@ -42,6 +44,18 @@ public class User {
 	
 	public String name() {
 		return name;
+	}
+	
+	public InetAddress getInetAddress() {
+		return connection.getInetAddress();
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	
+	public void setAdmin(boolean b) {
+		isAdmin = b;
 	}
 	
 	public void setName(String newName) {

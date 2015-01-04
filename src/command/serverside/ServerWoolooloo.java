@@ -4,15 +4,15 @@ import serverside.Server;
 
 import command.Command;
 
-public class Woolooloo implements Command {
+public class ServerWoolooloo implements Command {
 	private Server server;
 	
-	public Woolooloo(Server s) {
+	public ServerWoolooloo(Server s) {
 		server = s;
 	}
 
 	@Override
 	public void run() {
-		// TODO implement woolooloo
+		server.broadcast("/:woolooloo");
 	}
 }

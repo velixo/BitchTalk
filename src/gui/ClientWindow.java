@@ -22,9 +22,7 @@ import clientSide.Client;
 import clientSide.ClientGui;
 
 public class ClientWindow extends JFrame implements ClientGui {
-
 	private static final long serialVersionUID = -2841093591038641088L;
-
 	private Client client;
 	
 	private JTextArea chatWindow;
@@ -33,14 +31,27 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private List<String> usersInConvo;
 	
 	private Clip notificationSound;
-	private boolean notificationSoundLoaded = false;
-	private boolean notificationSoundMuted = false;
-	
 	private Clip userJoinedSound;
-	private boolean userJoinedSoundLoaded = false;
-	
 	private Clip userLeftSound;
-	private boolean userLeftSoundLoaded = false;
+	private Clip wooloolooSound;
+	private Clip bossAssBitchSound;
+	private Clip whatsGoingOnSound;
+	private Clip moveBitchSound;
+
+	private boolean notificationMuted = false;
+	
+	private boolean notificationSoundLoaded = false;
+	private boolean userLeftLoaded = false;
+	private boolean userJoinedLoaded = false;
+	private boolean wooloolooLoaded = false;
+	private boolean bossAssBitchLoaded = false;
+	private boolean whatsGoingOnLoaded = false;
+	private boolean moveBitchLoaded = false;
+	
+	public final String WOOLOOLOO = "woolooloo";
+	public final String BOSSASSBITCH = "bossassbitch";
+	public final String WHATSGOINGON = "whatsgoingon";
+	public final String MOVEBITCH = "movebitchgetoutdaway";
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -60,12 +71,14 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
-		loadSounds();
+		loadBasicSounds();
+		loadFunnySounds();
 		
 		setSize(450,550);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		client = new Client(this);
+		chatInput.requestFocus();
 	}
 	
 	@Override
@@ -115,14 +128,14 @@ public class ClientWindow extends JFrame implements ClientGui {
 	}
 	
 	public void setMuteNotificationSound(boolean b) {
-		notificationSoundMuted = b;
+		notificationMuted = b;
 	}
 	
 	public boolean getNotificationSoundMuted() {
-		return notificationSoundMuted;
+		return notificationMuted;
 	}
 
-	private void loadSounds() {
+	private void loadBasicSounds() {
 		try {
 			notificationSound = AudioSystem.getClip();
 			File file = new File("res/notificationSound.wav");
@@ -130,7 +143,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			showMessage("Notification sound could not be loaded. Deal with it, bitch.");
+			showMessage("notificationSound.wav could not be loaded. Deal with it, bitch.");
 			notificationSoundLoaded = false;
 		}
 		
@@ -139,42 +152,120 @@ public class ClientWindow extends JFrame implements ClientGui {
 			File file = new File("res/joinChatSound.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userJoinedSound.open(inputStream);
-			userJoinedSoundLoaded = true;
+			userJoinedLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 			showMessage("joinChatSound.wav could not be loaded. Deal with it, bitch.");
-			userJoinedSoundLoaded = false;
+			userJoinedLoaded = false;
 		}
 		
 		try {
 			userLeftSound = AudioSystem.getClip();
-			File file = new File("res/leaveChatSound.wav"); 	//TODO update this file reference
+			File file = new File("res/leaveChatSound.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userLeftSound.open(inputStream);
-			userLeftSoundLoaded = true;
+			userLeftLoaded = true;
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 			showMessage("leaveChatSound.wav could not be loaded. Deal with it, bitch.");
-			userJoinedSoundLoaded = false;
+			userLeftLoaded = false;
+		}
+		
+		try {
+			moveBitchSound = AudioSystem.getClip();
+			File file = new File("res/moveBitchGetOutDaWay.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			moveBitchSound.open(inputStream);
+			moveBitchLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("moveBitchGetOutDaWay.wav could not be loaded. Deal with it, bitch.");
+			moveBitchLoaded = false;
 		}
 	}
 
 	private void playNotificationSound() {
-		if (notificationSoundLoaded && !notificationSoundMuted) {
+		if (notificationSoundLoaded && !notificationMuted) {
 			notificationSound.setMicrosecondPosition(0);
 			notificationSound.start();
 		}
 	}
 	
 	private void playUserJoinedSound() {
-		if (userJoinedSoundLoaded) {
+		if (userJoinedLoaded) {
 			userJoinedSound.setMicrosecondPosition(0);
 			userJoinedSound.start();
 		}
 	}
 	
 	private void playUserLeftSound() {
-		if (userLeftSoundLoaded) {
+		if (userLeftLoaded) {
 			userLeftSound.setMicrosecondPosition(0);
 			userLeftSound.start();
+		}
+	}
+	
+	public void playSound(String soundName) {
+		switch (soundName) {
+		case WOOLOOLOO:
+			if (wooloolooLoaded) {
+				wooloolooSound.setMicrosecondPosition(0);
+				wooloolooSound.start();
+			}
+			break;
+
+		case BOSSASSBITCH:
+			if (bossAssBitchLoaded) {
+				bossAssBitchSound.setMicrosecondPosition(0);
+				bossAssBitchSound.start();
+			}
+			
+		case WHATSGOINGON:
+			if (whatsGoingOnLoaded) {
+				whatsGoingOnSound.setMicrosecondPosition(0);
+				whatsGoingOnSound.start();
+			}
+			
+		case MOVEBITCH:
+			if (moveBitchLoaded) {
+				moveBitchSound.setMicrosecondPosition(0);
+				moveBitchSound.start();
+			}
+			
+		default:
+			break;
+		}
+		System.out.println("Play " + soundName);
+	}
+	
+	private void loadFunnySounds() {
+		try {
+			wooloolooSound = AudioSystem.getClip();
+			File file = new File("res/woolooloo.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			wooloolooSound.open(inputStream);
+			wooloolooLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("woolooloo.wav could not be loaded. Deal with it, bitch.");
+			wooloolooLoaded = false;
+		}
+		
+		try {
+			bossAssBitchSound = AudioSystem.getClip();
+			File file = new File("res/bossAssBitch.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			bossAssBitchSound.open(inputStream);
+			bossAssBitchLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
+			bossAssBitchLoaded = false;
+		}
+		
+		try {
+			whatsGoingOnSound = AudioSystem.getClip();
+			File file = new File("res/whatsGoingOn.wav");
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			whatsGoingOnSound.open(inputStream);
+			whatsGoingOnLoaded = true;
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			whatsGoingOnLoaded = false;
 		}
 	}
 	

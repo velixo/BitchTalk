@@ -25,9 +25,15 @@ public class Client {
 		gui.showMessage(factory.help());
 	}
 	
+	//TODO check that this code is correct
+	public boolean connected() {
+		if (connection != null)
+			return !connection.isClosed();
+		return false;
+	}
+	
 	public void connect(String ip){
 		try {
-			gui.showMessage("Bitch, I'm trying to connect. Get off my fucking back, OK???");
 			connection = new Socket(InetAddress.getByName(ip),9513);
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
@@ -37,13 +43,12 @@ public class Client {
 			listenForMessagesThread = new ListenForMessagesThread();
 			listenForMessagesThread.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			gui.showMessage("I'm afraid I can't let you do that, bitch.");
 		}
 	}
 	public void send(String message){
 		try {
-			if (message.charAt(0) == '/' && !message.contains(":")) {
+			if (message.charAt(0) == '/' && message.charAt(1) != ':' && factory.canBuild(message)) {
 				Command c = factory.build(message);
 				c.run();
 			}
@@ -61,6 +66,7 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
 	private void closeCrap(){
 		gui.showMessage("bitch, I'm out.");
 		try{
@@ -86,14 +92,12 @@ public class Client {
 					//TODO refactor this code. assuming the object is a String or a List<String> is iffy design.
 					Object received = input.readObject();
 					if (received instanceof String) {
-//						String message = (String) input.readObject();
 						String message = (String) received;
-						if (message.charAt(0) == '/' && !message.contains(":")) {
-							System.out.println("command being built");
+						System.out.println(message);
+						if (message.charAt(0) == '/') {	//TODO varför !contains?
 							Command c = factory.build(message);
 							c.run();
 						} else {
-							System.out.println("message being sent");
 							gui.showMessage(message);
 						}
 					} else if (received instanceof List){

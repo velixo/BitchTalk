@@ -8,4 +8,5 @@ public interface ClientGui {
 	public void setMuteNotificationSound(boolean b);
 	public boolean getNotificationSoundMuted();
 	public void updateUsersWindow(List<String> usersInConvo);
+	public void playSound(String soundName);
 }
