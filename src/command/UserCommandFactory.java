@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 
-import command.clientside.SetName;
+import command.serverside.SetName;
 
 public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
