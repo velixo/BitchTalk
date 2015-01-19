@@ -1,4 +1,4 @@
-package command.clientside;
+package command.serverside;
 
 import command.Command;
 

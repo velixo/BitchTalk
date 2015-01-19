@@ -142,7 +142,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("notificationSound.wav could not be loaded. Deal with it, bitch.");
 			notificationSoundLoaded = false;
 		}
@@ -153,7 +153,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userJoinedSound.open(inputStream);
 			userJoinedLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("joinChatSound.wav could not be loaded. Deal with it, bitch.");
 			userJoinedLoaded = false;
 		}
@@ -164,7 +164,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userLeftSound.open(inputStream);
 			userLeftLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("leaveChatSound.wav could not be loaded. Deal with it, bitch.");
 			userLeftLoaded = false;
 		}
@@ -175,7 +175,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			moveBitchSound.open(inputStream);
 			moveBitchLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("moveBitchGetOutDaWay.wav could not be loaded. Deal with it, bitch.");
 			moveBitchLoaded = false;
 		}
@@ -242,7 +242,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			wooloolooSound.open(inputStream);
 			wooloolooLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("woolooloo.wav could not be loaded. Deal with it, bitch.");
 			wooloolooLoaded = false;
 		}
@@ -253,7 +253,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			bossAssBitchSound.open(inputStream);
 			bossAssBitchLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
 			bossAssBitchLoaded = false;
 		}
@@ -264,7 +264,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			whatsGoingOnSound.open(inputStream);
 			whatsGoingOnLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			whatsGoingOnLoaded = false;
 		}
 	}

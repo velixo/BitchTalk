@@ -4,7 +4,8 @@ import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
-import command.clientside.SetName;
+
+import command.serverside.SetName;
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerBossAssBitch;
