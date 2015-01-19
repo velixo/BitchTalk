@@ -5,22 +5,21 @@ import serverside.User;
 
 import command.Command;
 
-public class Ban implements Command {
+public class Unban implements Command {
 	private Server s;
 	private User unbanner;
-	private String username;
+	private String ip;
 	
-	public Ban(Server s, User unbanner, String username) {
+	public Unban(Server s, User unbanner, String ip) {
 		this.s = s;
 		this.unbanner = unbanner;
-		this.username = username;
+		this.ip = ip;
 	}
 
 	@Override
 	public void run() {
 		if (unbanner.isAdmin()) {
-			s.ban(unbanner, username);
+			s.unban(unbanner, ip);
 		}
 	}
-
 }

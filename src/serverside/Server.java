@@ -12,7 +12,7 @@ public class Server {
 	private ServerSocket gatekeeper;
 	private ServerGui gui;
 	private ArrayList<User> userList;
-	private ArrayList<InetAddress> blackList;
+	private ArrayList<String> blackList;
 	private Server me = this;
 	private String adminPin;
 	
@@ -23,7 +23,7 @@ public class Server {
 			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
 			userList = new ArrayList<User>();
 			adminPin = randomizePin();
-			blackList = new ArrayList<InetAddress>();
+			blackList = new ArrayList<String>();
 			waitForConnectionThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -96,12 +96,37 @@ public class Server {
 		return gui;
 	}
 	
-	public void ban(String username) {
+	public void ban(User unbanner, String username) {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
 				wreck(u);
-				blackList.add(u.getInetAddress());
+				blackList.add(u.getInetAddress().toString());
 			}
+		}
+	}
+	
+	public void unban(User unbanner, String ip) {
+		try {
+			if (blackList.contains(ip)) {
+				blackList.remove(ip);
+					unbanner.send(ip + " was removed from the ban list. Hope the bitch keeps his manners this time.");
+			} else {
+				unbanner.send(ip + " isn't banned.");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendBannedList(User u) {
+		try {
+			StringBuilder message = new StringBuilder("The following IP's are banned: \n");
+			for (String ip : blackList) {
+				message.append(ip + "\n");
+			}
+			u.send(message.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -125,7 +150,7 @@ public class Server {
 				try {
 					//TODO add user to chatroom window
 					s = gatekeeper.accept();
-					if (!blackList.contains(s.getInetAddress())) {
+					if (!blackList.contains(s.getInetAddress().toString())) {
 						User u = new User(s,me);
 						userList.add(u);
 						broadcast(u.name() + " has joined.");
