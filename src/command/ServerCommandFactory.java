@@ -13,7 +13,7 @@ import command.serverside.ServerWhatsGoingOn;
 import command.serverside.ServerWoolooloo;
 import command.serverside.SetName;
 
-public class UserCommandFactory {
+public class ServerCommandFactory {
 	public final static String SETNAME= "/setname";
 	public final static String REQUESTADMIN = "/requestadmin";
 	public final static String WOOLOOLOO= "/woolooloo";
@@ -31,7 +31,7 @@ public class UserCommandFactory {
 	private User u;
 	
 	//TODO: flytta servercommands till usercommands.
-	public UserCommandFactory(User u, Server s) {
+	public ServerCommandFactory(User u, Server s) {
 		this.u = u;
 		server = s;
 	}

@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.List;
 
 import command.Command;
-import command.UserCommandFactory;
+import command.ServerCommandFactory;
 
 public class User {
 	private String name;
@@ -18,7 +18,7 @@ public class User {
 	protected static int userCount = 0;
 	private Server server;
 	private User me = this;
-	UserCommandFactory commander;
+	ServerCommandFactory commander;
 	private boolean isAdmin = false;
 	
 	public User(Socket c, Server s) throws IOException {
@@ -28,7 +28,7 @@ public class User {
 		output.flush();
 		name = "Bitch nr" + userCount++;
 		server = s;
-		commander = new UserCommandFactory(this, server);	//lol
+		commander = new ServerCommandFactory(this, server);	//lol
 		checkmail.start();
 	}
 	
