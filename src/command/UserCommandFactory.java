@@ -42,7 +42,8 @@ public class UserCommandFactory {
 			return new RequestAdmin(server, u, st.nextToken());
 			
 		case KICK:
-			return new Kick(server, u, st.nextToken());
+			String username = input.replace("/kick ", "");
+			return new Kick(server, u, username);
 
 		case WOOLOOLOO:
 			return new ServerWoolooloo(server);

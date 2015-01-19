@@ -138,7 +138,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private void loadBasicSounds() {
 		try {
 			notificationSound = AudioSystem.getClip();
-			File file = new File("res/notificationSound.wav");
+			File file = new File("src/res/notificationSound.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			notificationSound.open(inputStream);
 			notificationSoundLoaded = true;
@@ -149,7 +149,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		try {
 			userJoinedSound = AudioSystem.getClip();
-			File file = new File("res/joinChatSound.wav");
+			File file = new File("src/res/joinChatSound.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userJoinedSound.open(inputStream);
 			userJoinedLoaded = true;
@@ -160,7 +160,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		try {
 			userLeftSound = AudioSystem.getClip();
-			File file = new File("res/leaveChatSound.wav");
+			File file = new File("src/res/leaveChatSound.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			userLeftSound.open(inputStream);
 			userLeftLoaded = true;
@@ -171,7 +171,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		try {
 			moveBitchSound = AudioSystem.getClip();
-			File file = new File("res/moveBitchGetOutDaWay.wav");
+			File file = new File("src/res/moveBitchGetOutDaWay.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			moveBitchSound.open(inputStream);
 			moveBitchLoaded = true;
@@ -238,7 +238,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private void loadFunnySounds() {
 		try {
 			wooloolooSound = AudioSystem.getClip();
-			File file = new File("res/woolooloo.wav");
+			File file = new File("src/res/woolooloo.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			wooloolooSound.open(inputStream);
 			wooloolooLoaded = true;
@@ -249,7 +249,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		try {
 			bossAssBitchSound = AudioSystem.getClip();
-			File file = new File("res/bossAssBitch.wav");
+			File file = new File("src/res/bossAssBitch.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			bossAssBitchSound.open(inputStream);
 			bossAssBitchLoaded = true;
@@ -260,7 +260,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		try {
 			whatsGoingOnSound = AudioSystem.getClip();
-			File file = new File("res/whatsGoingOn.wav");
+			File file = new File("src/res/whatsGoingOn.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			whatsGoingOnSound.open(inputStream);
 			whatsGoingOnLoaded = true;

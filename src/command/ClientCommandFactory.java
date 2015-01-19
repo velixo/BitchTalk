@@ -7,7 +7,6 @@ import clientSide.ClientGui;
 import command.clientside.*;
 
 public class ClientCommandFactory {
-	public final static String TOGGLEMUTE = "/togglemute";
 	public final static String MUTE = "/mute";
 	public final static String UNMUTE = "/unmute";
 	public final static String CONNECT = "/connect";
@@ -16,7 +15,7 @@ public class ClientCommandFactory {
 	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
 	public final static String CLIENTBOSSASSBITCH = "/:bossassbitch";
 	public final static String CLIENTWHATSGOINGON = "/:whatsgoingon";
-	public final static String MOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
+	public final static String CLIENTMOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -39,9 +38,6 @@ public class ClientCommandFactory {
 		
 		
 		switch (st.nextToken()) {
-		case TOGGLEMUTE:
-			return new ToggleMute(clientGui);
-			
 		case MUTE:
 			return new Mute(clientGui);
 			
@@ -57,8 +53,8 @@ public class ClientCommandFactory {
 		case CLIENTWHATSGOINGON:
 			return new ClientWhatsGoingOn(clientGui);
 			
-		case MOVEBITCHGETOUTDAWAY:
-			return new MoveBitch(clientGui);
+		case CLIENTMOVEBITCHGETOUTDAWAY:
+			return new ClientMoveBitch(clientGui);
 		
 		case CONNECT:
 			if (client.connected())
