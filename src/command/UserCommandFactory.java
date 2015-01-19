@@ -4,13 +4,14 @@ import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
-
-import command.serverside.SetName;
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerBossAssBitch;
+import command.serverside.ServerCelebrate;
+import command.serverside.ServerOpen;
 import command.serverside.ServerWhatsGoingOn;
 import command.serverside.ServerWoolooloo;
+import command.serverside.SetName;
 
 public class UserCommandFactory {
 	public final static String SETNAME= "/setname";
@@ -19,6 +20,8 @@ public class UserCommandFactory {
 	public final static String WHATSGOINGON= "/whatsgoingon";
 	public final static String BOSSASSBITCH = "/bossassbitch";
 	public final static String KICK = "/kick";
+	public final static String OPEN= "/open";
+	public final static String CELEBRATE = "/celebrate";
 
 	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 	public final static String GAFFELTRUCK = "/gaffeltruck";
@@ -37,7 +40,8 @@ public class UserCommandFactory {
 		StringTokenizer st = new StringTokenizer(input);
 		switch (st.nextToken()) {
 		case SETNAME:
-			return new SetName(u, st.nextToken());
+			String newUsername = input.replace(SETNAME + " ", "");
+			return new SetName(u, newUsername);
 			
 		case REQUESTADMIN:
 			return new RequestAdmin(server, u, st.nextToken());
@@ -54,6 +58,12 @@ public class UserCommandFactory {
 		
 		case WHATSGOINGON:
 			return new ServerWhatsGoingOn(server, u);
+			
+		case OPEN:
+			return new ServerOpen(server);
+			
+		case CELEBRATE:
+			return new ServerCelebrate(server);
 		
 		default:
 			return new NotACommand(u);
