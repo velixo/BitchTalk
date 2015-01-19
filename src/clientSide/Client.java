@@ -94,7 +94,7 @@ public class Client {
 					if (received instanceof String) {
 						String message = (String) received;
 						System.out.println(message);
-						if (message.charAt(0) == '/') {	//TODO varför !contains?
+						if (message.charAt(0) == '/') {
 							Command c = factory.build(message);
 							c.run();
 						} else {
@@ -102,7 +102,7 @@ public class Client {
 						}
 					} else if (received instanceof List){
 						@SuppressWarnings("unchecked")
-						List<String> usernames = (List<String>) received;
+						List<String> usernames = (List<String>) received;	//since the only time we send over a list is when we update userList, we presume its a list of usernames.
 						gui.updateUsersWindow(usernames);
 					}
 				} catch (ClassNotFoundException | IOException e) {

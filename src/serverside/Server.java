@@ -49,7 +49,7 @@ public class Server {
 		}
 		for(User u : userList) {
 			try {
-				u.send(usernames);
+				u.sendUserList(usernames);
 			} catch (IOException e) {
 				wreck(u);
 			}

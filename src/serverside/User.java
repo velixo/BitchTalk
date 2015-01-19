@@ -37,7 +37,7 @@ public class User {
 		output.flush();
 	}
 	
-	public void send(List<String> list) throws IOException {
+	public void sendUserList(List<String> list) throws IOException {
 		output.writeObject(list);
 		output.flush();
 	}
