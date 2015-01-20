@@ -1,5 +1,6 @@
 package command.clientside;
 
+import statics.StaticVariables;
 import clientSide.ClientGui;
 import command.Command;
 
@@ -12,7 +13,7 @@ public class ClientOpen implements Command{
 
 	@Override
 	public void run() {
-		gui.playSound("open");
+		gui.playSound(StaticVariables.OPEN);
 	}
 
 }

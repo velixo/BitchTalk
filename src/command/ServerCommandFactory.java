@@ -1,9 +1,12 @@
 package command;
 
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
+import statics.StaticVariables;
+
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerBossAssBitch;
@@ -14,18 +17,18 @@ import command.serverside.ServerWoolooloo;
 import command.serverside.SetName;
 
 public class ServerCommandFactory {
-	public final static String SETNAME= "/setname";
-	public final static String REQUESTADMIN = "/requestadmin";
-	public final static String WOOLOOLOO= "/woolooloo";
-	public final static String WHATSGOINGON= "/whatsgoingon";
-	public final static String BOSSASSBITCH = "/bossassbitch";
-	public final static String KICK = "/kick";
-	public final static String OPEN= "/open";
-	public final static String CELEBRATE = "/celebrate";
+	public final static String SETNAME= StaticVariables.SETNAME;
+	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
+	public final static String WOOLOOLOO= StaticVariables.WOOLOOLOO;
+	public final static String WHATSGOINGON= StaticVariables.WHATSGOINGON;
+	public final static String BOSSASSBITCH = StaticVariables.BOSSASSBITCH;
+	public final static String KICK = StaticVariables.KICK;
+	public final static String OPEN= StaticVariables.OPEN;
+	public final static String CELEBRATE = StaticVariables.CELEBRATE;
 
-	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
-	public final static String GAFFELTRUCK = "/gaffeltruck";
-	public final static String RETARDBIRD = "/retardbird";
+//	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
+//	public final static String GAFFELTRUCK = "/gaffeltruck";
+//	public final static String RETARDBIRD = "/retardbird";
 	
 	private Server server;
 	private User u;
@@ -44,7 +47,11 @@ public class ServerCommandFactory {
 			return new SetName(u, newUsername);
 			
 		case REQUESTADMIN:
-			return new RequestAdmin(server, u, st.nextToken());
+			try {
+				return new RequestAdmin(server, u, st.nextToken());
+			} catch (NoSuchElementException e) {
+				return new NotACommand(u);
+			}
 			
 		case KICK:
 			String username = input.replace("/kick ", "");

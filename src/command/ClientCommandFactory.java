@@ -2,22 +2,35 @@ package command;
 
 import java.util.StringTokenizer;
 
+import statics.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
-import command.clientside.*;
+
+import command.clientside.AlreadyConnected;
+import command.clientside.ClientBossAssBitch;
+import command.clientside.ClientCelebrate;
+import command.clientside.ClientMoveBitch;
+import command.clientside.ClientOpen;
+import command.clientside.ClientWhatsGoingOn;
+import command.clientside.ClientWoolooloo;
+import command.clientside.Connect;
+import command.clientside.Help;
+import command.clientside.Mute;
+import command.clientside.Unmute;
 
 public class ClientCommandFactory {
-	public final static String MUTE = "/mute";
-	public final static String UNMUTE = "/unmute";
-	public final static String CONNECT = "/connect";
+	public final static String HELP = StaticVariables.HELP;
+	public final static String MUTE = StaticVariables.MUTE;
+	public final static String UNMUTE = StaticVariables.UNMUTE;
+	public final static String CONNECT = StaticVariables.CONNECT;
 	
 	//Commands that begin with "/:" can only come from server.
-	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
-	public final static String CLIENTBOSSASSBITCH = "/:bossassbitch";
-	public final static String CLIENTWHATSGOINGON = "/:whatsgoingon";
-	public final static String CLIENTMOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
-	public final static String CLIENTOPEN = "/:open";
-	public final static String CLIENTCELEBRATE = "/:celebrate";
+	public final static String CLIENTWOOLOOLOO = StaticVariables.CLIENTWOOLOOLOO;
+	public final static String CLIENTBOSSASSBITCH = StaticVariables.CLIENTBOSSASSBITCH;
+	public final static String CLIENTWHATSGOINGON = StaticVariables.CLIENTWHATSGOINGON;
+	public final static String CLIENTMOVEBITCHGETOUTDAWAY = StaticVariables.CLIENTMOVEBITCHGETOUTDAWAY;
+	public final static String CLIENTOPEN = StaticVariables.CLIENTOPEN;
+	public final static String CLIENTCELEBRATE = StaticVariables.CLIENTCELEBRATE;
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -40,6 +53,9 @@ public class ClientCommandFactory {
 		
 		
 		switch (st.nextToken()) {
+		case HELP:
+			return new Help(clientGui);
+		
 		case MUTE:
 			return new Mute(clientGui);
 			

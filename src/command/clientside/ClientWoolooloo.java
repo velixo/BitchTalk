@@ -1,7 +1,7 @@
 package command.clientside;
 
+import statics.StaticVariables;
 import clientSide.ClientGui;
-
 import command.Command;
 
 public class ClientWoolooloo implements Command {
@@ -13,6 +13,6 @@ public class ClientWoolooloo implements Command {
 
 	@Override
 	public void run() {
-		gui.playSound("woolooloo");
+		gui.playSound(StaticVariables.WOOLOOLOO);
 	}
 }

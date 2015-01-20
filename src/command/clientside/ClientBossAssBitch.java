@@ -1,7 +1,7 @@
 package command.clientside;
 
+import statics.StaticVariables;
 import clientSide.ClientGui;
-
 import command.Command;
 
 public class ClientBossAssBitch implements Command {
@@ -13,7 +13,7 @@ public class ClientBossAssBitch implements Command {
 
 	@Override
 	public void run() {
-		g.playSound("bossassbitch");
+		g.playSound(StaticVariables.BOSSASSBITCH);
 	}
 
 }

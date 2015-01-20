@@ -1,7 +1,7 @@
 package command.clientside;
 
+import statics.StaticVariables;
 import clientSide.ClientGui;
-
 import command.Command;
 
 public class ClientMoveBitch implements Command {
@@ -13,7 +13,7 @@ public class ClientMoveBitch implements Command {
 
 	@Override
 	public void run() {
-		gui.playSound("movebitchgetoutdaway");
+		gui.playSound(StaticVariables.CLIENTBOSSASSBITCH);
 	}
 
 }

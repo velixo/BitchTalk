@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import statics.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
 
@@ -52,12 +53,12 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private boolean openLoaded = false;
 	private boolean celebrateLoaded = false;
 	
-	public final String WOOLOOLOO = "woolooloo";
-	public final String BOSSASSBITCH = "bossassbitch";
-	public final String WHATSGOINGON = "whatsgoingon";
-	public final String MOVEBITCH = "movebitchgetoutdaway";
-	public final String OPEN = "open";
-	public final String CELEBRATE = "celebrate";
+	public final String WOOLOOLOO = StaticVariables.WOOLOOLOO;
+	public final String BOSSASSBITCH = StaticVariables.BOSSASSBITCH;
+	public final String WHATSGOINGON = StaticVariables.WHATSGOINGON;
+	public final String MOVEBITCH = StaticVariables.CLIENTMOVEBITCHGETOUTDAWAY;
+	public final String OPEN = StaticVariables.OPEN;
+	public final String CELEBRATE = StaticVariables.CELEBRATE;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");

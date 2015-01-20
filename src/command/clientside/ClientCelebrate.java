@@ -1,5 +1,6 @@
 package command.clientside;
 
+import statics.StaticVariables;
 import clientSide.ClientGui;
 import command.Command;
 
@@ -14,7 +15,7 @@ public class ClientCelebrate implements Command {
 
 	@Override
 	public void run() {
-		gui.playSound("celebrate");
+		gui.playSound(StaticVariables.CELEBRATE);
 	}
 
 }
