@@ -1,6 +1,5 @@
 package command;
 
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
@@ -9,22 +8,13 @@ import statics.StaticVariables;
 
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
-import command.serverside.ServerBossAssBitch;
-import command.serverside.ServerCelebrate;
-import command.serverside.ServerOpen;
-import command.serverside.ServerWhatsGoingOn;
-import command.serverside.ServerWoolooloo;
+import command.serverside.ServerSound;
 import command.serverside.SetName;
 
 public class ServerCommandFactory {
 	public final static String SETNAME= StaticVariables.SETNAME;
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
-	public final static String WOOLOOLOO= StaticVariables.WOOLOOLOO;
-	public final static String WHATSGOINGON= StaticVariables.WHATSGOINGON;
-	public final static String BOSSASSBITCH = StaticVariables.BOSSASSBITCH;
 	public final static String KICK = StaticVariables.KICK;
-	public final static String OPEN= StaticVariables.OPEN;
-	public final static String CELEBRATE = StaticVariables.CELEBRATE;
 
 //	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 //	public final static String GAFFELTRUCK = "/gaffeltruck";
@@ -53,23 +43,29 @@ public class ServerCommandFactory {
 			String username = input.replace(StaticVariables.KICK + " ", "");
 			return new Kick(server, u, username);
 
-		case WOOLOOLOO:
-			return new ServerWoolooloo(server);
-			
-		case BOSSASSBITCH:
-			return new ServerBossAssBitch(server);
-		
-		case WHATSGOINGON:
-			return new ServerWhatsGoingOn(server, u);
-			
-		case OPEN:
-			return new ServerOpen(server);
-			
-		case CELEBRATE:
-			return new ServerCelebrate(server);
 		
 		default:
+			if(isAdminSound(input) && u.isAdmin()) {
+				return new ServerSound(server, encodeSoundString(input));
+			} else if(isNormalSound(input)) {
+				return new ServerSound(server, encodeSoundString(input));
+			}
 			return new NotACommand(u);
 		}
+	}
+	
+	private static boolean isAdminSound(String input) {
+		return (input.charAt(1)==':' && input.charAt(2)=='a' && input.charAt(3)==':');
+	}
+	
+	private static boolean isNormalSound(String input) {
+		return (input.charAt(1)==':' && input.charAt(2)=='s' && input.charAt(3)==':');
+	}
+	
+	private static String encodeSoundString(String input) {
+		if(isAdminSound(input))
+			return input.replace("/:a:", "/:admin_");
+		else
+			return input.replace("/:s:", "/:" );
 	}
 }

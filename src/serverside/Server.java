@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import statics.StaticVariables;
+
 public class Server {
 	
 	private ServerSocket gatekeeper;
@@ -72,7 +74,7 @@ public class Server {
 				u.closeCrap();
 				userList.remove(u);
 				broadcast(username + ", fuck off bitch.");
-				broadcast("/:movebitchgetoutdaway");
+				broadcast(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
 				updateUsersWindow();
 				broadcastUsernameList();
 				return;

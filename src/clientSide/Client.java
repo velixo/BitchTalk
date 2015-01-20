@@ -1,11 +1,13 @@
 package clientSide;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
+
 import command.ClientCommandFactory;
 import command.Command;
 
@@ -51,8 +53,15 @@ public class Client {
 			if (message.charAt(0) == '/' && message.charAt(1) != ':' && factory.canBuild(message)) {
 				Command c = factory.build(message);
 				c.run();
-			}
-			else if(output!=null){
+			} else if(isSound(message)) {
+				System.out.println("isSound: " + message);
+				sendAsSound(message);
+				
+			} else if(isAdminSound(message)) {
+				System.out.println("isAdminSound: " + message);
+				sendAsAdminSound(message);
+				
+			} else if(output!=null){
 				output.writeObject(message);
 				output.flush();
 				System.out.println("flushed, bitch");
@@ -64,6 +73,55 @@ public class Client {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	private boolean isSound(String input) {
+		String soundName = input.replace("/", "") + ".wav";
+		System.out.println("In isSound - soundName = " + soundName);
+		return soundExists(soundName);
+	}
+	
+	private boolean isAdminSound(String input) {
+		String soundName = input.replace("/", "admin_") + ".wav";
+		System.out.println("In isAdminSound - soundName = " + soundName);
+		return soundExists(soundName);
+	}
+	
+	private boolean soundExists(String soundName) {
+		File soundFolder = new File("res/");
+		File[] sounds = soundFolder.listFiles();
+		for (File sound : sounds){
+			System.out.println("soundExists: " + sound.getName() + " ?= " + soundName);
+			if (sound.getName().equals(soundName))
+				return true;
+		}
+		return false;
+	}
+	
+	private void sendAsAdminSound(String message) throws IOException {
+		message = message.replace("/", "/:a:");
+		System.out.println("sendAsAdminSound: " + message);
+		if(output!=null){
+			output.writeObject(message);
+			output.flush();
+			System.out.println("flushed, bitch");
+		}
+		else{
+			gui.showMessage("You are not connected to any server.");
+		}
+	}
+	
+	private void sendAsSound(String message) throws IOException {
+		message = message.replace("/", "/:s:");
+		System.out.println("sendAsSound: " + message);
+		if(output!=null){
+			output.writeObject(message);
+			output.flush();
+			System.out.println("flushed, bitch");
+		}
+		else{
+			gui.showMessage("You are not connected to any server.");
 		}
 	}
 	

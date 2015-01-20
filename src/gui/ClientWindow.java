@@ -43,6 +43,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 
 	private boolean notificationMuted = false;
 	
+	private final static String USERJOINED = "other_joinchatsound.wav";
+	private final static String USERLEFT = "other_leavechatsound.wav";
+	private final static String NOTIFICATION ="other_notificationsound.wav";
+	
 	private boolean notificationSoundLoaded = false;
 	private boolean userLeftLoaded = false;
 	private boolean userJoinedLoaded = false;
@@ -78,7 +82,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
-		loadSounds();
+//		loadSounds();
 		
 		setSize(450,550);
 		setVisible(true);
@@ -91,7 +95,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	public void showMessage(String m) {
 		chatWindow.append(m + "\n");
 		if (!isActive() || !isFocused()) {	//not sure which one to use or what the difference is
-			playNotificationSound();
+			playSound(NOTIFICATION);
 		}
 	}
 	
@@ -106,11 +110,11 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 		if (checkUserLeft(usernames, usersInConvo)) {
 			System.out.println("UserLeft");
-			playUserLeftSound();
+			playSound(USERLEFT);
 		}
 		if (checkUserJoined(usernames, usersInConvo)) {
 			System.out.println("UserJoined");
-			playUserJoinedSound();
+			playSound(USERJOINED);
 		}
 		usersInConvo = usernames;
 	}
@@ -141,174 +145,18 @@ public class ClientWindow extends JFrame implements ClientGui {
 		return notificationMuted;
 	}
 
-	private void loadSounds() {
+	public void playSound(String soundFileName) {
 		try {
-			notificationSound = AudioSystem.getClip();
-			File file = new File("res/notificationSound.wav");
+			Clip sound = AudioSystem.getClip();
+			File file = new File("res/" + soundFileName);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			notificationSound.open(inputStream);
-			notificationSoundLoaded = true;
+			sound.open(inputStream);
+			sound.setMicrosecondPosition(0);
+			sound.start();
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("notificationSound.wav could not be loaded. Deal with it, bitch.");
-			notificationSoundLoaded = false;
-		}
-		
-		try {
-			userJoinedSound = AudioSystem.getClip();
-			File file = new File("res/joinChatSound.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			userJoinedSound.open(inputStream);
-			userJoinedLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("joinChatSound.wav could not be loaded. Deal with it, bitch.");
-			userJoinedLoaded = false;
-		}
-		
-		try {
-			userLeftSound = AudioSystem.getClip();
-			File file = new File("res/leaveChatSound.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			userLeftSound.open(inputStream);
-			userLeftLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("leaveChatSound.wav could not be loaded. Deal with it, bitch.");
-			userLeftLoaded = false;
-		}
-		
-		try {
-			moveBitchSound = AudioSystem.getClip();
-			File file = new File("res/moveBitchGetOutDaWay.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			moveBitchSound.open(inputStream);
-			moveBitchLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("moveBitchGetOutDaWay.wav could not be loaded. Deal with it, bitch.");
-			moveBitchLoaded = false;
-		}
-		
-		try {
-			openSound = AudioSystem.getClip();
-			File file = new File("res/heresjohnny.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			openSound.open(inputStream);
-			openLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("heresjohnny.wav could not be loaded. Deal with it, bitch.");
-			openLoaded = false;
-		}
-		
-		try {
-			celebrateSound = AudioSystem.getClip();
-			File file = new File("res/celebrate.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			celebrateSound.open(inputStream);
-			celebrateLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("celebrate.wav could not be loaded. Deal with it, bitch.");
-			celebrateLoaded = false;
-		}
-		
-		try {
-			wooloolooSound = AudioSystem.getClip();
-			File file = new File("res/woolooloo.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			wooloolooSound.open(inputStream);
-			wooloolooLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("woolooloo.wav could not be loaded. Deal with it, bitch.");
-			wooloolooLoaded = false;
-		}
-		
-		try {
-			bossAssBitchSound = AudioSystem.getClip();
-			File file = new File("res/bossAssBitch.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			bossAssBitchSound.open(inputStream);
-			bossAssBitchLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
-			bossAssBitchLoaded = false;
-		}
-		
-		try {
-			whatsGoingOnSound = AudioSystem.getClip();
-			File file = new File("res/whatsGoingOn.wav");
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			whatsGoingOnSound.open(inputStream);
-			whatsGoingOnLoaded = true;
-		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-			whatsGoingOnLoaded = false;
-		}
-	}
-
-	private void playNotificationSound() {
-		if (notificationSoundLoaded && !notificationMuted) {
-			notificationSound.setMicrosecondPosition(0);
-			notificationSound.start();
-		}
-	}
-	
-	private void playUserJoinedSound() {
-		if (userJoinedLoaded) {
-			userJoinedSound.setMicrosecondPosition(0);
-			userJoinedSound.start();
-		}
-	}
-	
-	private void playUserLeftSound() {
-		if (userLeftLoaded) {
-			userLeftSound.setMicrosecondPosition(0);
-			userLeftSound.start();
-		}
-	}
-	
-	public void playSound(String soundName) {
-		switch (soundName) {
-		case WOOLOOLOO:
-			if (wooloolooLoaded) {
-				wooloolooSound.setMicrosecondPosition(0);
-				wooloolooSound.start();
-			}
-			break;
-
-		case BOSSASSBITCH:
-			if (bossAssBitchLoaded) {
-				bossAssBitchSound.setMicrosecondPosition(0);
-				bossAssBitchSound.start();
-			}
-			break;
-			
-		case WHATSGOINGON:
-			if (whatsGoingOnLoaded) {
-				whatsGoingOnSound.setMicrosecondPosition(0);
-				whatsGoingOnSound.start();
-			}
-			break;
-			
-		case MOVEBITCH:
-			if (moveBitchLoaded) {
-				moveBitchSound.setMicrosecondPosition(0);
-				moveBitchSound.start();
-			}
-			break;
-			
-		case OPEN:
-			if (openLoaded) {
-				openSound.setMicrosecondPosition(0);
-				openSound.start();
-			}
-			break;
-			
-		case CELEBRATE:
-			if (celebrateLoaded) {
-				celebrateSound.setMicrosecondPosition(0);
-				celebrateSound.start();
-			}
-			
-		default:
-			break;
-		}
-		System.out.println("Play " + soundName);
+			showSilentMessage("Bitch, you aint even got " + soundFileName);
+		} 
+		System.out.println("Play " + soundFileName);
 	}
 	
 	private class ServerSendMessageListener implements ActionListener {

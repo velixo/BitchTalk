@@ -1,5 +1,6 @@
 package command;
 
+import java.io.File;
 import java.util.StringTokenizer;
 
 import statics.StaticVariables;
@@ -7,12 +8,7 @@ import clientSide.Client;
 import clientSide.ClientGui;
 
 import command.clientside.AlreadyConnected;
-import command.clientside.ClientBossAssBitch;
-import command.clientside.ClientCelebrate;
-import command.clientside.ClientMoveBitch;
-import command.clientside.ClientOpen;
-import command.clientside.ClientWhatsGoingOn;
-import command.clientside.ClientWoolooloo;
+import command.clientside.ClientSound;
 import command.clientside.Connect;
 import command.clientside.Help;
 import command.clientside.Mute;
@@ -24,12 +20,12 @@ public class ClientCommandFactory {
 	public final static String UNMUTE = StaticVariables.UNMUTE;
 	public final static String CONNECT = StaticVariables.CONNECT;
 	
-	public final static String SERVERWOOLOOLOO = StaticVariables.SERVERWOOLOOLOO;
-	public final static String SERVERBOSSASSBITCH = StaticVariables.SERVERBOSSASSBITCH;
-	public final static String SERVERWHATSGOINGON = StaticVariables.SERVERWHATSGOINGON;
-	public final static String SERVERMOVEBITCHGETOUTDAWAY = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
-	public final static String SERVEROPEN = StaticVariables.SERVEROPEN;
-	public final static String SERVERCELEBRATE = StaticVariables.SERVERCELEBRATE;
+//	public final static String SERVERWOOLOOLOO = StaticVariables.SERVERWOOLOOLOO;
+//	public final static String SERVERBOSSASSBITCH = StaticVariables.SERVERBOSSASSBITCH;
+//	public final static String SERVERWHATSGOINGON = StaticVariables.SERVERWHATSGOINGON;
+//	public final static String SERVERMOVEBITCHGETOUTDAWAY = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
+//	public final static String SERVEROPEN = StaticVariables.SERVEROPEN;
+//	public final static String SERVERCELEBRATE = StaticVariables.SERVERCELEBRATE;
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -60,24 +56,6 @@ public class ClientCommandFactory {
 			
 		case UNMUTE:
 			return new Unmute(clientGui);
-			
-		case SERVERWOOLOOLOO:
-			return new ClientWoolooloo(clientGui);
-			
-		case SERVERBOSSASSBITCH:
-			return new ClientBossAssBitch(clientGui);
-			
-		case SERVERWHATSGOINGON:
-			return new ClientWhatsGoingOn(clientGui);
-			
-		case SERVERMOVEBITCHGETOUTDAWAY:
-			return new ClientMoveBitch(clientGui);
-		
-		case SERVEROPEN:
-			return new ClientOpen(clientGui);
-		
-		case SERVERCELEBRATE:
-			return new ClientCelebrate(clientGui);
 		
 		case CONNECT:
 			if (client.connected())
@@ -88,8 +66,33 @@ public class ClientCommandFactory {
 				return new NotACommand(clientGui);
 		
 		default:
+			if(isServerCommand(input)) {
+				System.out.println("isServerCommand");
+				if(isSound(input))
+					System.out.println("isSound");
+					String soundName = input.replace("/:", "") + ".wav";
+					return new ClientSound(clientGui, soundName);
+			}
 			return new NotACommand(clientGui);
 		}
 	}
 	
+	private boolean isServerCommand(String input) {
+		return (input.charAt(0)=='/' && input.charAt(1)==':');
+	}
+	
+	private boolean isSound(String input) {
+		String soundName = new String(input);
+		String adminSoundName = new String(input);
+		soundName.replace("/:", "");
+		adminSoundName.replace("/:", "admin_");
+		
+		File soundFolder = new File("res/");
+		File[] sounds = soundFolder.listFiles();
+		for (File sound : sounds){
+			if (sound.getName() == soundName + ".wav" || sound.getName() == adminSoundName + ".wav")
+				return true;
+		}
+		return false;
+	}
 }
