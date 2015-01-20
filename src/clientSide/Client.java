@@ -54,11 +54,9 @@ public class Client {
 				Command c = factory.build(message);
 				c.run();
 			} else if(isSound(message)) {
-				System.out.println("isSound: " + message);
 				sendAsSound(message);
 				
 			} else if(isAdminSound(message)) {
-				System.out.println("isAdminSound: " + message);
 				sendAsAdminSound(message);
 				
 			} else if(output!=null){
@@ -78,13 +76,11 @@ public class Client {
 	
 	private boolean isSound(String input) {
 		String soundName = input.replace("/", "") + ".wav";
-		System.out.println("In isSound - soundName = " + soundName);
 		return soundExists(soundName);
 	}
 	
 	private boolean isAdminSound(String input) {
 		String soundName = input.replace("/", "admin_") + ".wav";
-		System.out.println("In isAdminSound - soundName = " + soundName);
 		return soundExists(soundName);
 	}
 	
@@ -92,7 +88,6 @@ public class Client {
 		File soundFolder = new File("res/");
 		File[] sounds = soundFolder.listFiles();
 		for (File sound : sounds){
-			System.out.println("soundExists: " + sound.getName() + " ?= " + soundName);
 			if (sound.getName().equals(soundName))
 				return true;
 		}
@@ -101,7 +96,6 @@ public class Client {
 	
 	private void sendAsAdminSound(String message) throws IOException {
 		message = message.replace("/", "/:a:");
-		System.out.println("sendAsAdminSound: " + message);
 		if(output!=null){
 			output.writeObject(message);
 			output.flush();
@@ -114,7 +108,6 @@ public class Client {
 	
 	private void sendAsSound(String message) throws IOException {
 		message = message.replace("/", "/:s:");
-		System.out.println("sendAsSound: " + message);
 		if(output!=null){
 			output.writeObject(message);
 			output.flush();
