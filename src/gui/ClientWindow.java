@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import statics.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
 
@@ -31,38 +30,11 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private JTextArea usersInConvoWindow;
 	private List<String> usersInConvo;
 	
-	private Clip notificationSound;
-	private Clip userJoinedSound;
-	private Clip userLeftSound;
-	private Clip wooloolooSound;
-	private Clip bossAssBitchSound;
-	private Clip whatsGoingOnSound;
-	private Clip moveBitchSound;
-	private Clip openSound;
-	private Clip celebrateSound;
-
 	private boolean notificationMuted = false;
 	
 	private final static String USERJOINED = "other_joinchatsound.wav";
 	private final static String USERLEFT = "other_leavechatsound.wav";
 	private final static String NOTIFICATION ="other_notificationsound.wav";
-	
-	private boolean notificationSoundLoaded = false;
-	private boolean userLeftLoaded = false;
-	private boolean userJoinedLoaded = false;
-	private boolean wooloolooLoaded = false;
-	private boolean bossAssBitchLoaded = false;
-	private boolean whatsGoingOnLoaded = false;
-	private boolean moveBitchLoaded = false;
-	private boolean openLoaded = false;
-	private boolean celebrateLoaded = false;
-	
-	public final String WOOLOOLOO = StaticVariables.WOOLOOLOO;
-	public final String BOSSASSBITCH = StaticVariables.BOSSASSBITCH;
-	public final String WHATSGOINGON = StaticVariables.WHATSGOINGON;
-	public final String MOVEBITCH = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
-	public final String OPEN = StaticVariables.OPEN;
-	public final String CELEBRATE = StaticVariables.CELEBRATE;
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -81,8 +53,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.setEditable(false);
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
-		
-//		loadSounds();
 		
 		setSize(450,550);
 		setVisible(true);
@@ -151,8 +121,10 @@ public class ClientWindow extends JFrame implements ClientGui {
 			File file = new File("res/" + soundFileName);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
 			sound.open(inputStream);
-			sound.setMicrosecondPosition(0);
-			sound.start();
+			if(!soundFileName.equals(NOTIFICATION) || !notificationMuted) {
+				sound.setMicrosecondPosition(0);
+				sound.start();
+			}
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showSilentMessage("Bitch, you aint even got " + soundFileName);
 		} 
