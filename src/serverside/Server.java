@@ -63,7 +63,7 @@ public class Server {
 	void wreck(User u) {
 		u.closeCrap();
 		userList.remove(u);
-		gui.showMessage(u.name() + " decided to be uncool. What a bitch.");	//TODO broadcast this?
+		broadcast(u.name() + " decided to be uncool. What a bitch.");
 		updateUsersWindow();
 		broadcastUsernameList();
 	}
@@ -157,7 +157,6 @@ public class Server {
 			while(!Thread.currentThread().isInterrupted()) {
 				Socket s;
 				try {
-					//TODO add user to chatroom window
 					s = gatekeeper.accept();
 					if (!blackList.contains(s.getInetAddress().toString())) {
 						User u = new User(s,me);

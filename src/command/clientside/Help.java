@@ -18,7 +18,6 @@ public class Help implements Command {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		String help = "\nBitch needed some commands?\n" +
 				StaticVariables.HELP + "\n" +
 				StaticVariables.CONNECT + "\n" +

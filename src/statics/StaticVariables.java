@@ -12,7 +12,7 @@ public abstract class StaticVariables {
 	public final static String SETNAME= "/setname";
 	public final static String REQUESTADMIN = "/requestadmin";
 	public final static String KICK = "/kick";
-	//TODO add ban
+	public final static String BAN = "/ban";
 	
 	/** Sound commands*/
 	public final static String WOOLOOLOO= "/woolooloo";
