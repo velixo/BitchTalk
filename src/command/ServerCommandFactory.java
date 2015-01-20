@@ -47,14 +47,11 @@ public class ServerCommandFactory {
 			return new SetName(u, newUsername);
 			
 		case REQUESTADMIN:
-			try {
-				return new RequestAdmin(server, u, st.nextToken());
-			} catch (NoSuchElementException e) {
-				return new NotACommand(u);
-			}
+			String pin = input.replace(StaticVariables.REQUESTADMIN + " ", "");
+			return new RequestAdmin(server, u, pin);
 			
 		case KICK:
-			String username = input.replace("/kick ", "");
+			String username = input.replace(StaticVariables.KICK + " ", "");
 			return new Kick(server, u, username);
 
 		case WOOLOOLOO:
