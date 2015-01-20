@@ -5,15 +5,15 @@ import clientSide.ClientGui;
 import command.Command;
 
 public class ClientWhatsGoingOn implements Command {
-	private ClientGui gui;
+	private ClientGui g;
 	
-	public ClientWhatsGoingOn(ClientGui gui) {
-		this.gui = gui;
+	public ClientWhatsGoingOn(ClientGui g) {
+		this.g = g;
 	}
 
 	@Override
 	public void run() {
-		gui.playSound(StaticVariables.WHATSGOINGON);
+		g.playSound(StaticVariables.WHATSGOINGON);
 	}
 
 	

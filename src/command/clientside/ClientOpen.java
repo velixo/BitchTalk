@@ -5,15 +5,15 @@ import clientSide.ClientGui;
 import command.Command;
 
 public class ClientOpen implements Command{
-	private ClientGui gui;
+	private ClientGui g;
 	
-	public ClientOpen(ClientGui gui) {
-		this.gui = gui;
+	public ClientOpen(ClientGui g) {
+		this.g = g;
 	}
 
 	@Override
 	public void run() {
-		gui.playSound(StaticVariables.OPEN);
+		g.playSound(StaticVariables.OPEN);
 	}
 
 }

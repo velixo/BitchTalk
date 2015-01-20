@@ -5,15 +5,15 @@ import clientSide.ClientGui;
 import command.Command;
 
 public class ClientMoveBitch implements Command {
-	private ClientGui gui;
+	private ClientGui g;
 	
-	public ClientMoveBitch(ClientGui gui) {
-		this.gui = gui;
+	public ClientMoveBitch(ClientGui g) {
+		this.g = g;
 	}
 
 	@Override
 	public void run() {
-		gui.playSound(StaticVariables.SERVERBOSSASSBITCH);
+		g.playSound(StaticVariables.SERVERBOSSASSBITCH);
 	}
 
 }

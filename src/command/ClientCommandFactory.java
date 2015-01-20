@@ -24,7 +24,6 @@ public class ClientCommandFactory {
 	public final static String UNMUTE = StaticVariables.UNMUTE;
 	public final static String CONNECT = StaticVariables.CONNECT;
 	
-	//Commands that begin with "/:" can only come from server.
 	public final static String SERVERWOOLOOLOO = StaticVariables.SERVERWOOLOOLOO;
 	public final static String SERVERBOSSASSBITCH = StaticVariables.SERVERBOSSASSBITCH;
 	public final static String SERVERWHATSGOINGON = StaticVariables.SERVERWHATSGOINGON;
