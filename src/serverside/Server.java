@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Server {
 	
@@ -23,6 +24,7 @@ public class Server {
 			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
 			userList = new ArrayList<User>();
 			adminPin = randomizePin();
+			gui.showMessage("Admin access pin: " + adminPin);
 			blackList = new ArrayList<String>();
 			waitForConnectionThread.start();
 		} catch (IOException e) {
@@ -135,10 +137,15 @@ public class Server {
 	}
 	
 	private String randomizePin() {
-		//TODO implement randomizePin() correctly
-		String newPin = "abc123";
-		gui.showMessage("Admin access pin: " + newPin);
-		return newPin;
+		int pinLength = 6;
+		String possChars = "0123456789abcdefghjklmnopqrstuvwxyz";
+		Random rand = new Random();
+		StringBuilder newPin = new StringBuilder();
+		for (int i = 0; i < pinLength; i++) {
+			char c = possChars.charAt(rand.nextInt(possChars.length()));
+			newPin.append(c);
+		}
+		return newPin.toString();
 	}
 
 /******************************** THREAD DECLARATIONS *********************************************/
