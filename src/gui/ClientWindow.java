@@ -78,8 +78,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		usersInConvoWindow.append("Users currently in this chat: \n");
 		add(new JScrollPane(usersInConvoWindow), BorderLayout.EAST);
 		
-		loadBasicSounds();
-		loadFunnySounds();
+		loadSounds();
 		
 		setSize(450,550);
 		setVisible(true);
@@ -142,7 +141,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		return notificationMuted;
 	}
 
-	private void loadBasicSounds() {
+	private void loadSounds() {
 		try {
 			notificationSound = AudioSystem.getClip();
 			File file = new File("res/notificationSound.wav");
@@ -310,40 +309,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 			break;
 		}
 		System.out.println("Play " + soundName);
-	}
-	
-	private void loadFunnySounds() {
-//		try {
-//			wooloolooSound = AudioSystem.getClip();
-//			File file = new File("src/res/woolooloo.wav");
-//			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-//			wooloolooSound.open(inputStream);
-//			wooloolooLoaded = true;
-//		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-//			showMessage("woolooloo.wav could not be loaded. Deal with it, bitch.");
-//			wooloolooLoaded = false;
-//		}
-//		
-//		try {
-//			bossAssBitchSound = AudioSystem.getClip();
-//			File file = new File("src/res/bossAssBitch.wav");
-//			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-//			bossAssBitchSound.open(inputStream);
-//			bossAssBitchLoaded = true;
-//		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-//			showMessage("bossAssBitch.wav could not be loaded. Deal with it, bitch.");
-//			bossAssBitchLoaded = false;
-//		}
-//		
-//		try {
-//			whatsGoingOnSound = AudioSystem.getClip();
-//			File file = new File("src/res/whatsGoingOn.wav");
-//			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-//			whatsGoingOnSound.open(inputStream);
-//			whatsGoingOnLoaded = true;
-//		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
-//			whatsGoingOnLoaded = false;
-//		}
 	}
 	
 	private class ServerSendMessageListener implements ActionListener {
