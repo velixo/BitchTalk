@@ -13,7 +13,7 @@ public class ClientMoveBitch implements Command {
 
 	@Override
 	public void run() {
-		gui.playSound(StaticVariables.CLIENTBOSSASSBITCH);
+		gui.playSound(StaticVariables.SERVERBOSSASSBITCH);
 	}
 
 }

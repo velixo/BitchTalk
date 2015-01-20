@@ -2,12 +2,12 @@ package statics;
 
 public abstract class StaticVariables {
 	/** Variables used when a command is sent from the server to a client*/
-	public final static String CLIENTWOOLOOLOO = "/:woolooloo";
-	public final static String CLIENTBOSSASSBITCH = "/:bossassbitch";
-	public final static String CLIENTWHATSGOINGON = "/:whatsgoingon";
-	public final static String CLIENTMOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
-	public final static String CLIENTOPEN = "/:open";
-	public final static String CLIENTCELEBRATE = "/:celebrate";
+	public final static String SERVERWOOLOOLOO = "/:woolooloo";
+	public final static String SERVERBOSSASSBITCH = "/:bossassbitch";
+	public final static String SERVERWHATSGOINGON = "/:whatsgoingon";
+	public final static String SERVERMOVEBITCHGETOUTDAWAY = "/:movebitchgetoutdaway";
+	public final static String SERVEROPEN = "/:open";
+	public final static String SERVERCELEBRATE = "/:celebrate";
 	
 	/** Variables used when a command is sent from a client to the server*/
 	public final static String HELP = "/help";

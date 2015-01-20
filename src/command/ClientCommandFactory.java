@@ -25,12 +25,12 @@ public class ClientCommandFactory {
 	public final static String CONNECT = StaticVariables.CONNECT;
 	
 	//Commands that begin with "/:" can only come from server.
-	public final static String CLIENTWOOLOOLOO = StaticVariables.CLIENTWOOLOOLOO;
-	public final static String CLIENTBOSSASSBITCH = StaticVariables.CLIENTBOSSASSBITCH;
-	public final static String CLIENTWHATSGOINGON = StaticVariables.CLIENTWHATSGOINGON;
-	public final static String CLIENTMOVEBITCHGETOUTDAWAY = StaticVariables.CLIENTMOVEBITCHGETOUTDAWAY;
-	public final static String CLIENTOPEN = StaticVariables.CLIENTOPEN;
-	public final static String CLIENTCELEBRATE = StaticVariables.CLIENTCELEBRATE;
+	public final static String SERVERWOOLOOLOO = StaticVariables.SERVERWOOLOOLOO;
+	public final static String SERVERBOSSASSBITCH = StaticVariables.SERVERBOSSASSBITCH;
+	public final static String SERVERWHATSGOINGON = StaticVariables.SERVERWHATSGOINGON;
+	public final static String SERVERMOVEBITCHGETOUTDAWAY = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
+	public final static String SERVEROPEN = StaticVariables.SERVEROPEN;
+	public final static String SERVERCELEBRATE = StaticVariables.SERVERCELEBRATE;
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -62,22 +62,22 @@ public class ClientCommandFactory {
 		case UNMUTE:
 			return new Unmute(clientGui);
 			
-		case CLIENTWOOLOOLOO:
+		case SERVERWOOLOOLOO:
 			return new ClientWoolooloo(clientGui);
 			
-		case CLIENTBOSSASSBITCH:
+		case SERVERBOSSASSBITCH:
 			return new ClientBossAssBitch(clientGui);
 			
-		case CLIENTWHATSGOINGON:
+		case SERVERWHATSGOINGON:
 			return new ClientWhatsGoingOn(clientGui);
 			
-		case CLIENTMOVEBITCHGETOUTDAWAY:
+		case SERVERMOVEBITCHGETOUTDAWAY:
 			return new ClientMoveBitch(clientGui);
 		
-		case CLIENTOPEN:
+		case SERVEROPEN:
 			return new ClientOpen(clientGui);
 		
-		case CLIENTCELEBRATE:
+		case SERVERCELEBRATE:
 			return new ClientCelebrate(clientGui);
 		
 		case CONNECT:

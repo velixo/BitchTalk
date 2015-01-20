@@ -33,7 +33,6 @@ public class ServerCommandFactory {
 	private Server server;
 	private User u;
 	
-	//TODO: flytta servercommands till usercommands.
 	public ServerCommandFactory(User u, Server s) {
 		this.u = u;
 		server = s;

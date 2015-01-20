@@ -56,7 +56,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	public final String WOOLOOLOO = StaticVariables.WOOLOOLOO;
 	public final String BOSSASSBITCH = StaticVariables.BOSSASSBITCH;
 	public final String WHATSGOINGON = StaticVariables.WHATSGOINGON;
-	public final String MOVEBITCH = StaticVariables.CLIENTMOVEBITCHGETOUTDAWAY;
+	public final String MOVEBITCH = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
 	public final String OPEN = StaticVariables.OPEN;
 	public final String CELEBRATE = StaticVariables.CELEBRATE;
 	
