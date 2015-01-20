@@ -15,10 +15,6 @@ public class ServerCommandFactory {
 	public final static String SETNAME= StaticVariables.SETNAME;
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
-
-//	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
-//	public final static String GAFFELTRUCK = "/gaffeltruck";
-//	public final static String RETARDBIRD = "/retardbird";
 	
 	private Server server;
 	private User u;
@@ -42,7 +38,6 @@ public class ServerCommandFactory {
 		case KICK:
 			String username = input.replace(StaticVariables.KICK + " ", "");
 			return new Kick(server, u, username);
-
 		
 		default:
 			if(isAdminSound(input) && u.isAdmin()) {

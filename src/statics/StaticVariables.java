@@ -20,6 +20,7 @@ public abstract class StaticVariables {
 	public final static String BOSSASSBITCH = "/bossassbitch";
 	public final static String OPEN= "/open";
 	public final static String CELEBRATE = "/celebrate";
+	public final static String DOYOUSPEAKIT = "/doyouspeakit";
 	
 //	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 //	public final static String GAFFELTRUCK = "/gaffeltruck";
