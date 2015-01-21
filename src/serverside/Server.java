@@ -47,10 +47,11 @@ public class Server {
 		}
 	}
 	public void broadcastUsernameList() {
-		List<String> usernames = new ArrayList<String>();
-		for (User u : userList) {
-			usernames.add(u.name());
-		}
+//		List<String> usernames = new ArrayList<String>();
+//		for (User u : userList) {
+//			usernames.add(u.name());
+//		}
+		List<String> usernames = getUsernamesList();
 		for(User u : userList) {
 			try {
 				u.sendUserList(usernames);
@@ -58,6 +59,14 @@ public class Server {
 				wreck(u);
 			}
 		}
+	}
+	
+	public List<String> getUsernamesList() {
+		List<String> usernames = new ArrayList<String>();
+		for (User u : userList) {
+			usernames.add(u.name());
+		}
+		return usernames;
 	}
 	
 	void wreck(User u) {

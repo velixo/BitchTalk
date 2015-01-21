@@ -13,14 +13,15 @@ public abstract class StaticVariables {
 	public final static String REQUESTADMIN = "/requestadmin";
 	public final static String KICK = "/kick";
 	public final static String BAN = "/ban";
+	public final static String BITCHLIST = "/bitchlist";
 	
 	/** Sound commands*/
-	public final static String WOOLOOLOO= "/woolooloo";
-	public final static String WHATSGOINGON= "/whatsgoingon";
-	public final static String BOSSASSBITCH = "/bossassbitch";
-	public final static String OPEN= "/open";
-	public final static String CELEBRATE = "/celebrate";
-	public final static String DOYOUSPEAKIT = "/doyouspeakit";
+//	public final static String WOOLOOLOO= "/woolooloo";
+//	public final static String WHATSGOINGON= "/whatsgoingon";
+//	public final static String BOSSASSBITCH = "/bossassbitch";
+//	public final static String OPEN= "/open";
+//	public final static String CELEBRATE = "/celebrate";
+//	public final static String DOYOUSPEAKIT = "/doyouspeakit";
 	
 //	public final static String BITCHSAYMYNAME = "/bitchsaymyname";
 //	public final static String GAFFELTRUCK = "/gaffeltruck";

@@ -5,14 +5,15 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 import statics.StaticVariables;
-
+import command.serverside.BitchList;
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerSound;
 import command.serverside.SetName;
 
 public class ServerCommandFactory {
-	public final static String SETNAME= StaticVariables.SETNAME;
+	public final static String BITCHLIST = StaticVariables .BITCHLIST;
+	public final static String SETNAME = StaticVariables.SETNAME;
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
 	
@@ -27,6 +28,9 @@ public class ServerCommandFactory {
 	public Command build(String input) {
 		StringTokenizer st = new StringTokenizer(input);
 		switch (st.nextToken()) {
+		case BITCHLIST:
+			return new BitchList(server, u);
+		
 		case SETNAME:
 			String newUsername = input.replace(SETNAME + " ", "");
 			return new SetName(u, newUsername);

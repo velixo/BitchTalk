@@ -23,6 +23,7 @@ public class Help implements Command {
 				StaticVariables.CONNECT + "\n" +
 				StaticVariables.MUTE + "\n" +
 				StaticVariables.UNMUTE + "\n" +
+				StaticVariables.BITCHLIST + "\n" +
 				StaticVariables.SETNAME + "\n";
 		List<String> sounds = getNormalSoundNames();
 		for(String sound : sounds) {
