@@ -80,10 +80,10 @@ public class Server {
 	public void kick(User kicker, String username) {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
+				broadcast(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
 				u.closeCrap();
 				userList.remove(u);
 				broadcast(username + ", fuck off bitch.");
-				broadcast(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
 				updateUsersWindow();
 				broadcastUsernameList();
 				return;
