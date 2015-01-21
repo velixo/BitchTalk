@@ -67,11 +67,10 @@ public class ClientCommandFactory {
 		
 		default:
 			if(isServerCommand(input)) {
-				System.out.println("isServerCommand");
-				if(isSound(input))
-					System.out.println("isSound");
+				if(isSound(input)) {
 					String soundName = input.replace("/:", "") + ".wav";
 					return new ClientSound(clientGui, soundName);
+				}
 			}
 			return new NotACommand(clientGui);
 		}
@@ -90,7 +89,7 @@ public class ClientCommandFactory {
 		File soundFolder = new File("res/");
 		File[] sounds = soundFolder.listFiles();
 		for (File sound : sounds){
-			if (sound.getName() == soundName + ".wav" || sound.getName() == adminSoundName + ".wav")
+			if (sound.getName().equals(soundName + ".wav") || sound.getName().equals(adminSoundName + ".wav"))
 				return true;
 		}
 		return false;
