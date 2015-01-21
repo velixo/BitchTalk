@@ -1,5 +1,6 @@
 package command;
 
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
@@ -16,6 +17,8 @@ public class ServerCommandFactory {
 	public final static String SETNAME = StaticVariables.SETNAME;
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
+	public final static String OLD_WOOLOOLOO = "/woolooloo";
+	public final static String OLD_BOSSASSBITCH = "/bossassbitch";
 	
 	private Server server;
 	private User u;
@@ -44,7 +47,13 @@ public class ServerCommandFactory {
 			return new Kick(server, u, username);
 		
 		default:
-			if(isAdminSound(input) && u.isAdmin()) {
+			if(isOldCommand(input)) {
+				try {
+					u.send("Bitch, you need an update. The fucking file is where you found the last one, bitch.");
+				} catch (IOException e) {
+					server.wreck(u);
+				}
+			} else if(isAdminSound(input) && u.isAdmin()) {
 				return new ServerSound(server, encodeSoundString(input));
 			} else if(isNormalSound(input)) {
 				return new ServerSound(server, encodeSoundString(input));
@@ -66,5 +75,9 @@ public class ServerCommandFactory {
 			return input.replace("/:a:", "/:admin_");
 		else
 			return input.replace("/:s:", "/:" );
+	}
+	
+	private boolean isOldCommand(String input) {	
+		return input.equals(OLD_WOOLOOLOO) || input.equals(OLD_BOSSASSBITCH);
 	}
 }
