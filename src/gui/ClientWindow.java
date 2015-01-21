@@ -117,11 +117,11 @@ public class ClientWindow extends JFrame implements ClientGui {
 
 	public void playSound(String soundFileName) {
 		try {
-			Clip sound = AudioSystem.getClip();
-			File file = new File("res/" + soundFileName);
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-			sound.open(inputStream);
 			if(!soundFileName.equals(NOTIFICATION) || !notificationMuted) {
+				Clip sound = AudioSystem.getClip();
+				File file = new File("res/" + soundFileName);
+				AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+				sound.open(inputStream);
 				sound.setMicrosecondPosition(0);
 				sound.start();
 			}
