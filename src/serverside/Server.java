@@ -105,6 +105,15 @@ public class Server {
 		gui.updateUsersWindow(usernames);
 	}
 	
+	public String getIp(String username) {
+		for (User u : userList) {
+			if (u.name().equals(username)) {
+				return u.getInetAddress().toString().replace("/", "");
+			}
+		}
+		return null;
+	}
+	
 	public ServerGui getServerGui() {
 		return gui;
 	}

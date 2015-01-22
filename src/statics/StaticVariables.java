@@ -14,6 +14,7 @@ public abstract class StaticVariables {
 	public final static String KICK = "/kick";
 	public final static String BAN = "/ban";
 	public final static String BITCHLIST = "/bitchlist";
+	public final static String GETIP = "/getip";
 	
 	/** Sound commands*/
 //	public final static String WOOLOOLOO= "/woolooloo";

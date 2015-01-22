@@ -6,7 +6,9 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 import statics.StaticVariables;
+
 import command.serverside.BitchList;
+import command.serverside.GetIp;
 import command.serverside.Kick;
 import command.serverside.RequestAdmin;
 import command.serverside.ServerSound;
@@ -17,6 +19,7 @@ public class ServerCommandFactory {
 	public final static String SETNAME = StaticVariables.SETNAME;
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
+	public final static String GETIP = StaticVariables.GETIP;
 	public final static String OLD_WOOLOOLOO = "/woolooloo";
 	public final static String OLD_BOSSASSBITCH = "/bossassbitch";
 	
@@ -30,6 +33,7 @@ public class ServerCommandFactory {
 	
 	public Command build(String input) {
 		StringTokenizer st = new StringTokenizer(input);
+		String username;
 		switch (st.nextToken()) {
 		case BITCHLIST:
 			return new BitchList(server, u);
@@ -39,12 +43,16 @@ public class ServerCommandFactory {
 			return new SetName(u, newUsername);
 			
 		case REQUESTADMIN:
-			String pin = input.replace(StaticVariables.REQUESTADMIN + " ", "");
+			String pin = input.replace(REQUESTADMIN + " ", "");
 			return new RequestAdmin(server, u, pin);
 			
 		case KICK:
-			String username = input.replace(StaticVariables.KICK + " ", "");
+			username = input.replace(KICK + " ", "");
 			return new Kick(server, u, username);
+			
+		case GETIP:
+			username = input.replace(GETIP + " ", "");
+			return new GetIp(server, u, username);
 		
 		default:
 			if(isOldCommand(input)) {
