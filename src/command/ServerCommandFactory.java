@@ -40,7 +40,7 @@ public class ServerCommandFactory {
 		
 		case SETNAME:
 			String newUsername = input.replace(SETNAME + " ", "");
-			return new SetName(u, newUsername);
+			return new SetName(server, u, newUsername);
 			
 		case REQUESTADMIN:
 			String pin = input.replace(REQUESTADMIN + " ", "");
