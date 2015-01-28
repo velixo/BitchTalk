@@ -1,4 +1,4 @@
-package test;
+package mains;
 
 import serverside.Server;
 import serverside.ServerCLI;
