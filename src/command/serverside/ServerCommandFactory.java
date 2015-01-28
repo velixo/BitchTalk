@@ -15,6 +15,7 @@ public class ServerCommandFactory {
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
 	public final static String GETIP = StaticVariables.GETIP;
+	public final static String GETALIASES = StaticVariables.GETALIASES;
 	public final static String OLD_WOOLOOLOO = "/woolooloo";
 	public final static String OLD_BOSSASSBITCH = "/bossassbitch";
 	
@@ -48,6 +49,9 @@ public class ServerCommandFactory {
 		case GETIP:
 			username = input.replace(GETIP + " ", "");
 			return new GetIp(server, u, username);
+			
+		case GETALIASES:
+			return new GetAliases(server, u);
 		
 		default:
 			if(isOldCommand(input)) {

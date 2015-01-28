@@ -5,17 +5,18 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import statics.StaticVariables;
 
 public class Server {
-	
 	private ServerSocket gatekeeper;
 	private ServerGui gui;
 	private ArrayList<User> userList;
 	private ArrayList<String> blackList;
+	private Aliasizer aliasizer;
 	private Server me = this;
 	private String adminPin;
 	
@@ -25,6 +26,7 @@ public class Server {
 			gui = g;
 			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
 			userList = new ArrayList<User>();
+			aliasizer = new Aliasizer();
 			adminPin = randomizePin();
 			gui.showMessage("Admin access pin: " + adminPin);
 			blackList = new ArrayList<String>();
@@ -37,10 +39,11 @@ public class Server {
 	
 	
 	public void broadcast(String m){
-		gui.showMessage(m);
+		String aliasedMessage = aliasizer.aliasify(m);
+		gui.showMessage(aliasedMessage);
 		for(User u : userList){
 			try {
-				u.send(m);
+				u.send(aliasedMessage);
 			} catch (IOException e) {
 				wreck(u);
 			}
@@ -67,6 +70,10 @@ public class Server {
 			usernames.add(u.name());
 		}
 		return usernames;
+	}
+	
+	public HashMap<String, String> getAliases() {
+		return aliasizer.getAliases();
 	}
 	
 	public void wreck(User u) {

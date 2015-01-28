@@ -14,9 +14,12 @@ public class Aliasizer {
 	
 	public void set(String word, String alias){
 		aliases.put(word.toLowerCase(), alias);
-		
 	}
-	//FIXME problem med specialtecken.
+	
+	HashMap<String, String> getAliases() {
+		return aliases;
+	}
+	
 	public String aliasify(String s){
 		Set<String> words = aliases.keySet();
 		
@@ -38,7 +41,6 @@ public class Aliasizer {
 			aliasifedInp = aliasifedInp.replace(hash, alias);
 		}
 		return aliasifedInp;
-		
 		
 //		StringTokenizer st = new StringTokenizer(s);
 //		StringBuilder sb = new StringBuilder();
