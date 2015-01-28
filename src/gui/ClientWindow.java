@@ -65,7 +65,8 @@ public class ClientWindow extends JFrame implements ClientGui {
 	public void showMessage(String m) {
 		chatWindow.append(m + "\n");
 		if (!isActive() || !isFocused()) {	//not sure which one to use or what the difference is
-			playSound(NOTIFICATION);
+			if (!notificationMuted)
+				playSound(NOTIFICATION);
 		}
 	}
 	
@@ -117,14 +118,12 @@ public class ClientWindow extends JFrame implements ClientGui {
 
 	public void playSound(String soundFileName) {
 		try {
-			if(!soundFileName.equals(NOTIFICATION) || !notificationMuted) {
-				Clip sound = AudioSystem.getClip();
-				File file = new File("res/" + soundFileName);
-				AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
-				sound.open(inputStream);
-				sound.setMicrosecondPosition(0);
-				sound.start();
-			}
+			Clip sound = AudioSystem.getClip();
+			File file = new File("res/" + soundFileName);
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(file);
+			sound.open(inputStream);
+			sound.setMicrosecondPosition(0);
+			sound.start();
 		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | IllegalArgumentException e) {
 			showSilentMessage("Bitch, you aint even got " + soundFileName);
 		} 
