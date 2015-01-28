@@ -8,8 +8,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
-import command.ClientCommandFactory;
 import command.Command;
+import command.clientside.ClientCommandFactory;
 
 public class Client {
 	

@@ -1,4 +1,4 @@
-package command;
+package command.clientside;
 
 import java.io.File;
 import java.util.StringTokenizer;
@@ -6,13 +6,8 @@ import java.util.StringTokenizer;
 import statics.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
-
-import command.clientside.AlreadyConnected;
-import command.clientside.ClientSound;
-import command.clientside.Connect;
-import command.clientside.Help;
-import command.clientside.Mute;
-import command.clientside.Unmute;
+import command.Command;
+import command.NotACommand;
 
 public class ClientCommandFactory {
 	public final static String HELP = StaticVariables.HELP;

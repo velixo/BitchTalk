@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.List;
 
 import command.Command;
-import command.ServerCommandFactory;
+import command.serverside.ServerCommandFactory;
 
 public class User {
 	private String name;

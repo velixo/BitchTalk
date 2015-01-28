@@ -1,4 +1,4 @@
-package command;
+package command.serverside;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -6,13 +6,8 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 import statics.StaticVariables;
-
-import command.serverside.BitchList;
-import command.serverside.GetIp;
-import command.serverside.Kick;
-import command.serverside.RequestAdmin;
-import command.serverside.ServerSound;
-import command.serverside.SetName;
+import command.Command;
+import command.NotACommand;
 
 public class ServerCommandFactory {
 	public final static String BITCHLIST = StaticVariables .BITCHLIST;
