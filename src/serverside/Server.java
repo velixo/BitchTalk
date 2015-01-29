@@ -187,6 +187,7 @@ public class Server {
 						User u = new User(s,me);
 						userList.add(u);
 						broadcast(u.name() + " has joined.");
+						gui.showMessage(u.name() + " has ip " + getIp(u.name()));
 						u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();
