@@ -3,6 +3,8 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.BoundedRangeModel;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,6 +29,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 	private Client client;
 	
 	private JTextArea chatWindow;
+	private JScrollPane chatScrollPane;
 	private JTextField chatInput;
 	private JTextArea usersInConvoWindow;
 	private List<String> usersInConvo;
@@ -41,7 +45,9 @@ public class ClientWindow extends JFrame implements ClientGui {
 		
 		chatWindow = new JTextArea();
 		chatWindow.setEditable(false);
-		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+		chatScrollPane = new JScrollPane(chatWindow);
+		chatScrollPane.getVerticalScrollBar().addAdjustmentListener(new AutoScroll(chatScrollPane));
+		add(chatScrollPane, BorderLayout.CENTER);
 		
 		chatInput = new JTextField();
 		chatInput.setEditable(true);
@@ -69,7 +75,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 				playSound(NOTIFICATION);
 		}
 	}
-	
+
 	public void showSilentMessage(String m) {
 		chatWindow.append(m + "\n");
 	}
@@ -146,5 +152,25 @@ public class ClientWindow extends JFrame implements ClientGui {
 		}
 	}
 	
+	private class AutoScroll implements AdjustmentListener {
+		private JScrollPane scrollPane;
+		private static final int margin = 20;
+		
+		public AutoScroll(JScrollPane sp) {
+			scrollPane = sp;
+		}
+
+		@Override
+		public void adjustmentValueChanged(AdjustmentEvent e) {
+			int max = scrollPane.getVerticalScrollBar().getMaximum();
+			int topOffset = scrollPane.getVerticalScrollBar().getValue(); //how far down from the start the scrollbar currently is
+			int length = scrollPane.getVerticalScrollBar().getModel().getExtent();
+			System.out.println("asdasd = " + (max - (topOffset + length)));
+			if (max - (topOffset + length) < margin) {
+				scrollPane.getVerticalScrollBar().setValue(max);
+			}
+		}
+		
+	}
 	
 }
