@@ -34,11 +34,7 @@ public class NotACommand implements Command {
 		if (c != null)
 			c.showMessage(NACMSG);
 		if (u != null) {
-			try {
-				u.send(NACMSG);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			u.send(NACMSG);
 		}
 	}
 

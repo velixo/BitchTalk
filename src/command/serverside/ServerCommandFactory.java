@@ -64,11 +64,7 @@ public class ServerCommandFactory {
 		
 		default:
 			if(isOldCommand(input)) {
-				try {
-					u.send("Bitch, you need an update. The fucking file is where you found the last one, bitch.");
-				} catch (IOException e) {
-					server.wreck(u);
-				}
+				u.send("Bitch, you need an update. The fucking file is where you found the last one, bitch.");
 			} else if(isAdminSound(input) && u.isAdmin()) {
 				return new ServerSound(server, encodeSoundString(input));
 			} else if(isNormalSound(input)) {

@@ -32,9 +32,14 @@ public class User {
 		checkmail.start();
 	}
 	
-	public void send(String message) throws IOException {
-		output.writeObject(message);
-		output.flush();
+	public void send(String message){
+		try {
+			output.writeObject(message);
+			output.flush();
+		} catch (IOException e) {
+			server.wreck(me);
+		}
+		
 	}
 	
 	public void sendUserList(List<String> list) throws IOException {

@@ -21,24 +21,20 @@ public class Alias implements Command {
 
 	@Override
 	public void run() {
-		try {
-			StringTokenizer st = new StringTokenizer(input);
-			st.nextToken();
-			String word = "";
-			String alias = "";
-			if (st.hasMoreTokens()) {	//input == "/alias *"
-				word = st.nextToken();
-				if (st.hasMoreTokens()) {	//input == "/alias <word> *"
-					alias = st.nextToken();
-					server.getAliasizer().set(word, alias);;
-				} else	//input != "/alias <word> *"
-					u.send("Bitch, you need an alias.");
-				
-			} else	//input != "/alias *"
-				u.send("Bitch, you need a word to be aliased.");
-		} catch (IOException e) {
-			server.wreck(u);
-		}
+		StringTokenizer st = new StringTokenizer(input);
+		st.nextToken();
+		String word = "";
+		String alias = "";
+		if (st.hasMoreTokens()) {	//input == "/alias *"
+			word = st.nextToken();
+			if (st.hasMoreTokens()) {	//input == "/alias <word> *"
+				alias = st.nextToken();
+				server.getAliasizer().set(word, alias);;
+			} else	//input != "/alias <word> *"
+				u.send("Bitch, you need an alias.");
+			
+		} else	//input != "/alias *"
+			u.send("Bitch, you need a word to be aliased.");
 	}
 
 }

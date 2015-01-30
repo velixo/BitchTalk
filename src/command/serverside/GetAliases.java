@@ -22,17 +22,13 @@ public class GetAliases implements Command {
 	@Override
 	public void run() {
 		if (user.isAdmin()) {
-			try {
-				HashMap<String, String> aliases = server.getAliasizer().getAliases();
-				Set<String> words = aliases.keySet();
-				String message = "";
-				for (String word : words) {
-					message += word + " => " + aliases.get(word) + "\n";
-				}
-				user.send(message);
-			} catch (IOException e) {
-				e.printStackTrace();
+			HashMap<String, String> aliases = server.getAliasizer().getAliases();
+			Set<String> words = aliases.keySet();
+			String message = "";
+			for (String word : words) {
+				message += word + " => " + aliases.get(word) + "\n";
 			}
+			user.send(message);
 		}
 	}
 

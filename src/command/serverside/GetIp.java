@@ -19,14 +19,9 @@ public class GetIp implements Command {
 
 	@Override
 	public void run() {
-		try {
-			if (u.isAdmin()) {
-				String ip = s.getIp(username);
-				u.send("Bitch " + username + "'s IP is " + ip);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			s.wreck(u);	//check if this is alright
+		if (u.isAdmin()) {
+			String ip = s.getIp(username);
+			u.send("Bitch " + username + "'s IP is " + ip);
 		}
 	}
 

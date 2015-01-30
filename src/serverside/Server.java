@@ -46,11 +46,7 @@ public class Server {
 	public void broadcast(String aliasedMessage) {
 		gui.showMessage(aliasedMessage);
 		for(User u : userList){
-			try {
-				u.send(aliasedMessage);
-			} catch (IOException e) {
-				wreck(u);
-			}
+			u.send(aliasedMessage);
 		}
 	}
 	
@@ -101,12 +97,7 @@ public class Server {
 				return;
 			}
 		}
-		try {
-			kicker.send("That bitch isn't in this chat, yo.");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		kicker.send("That bitch isn't in this chat, yo.");
 	}
 	
 	private void updateUsersWindow() {
@@ -140,28 +131,20 @@ public class Server {
 	}
 	
 	public void unban(User unbanner, String ip) {
-		try {
-			if (blackList.contains(ip)) {
-				blackList.remove(ip);
-					unbanner.send(ip + " was removed from the ban list. Hope the bitch keeps his manners this time.");
-			} else {
-				unbanner.send(ip + " isn't banned.");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (blackList.contains(ip)) {
+			blackList.remove(ip);
+				unbanner.send(ip + " was removed from the ban list. Hope the bitch keeps his manners this time.");
+		} else {
+			unbanner.send(ip + " isn't banned.");
 		}
 	}
 	
 	public void sendBannedList(User u) {
-		try {
-			StringBuilder message = new StringBuilder("The following IP's are banned: \n");
-			for (String ip : blackList) {
-				message.append(ip + "\n");
-			}
-			u.send(message.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
+		StringBuilder message = new StringBuilder("The following IP's are banned: \n");
+		for (String ip : blackList) {
+			message.append(ip + "\n");
 		}
+		u.send(message.toString());
 	}
 	
 	public boolean pinIsCorrect(String pinGuess) {
@@ -190,10 +173,15 @@ public class Server {
 					s = gatekeeper.accept();
 					if (!blackList.contains(s.getInetAddress().toString())) {
 						User u = new User(s,me);
+						for(User i : userList){
+							if (i.getInetAddress().equals(u.getInetAddress())){
+								u = null;
+							}
+						}
 						userList.add(u);
 						broadcastWithAlias(u.name() + " has joined.");
 						gui.showMessage(u.name() + " has ip " + getIp(u.name()));
-						u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
+//						u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();
 					} else {
