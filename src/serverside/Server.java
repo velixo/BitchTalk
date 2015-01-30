@@ -5,7 +5,6 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -38,8 +37,13 @@ public class Server {
 	}
 	
 	
-	public void broadcast(String m){
+	public void broadcastWithAlias(String m){
 		String aliasedMessage = aliasizer.aliasify(m);
+		broadcast(aliasedMessage);
+	}
+
+
+	public void broadcast(String aliasedMessage) {
 		gui.showMessage(aliasedMessage);
 		for(User u : userList){
 			try {
@@ -49,6 +53,7 @@ public class Server {
 			}
 		}
 	}
+	
 	public void broadcastUsernameList() {
 //		List<String> usernames = new ArrayList<String>();
 //		for (User u : userList) {
@@ -72,14 +77,14 @@ public class Server {
 		return usernames;
 	}
 	
-	public HashMap<String, String> getAliases() {
-		return aliasizer.getAliases();
+	public Aliasizer getAliasizer() {
+		return aliasizer;
 	}
 	
 	public void wreck(User u) {
 		u.closeCrap();
 		userList.remove(u);
-		broadcast(u.name() + " decided to be uncool. What a bitch.");
+		broadcastWithAlias(u.name() + " decided to be uncool. What a bitch.");
 		updateUsersWindow();
 		broadcastUsernameList();
 	}
@@ -87,10 +92,10 @@ public class Server {
 	public void kick(User kicker, String username) {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
-				broadcast(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
+				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
 				u.closeCrap();
 				userList.remove(u);
-				broadcast(username + ", fuck off bitch.");
+				broadcastWithAlias(username + ", fuck off bitch.");
 				updateUsersWindow();
 				broadcastUsernameList();
 				return;
@@ -186,7 +191,7 @@ public class Server {
 					if (!blackList.contains(s.getInetAddress().toString())) {
 						User u = new User(s,me);
 						userList.add(u);
-						broadcast(u.name() + " has joined.");
+						broadcastWithAlias(u.name() + " has joined.");
 						gui.showMessage(u.name() + " has ip " + getIp(u.name()));
 						u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();

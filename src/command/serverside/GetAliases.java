@@ -6,6 +6,7 @@ import java.util.Set;
 
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class GetAliases implements Command {
@@ -22,7 +23,7 @@ public class GetAliases implements Command {
 	public void run() {
 		if (user.isAdmin()) {
 			try {
-				HashMap<String, String> aliases = server.getAliases();
+				HashMap<String, String> aliases = server.getAliasizer().getAliases();
 				Set<String> words = aliases.keySet();
 				String message = "";
 				for (String word : words) {

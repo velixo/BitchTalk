@@ -84,7 +84,7 @@ public class User {
 						c.run();
 					}
 					else{
-						server.broadcast(name() + ": " + m);						
+						server.broadcastWithAlias(name() + ": " + m);						
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;

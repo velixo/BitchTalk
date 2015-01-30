@@ -16,6 +16,9 @@ public class ServerCommandFactory {
 	public final static String KICK = StaticVariables.KICK;
 	public final static String GETIP = StaticVariables.GETIP;
 	public final static String GETALIASES = StaticVariables.GETALIASES;
+	public final static String ALIAS = StaticVariables.ALIAS;
+	public final static String SENDTRUE = StaticVariables.SENDTRUE;
+	
 	public final static String OLD_WOOLOOLOO = "/woolooloo";
 	public final static String OLD_BOSSASSBITCH = "/bossassbitch";
 	
@@ -52,6 +55,12 @@ public class ServerCommandFactory {
 			
 		case GETALIASES:
 			return new GetAliases(server, u);
+			
+		case ALIAS:
+			return new Alias(server, u, input);
+			
+		case SENDTRUE:
+			return new SendTrue(server, u, input);
 		
 		default:
 			if(isOldCommand(input)) {

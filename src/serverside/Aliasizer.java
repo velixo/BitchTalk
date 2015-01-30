@@ -16,7 +16,7 @@ public class Aliasizer {
 		aliases.put(word.toLowerCase(), alias);
 	}
 	
-	HashMap<String, String> getAliases() {
+	public HashMap<String, String> getAliases() {
 		return aliases;
 	}
 	
