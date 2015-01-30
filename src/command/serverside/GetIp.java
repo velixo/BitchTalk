@@ -1,9 +1,8 @@
 package command.serverside;
 
-import java.io.IOException;
-
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class GetIp implements Command {

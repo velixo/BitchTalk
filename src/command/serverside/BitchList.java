@@ -1,10 +1,10 @@
 package command.serverside;
 
-import java.io.IOException;
 import java.util.List;
 
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class BitchList implements Command{

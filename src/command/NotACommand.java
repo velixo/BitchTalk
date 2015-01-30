@@ -1,7 +1,5 @@
 package command;
 
-import java.io.IOException;
-
 import serverside.ServerGui;
 import serverside.User;
 import statics.StaticVariables;

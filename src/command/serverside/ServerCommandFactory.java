@@ -1,11 +1,11 @@
 package command.serverside;
 
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
 import statics.StaticVariables;
+
 import command.Command;
 import command.NotACommand;
 
