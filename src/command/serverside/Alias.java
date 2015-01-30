@@ -1,11 +1,11 @@
 package command.serverside;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class Alias implements Command {
