@@ -18,6 +18,7 @@ public abstract class StaticVariables {
 	public final static String GETALIASES = "/getaliases";
 	public final static String ALIAS = "/alias";
 	public final static String SENDTRUE = "/sendtrue";
+	public final static String DISCONNECT = "/disconnect";
 	
 	public final static String NOTACOMMANDMESSAGE = "Bitch, thats not a command!";
 	

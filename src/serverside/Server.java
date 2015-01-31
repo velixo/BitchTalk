@@ -89,6 +89,7 @@ public class Server {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
 				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
+				u.send(StaticVariables.DISCONNECT);
 				u.closeCrap();
 				userList.remove(u);
 				broadcastWithAlias(username + ", fuck off bitch.");
@@ -175,7 +176,7 @@ public class Server {
 						User u = new User(s,me);
 						for(User i : userList){
 							if (i.getInetAddress().equals(u.getInetAddress())){
-								u = null;
+								userList.remove(i);
 							}
 						}
 						userList.add(u);
