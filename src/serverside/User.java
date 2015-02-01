@@ -32,6 +32,7 @@ public class User {
 		checkmail.start();
 	}
 	
+	//TODO maybe needs to be throws exception again...? we need to know when send is used in a for-loop that removes users from Server.userList
 	public void send(String message){
 		try {
 			output.writeObject(message);

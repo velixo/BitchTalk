@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -18,12 +19,14 @@ public class Server {
 	private Aliasizer aliasizer;
 	private Server me = this;
 	private String adminPin;
-	
-	public Server(ServerGui g){
+
+	public Server(ServerGui g) {
 		try {
 			gatekeeper = new ServerSocket(9513);
 			gui = g;
-			gui.showMessage("Welcome, bitch king. " + InetAddress.getLocalHost().getHostAddress() + " is yours.");
+			gui.showMessage("Welcome, bitch king. "
+					+ InetAddress.getLocalHost().getHostAddress()
+					+ " is yours.");
 			userList = new ArrayList<User>();
 			aliasizer = new Aliasizer();
 			adminPin = randomizePin();
@@ -35,28 +38,23 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void broadcastWithAlias(String m){
+
+	public void broadcastWithAlias(String m) {
 		String aliasedMessage = aliasizer.aliasify(m);
 		broadcast(aliasedMessage);
 	}
 
-
 	public void broadcast(String aliasedMessage) {
 		gui.showMessage(aliasedMessage);
-		for(User u : userList){
+		//TODO user.send might wreck himself. this happens inside a for-each statement, which is not safe.
+		for (User u : userList) {
 			u.send(aliasedMessage);
 		}
 	}
-	
+
 	public void broadcastUsernameList() {
-//		List<String> usernames = new ArrayList<String>();
-//		for (User u : userList) {
-//			usernames.add(u.name());
-//		}
 		List<String> usernames = getUsernamesList();
-		for(User u : userList) {
+		for (User u : userList) {
 			try {
 				u.sendUserList(usernames);
 			} catch (IOException e) {
@@ -64,7 +62,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 	public List<String> getUsernamesList() {
 		List<String> usernames = new ArrayList<String>();
 		for (User u : userList) {
@@ -72,11 +70,12 @@ public class Server {
 		}
 		return usernames;
 	}
-	
+
 	public Aliasizer getAliasizer() {
 		return aliasizer;
 	}
-	
+
+	//TODO wreck is very unsafe to use while inside an iteration. do something about this in the general code structure.
 	public void wreck(User u) {
 		u.closeCrap();
 		userList.remove(u);
@@ -84,15 +83,16 @@ public class Server {
 		updateUsersWindow();
 		broadcastUsernameList();
 	}
-	
+
 	public void kick(User kicker, String username) {
+		//TODO iterator
 		for (User u : userList) {
 			if (u.name().equals(username)) {
 				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
+				broadcastWithAlias(u.name() + ", fuck off bitch.");
 				u.send(StaticVariables.DISCONNECT);
 				u.closeCrap();
 				userList.remove(u);
-				broadcastWithAlias(username + ", fuck off bitch.");
 				updateUsersWindow();
 				broadcastUsernameList();
 				return;
@@ -100,7 +100,7 @@ public class Server {
 		}
 		kicker.send("That bitch isn't in this chat, yo.");
 	}
-	
+
 	private void updateUsersWindow() {
 		List<String> usernames = new ArrayList<String>();
 		for (User u : userList) {
@@ -108,7 +108,7 @@ public class Server {
 		}
 		gui.updateUsersWindow(usernames);
 	}
-	
+
 	public String getIp(String username) {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
@@ -117,11 +117,11 @@ public class Server {
 		}
 		return null;
 	}
-	
+
 	public ServerGui getServerGui() {
 		return gui;
 	}
-	
+
 	public void ban(User unbanner, String username) {
 		for (User u : userList) {
 			if (u.name().equals(username)) {
@@ -130,28 +130,30 @@ public class Server {
 			}
 		}
 	}
-	
+
 	public void unban(User unbanner, String ip) {
 		if (blackList.contains(ip)) {
 			blackList.remove(ip);
-				unbanner.send(ip + " was removed from the ban list. Hope the bitch keeps his manners this time.");
+			unbanner.send(ip
+					+ " was removed from the ban list. Hope the bitch keeps his manners this time.");
 		} else {
 			unbanner.send(ip + " isn't banned.");
 		}
 	}
-	
+
 	public void sendBannedList(User u) {
-		StringBuilder message = new StringBuilder("The following IP's are banned: \n");
+		StringBuilder message = new StringBuilder(
+				"The following IP's are banned: \n");
 		for (String ip : blackList) {
 			message.append(ip + "\n");
 		}
 		u.send(message.toString());
 	}
-	
+
 	public boolean pinIsCorrect(String pinGuess) {
 		return adminPin.equals(pinGuess);
 	}
-	
+
 	private String randomizePin() {
 		int pinLength = 6;
 		String possChars = "0123456789abcdefghjklmnopqrstuvwxyz";
@@ -164,29 +166,30 @@ public class Server {
 		return newPin.toString();
 	}
 
-/******************************** THREAD DECLARATIONS *********************************************/
-	
+	/******************************** THREAD DECLARATIONS *********************************************/
+
 	Thread waitForConnectionThread = new Thread() {
 		public void run() {
-			while(!Thread.currentThread().isInterrupted()) {
+			while (!Thread.currentThread().isInterrupted()) {
 				Socket s;
 				try {
 					s = gatekeeper.accept();
 					if (!blackList.contains(s.getInetAddress().toString())) {
-						User u = new User(s,me);
-						for(User i : userList){
-							if (i.getInetAddress().equals(u.getInetAddress())){
+						User u = new User(s, me);
+						for (User i : userList) {
+							if (i.getInetAddress().equals(u.getInetAddress())) {
 								userList.remove(i);
 							}
 						}
 						userList.add(u);
 						broadcastWithAlias(u.name() + " has joined.");
 						gui.showMessage(u.name() + " has ip " + getIp(u.name()));
-//						u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
+						// u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();
 					} else {
-						gui.showMessage(s.getInetAddress().toString() + " is banned and he tried to join. Lol, who dis bitch think he is?");
+						gui.showMessage(s.getInetAddress().toString()
+								+ " is banned and he tried to join. Lol, who dis bitch think he is?");
 						s.close();
 					}
 				} catch (IOException e) {
@@ -196,5 +199,5 @@ public class Server {
 			}
 		}
 	};
-	
+
 }
