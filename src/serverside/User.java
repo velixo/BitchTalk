@@ -48,25 +48,25 @@ public class User {
 		output.flush();
 	}
 	
-	public String name() {
+	public void setName(String newName) {
+		name = newName;
+		server.broadcastUsernameList();
+	}
+	
+	public String getName() {
 		return name;
 	}
 	
 	public InetAddress getInetAddress() {
 		return connection.getInetAddress();
 	}
-
-	public boolean isAdmin() {
-		return isAdmin;
-	}
 	
 	public void setAdmin(boolean b) {
 		isAdmin = b;
 	}
-	
-	public void setName(String newName) {
-		name = newName;
-		server.broadcastUsernameList();
+
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 	
 	public void closeCrap() {
@@ -74,7 +74,12 @@ public class User {
 			output.close();
 			input.close();
 			connection.close();
-         }catch(IOException ioe){
+			
+			//TODO ask isak if we should do this
+//			output = null;
+//			input = null;
+//			connection = null;
+         } catch(IOException ioe) {
         	ioe.printStackTrace();
          }
 	}
@@ -90,7 +95,7 @@ public class User {
 						c.run();
 					}
 					else{
-						server.broadcastWithAlias(name() + ": " + m);						
+						server.broadcastWithAlias(getName() + ": " + m);						
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;

@@ -22,7 +22,7 @@ public class SendTrue implements Command {
 			String unaliasedMessage = input.replace(StaticVariables.SENDTRUE + " ", "");
 			System.out.println("input = " + input);
 			System.out.println("unaliasedMessage = " + unaliasedMessage);
-			server.broadcast(u.name() + ": " + unaliasedMessage);
+			server.broadcast(u.getName() + ": " + unaliasedMessage);
 		}
 	}
 

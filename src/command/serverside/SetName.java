@@ -18,7 +18,7 @@ public class SetName implements Command {
 	
 	@Override
 	public void run() {
-		s.broadcast("Hey bitches, " + usr.name() + " changed their name to " + newName);
+		s.broadcast("Hey bitches, " + usr.getName() + " changed their name to " + newName);
 		usr.setName(newName);
 	}
 

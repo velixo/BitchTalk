@@ -66,7 +66,7 @@ public class Server {
 	public List<String> getUsernamesList() {
 		List<String> usernames = new ArrayList<String>();
 		for (User u : userList) {
-			usernames.add(u.name());
+			usernames.add(u.getName());
 		}
 		return usernames;
 	}
@@ -79,7 +79,7 @@ public class Server {
 	public void wreck(User u) {
 		u.closeCrap();
 		userList.remove(u);
-		broadcastWithAlias(u.name() + " decided to be uncool. What a bitch.");
+		broadcastWithAlias(u.getName() + " decided to be uncool. What a bitch.");
 		updateUsersWindow();
 		broadcastUsernameList();
 	}
@@ -87,9 +87,9 @@ public class Server {
 	public void kick(User kicker, String username) {
 		//TODO iterator
 		for (User u : userList) {
-			if (u.name().equals(username)) {
+			if (u.getName().equals(username)) {
 				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
-				broadcastWithAlias(u.name() + ", fuck off bitch.");
+				broadcastWithAlias(u.getName() + ", fuck off bitch.");
 				u.send(StaticVariables.DISCONNECT);
 				u.closeCrap();
 				userList.remove(u);
@@ -104,14 +104,14 @@ public class Server {
 	private void updateUsersWindow() {
 		List<String> usernames = new ArrayList<String>();
 		for (User u : userList) {
-			usernames.add(u.name());
+			usernames.add(u.getName());
 		}
 		gui.updateUsersWindow(usernames);
 	}
 
 	public String getIp(String username) {
 		for (User u : userList) {
-			if (u.name().equals(username)) {
+			if (u.getName().equals(username)) {
 				return u.getInetAddress().toString().replace("/", "");
 			}
 		}
@@ -124,7 +124,7 @@ public class Server {
 
 	public void ban(User unbanner, String username) {
 		for (User u : userList) {
-			if (u.name().equals(username)) {
+			if (u.getName().equals(username)) {
 				wreck(u);
 				blackList.add(u.getInetAddress().toString());
 			}
@@ -182,8 +182,8 @@ public class Server {
 							}
 						}
 						userList.add(u);
-						broadcastWithAlias(u.name() + " has joined.");
-						gui.showMessage(u.name() + " has ip " + getIp(u.name()));
+						broadcastWithAlias(u.getName() + " has joined.");
+						gui.showMessage(u.getName() + " has ip " + getIp(u.getName()));
 						// u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();
