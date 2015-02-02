@@ -20,7 +20,7 @@ public class GetIp implements Command {
 	public void run() {
 		if (u.isAdmin()) {
 			String ip = s.getIp(username);
-			//TODO send is dangerous
+			//TODO send is dangerous - fixed, i think
 			u.send("Bitch " + username + "'s IP is " + ip);
 		}
 	}

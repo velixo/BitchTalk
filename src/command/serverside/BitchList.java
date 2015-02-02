@@ -23,6 +23,7 @@ public class BitchList implements Command{
 		for (String uName : uNameList) {
 			message += "\n" + uName;
 		}
+		//TODO send is dangerous - fixed, i think
 		u.send(message);
 	}
 	

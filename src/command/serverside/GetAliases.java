@@ -27,7 +27,7 @@ public class GetAliases implements Command {
 			for (String word : words) {
 				message += word + " => " + aliases.get(word) + "\n";
 			}
-			//TODO send is dangerous
+			//TODO send is dangerous - fixed, i think
 			user.send(message);
 		}
 	}

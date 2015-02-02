@@ -20,10 +20,10 @@ public class RequestAdmin implements Command {
 	public void run() {
 		if (s.pinIsCorrect(pin)) {
 			u.setAdmin(true);
-			//TODO send is dangerous
+			//TODO send is dangerous - fixed, i think
 			u.send("Congrats, bitch. You're now an admin. Big fucking whoop.");
 		} else {
-			//TODO send is dangerous
+			//TODO send is dangerous - fixed, i think
 			u.send("Incorrect pin, bitch. You sure you're ready to be an admin?");
 		};
 	}
