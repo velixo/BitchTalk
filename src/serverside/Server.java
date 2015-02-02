@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -34,6 +35,7 @@ public class Server {
 			adminPin = randomizePin();
 			gui.showMessage("Admin access pin: " + adminPin);
 			blackList = new ArrayList<String>();
+			usersToBeWrecked = new HashSet<User>();
 			waitForConnectionThread.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
