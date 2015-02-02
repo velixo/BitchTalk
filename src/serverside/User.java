@@ -38,14 +38,18 @@ public class User {
 			output.writeObject(message);
 			output.flush();
 		} catch (IOException e) {
-			server.wreck(me);
+			server.addUserToBeWrecked(me);
 		}
 		
 	}
 	
-	public void sendUserList(List<String> list) throws IOException {
-		output.writeObject(list);
-		output.flush();
+	public void sendUserList(List<String> list) {
+		try {
+			output.writeObject(list);
+			output.flush();
+		} catch (IOException e) {
+			server.addUserToBeWrecked(me);
+		}
 	}
 	
 	public void setName(String newName) {
@@ -99,7 +103,7 @@ public class User {
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
-					server.wreck(me);
+					server.addUserToBeWrecked(me);
 				}				
 			}
 			
