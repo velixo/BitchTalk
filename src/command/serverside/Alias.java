@@ -30,9 +30,11 @@ public class Alias implements Command {
 				alias = st.nextToken();
 				server.getAliasizer().set(word, alias);;
 			} else	//input != "/alias <word> *"
+				//TODO send is dangerous
 				u.send("Bitch, you need an alias.");
 			
 		} else	//input != "/alias *"
+			//TODO send is dangerous
 			u.send("Bitch, you need a word to be aliased.");
 	}
 

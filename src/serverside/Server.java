@@ -48,6 +48,7 @@ public class Server {
 		gui.showMessage(message);
 		//TODO user.send might wreck himself. this happens inside a for-each statement, which is not safe.
 		for (User u : userList) {
+			//TODO send is dangerous
 			u.send(message);
 		}
 	}
@@ -90,6 +91,7 @@ public class Server {
 			if (u.getName().equals(username)) {
 				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
 				broadcastWithAlias(u.getName() + ", fuck off bitch.");
+				//TODO send is dangerous
 				u.send(StaticVariables.DISCONNECT);
 				u.closeCrap();
 				userList.remove(u);
@@ -98,6 +100,7 @@ public class Server {
 				return;
 			}
 		}
+		//TODO send is dangerous
 		kicker.send("That bitch isn't in this chat, yo.");
 	}
 
@@ -134,9 +137,11 @@ public class Server {
 	public void unban(User unbanner, String ip) {
 		if (blackList.contains(ip)) {
 			blackList.remove(ip);
+			//TODO send is dangerous
 			unbanner.send(ip
 					+ " was removed from the ban list. Hope the bitch keeps his manners this time.");
 		} else {
+			//TODO send is dangerous
 			unbanner.send(ip + " isn't banned.");
 		}
 	}
@@ -147,6 +152,7 @@ public class Server {
 		for (String ip : blackList) {
 			message.append(ip + "\n");
 		}
+		//TODO send is dangerous
 		u.send(message.toString());
 	}
 
