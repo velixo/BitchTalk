@@ -44,11 +44,11 @@ public class Server {
 		broadcast(aliasedMessage);
 	}
 
-	public void broadcast(String aliasedMessage) {
-		gui.showMessage(aliasedMessage);
+	public void broadcast(String message) {
+		gui.showMessage(message);
 		//TODO user.send might wreck himself. this happens inside a for-each statement, which is not safe.
 		for (User u : userList) {
-			u.send(aliasedMessage);
+			u.send(message);
 		}
 	}
 
