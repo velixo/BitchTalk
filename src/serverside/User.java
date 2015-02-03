@@ -89,7 +89,7 @@ public class User {
 	}
 	
 	Thread checkmail = new Thread(){
-		public void run(){
+		public void run() {
 			boolean wrecked = false;
 			while(!wrecked){
 				try {
@@ -99,7 +99,7 @@ public class User {
 						c.run();
 					}
 					else{
-						server.broadcastWithAlias(getName() + ": " + m);						
+						server.broadcastWithAlias(name + ": " + m);
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
