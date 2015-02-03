@@ -78,8 +78,8 @@ public class Server {
 		Iterator<User> iter = userList.iterator();
 		while (iter.hasNext()) {
 			User u = iter.next();
-			gui.showMessage("Connection problems: " + u.getName() + ": " + u.getInetAddress().getHostAddress());
 			if (usersToBeWrecked.contains(u)) {
+				gui.showMessage("Connection problems: " + u.getName() + ": " + u.getInetAddress().getHostAddress());
 				String username = u.getName();
 				u.closeCrap();
 				iter.remove();
