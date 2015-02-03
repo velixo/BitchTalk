@@ -78,6 +78,7 @@ public class Server {
 		Iterator<User> iter = userList.iterator();
 		while (iter.hasNext()) {
 			User u = iter.next();
+			gui.showMessage("server.wreckNonRespondingUsers() Connection problems: " + u.getName() + u.getInetAddress().getHostAddress());
 			if (usersToBeWrecked.contains(u)) {
 				String username = u.getName();
 				u.closeCrap();
@@ -214,11 +215,12 @@ public class Server {
 					s = gatekeeper.accept();
 					if (!blackList.contains(s.getInetAddress().toString())) {
 						User u = new User(s, me);
-						for (User i : userList) {
-							if (i.getInetAddress().equals(u.getInetAddress())) {
-								userList.remove(i);
-							}
-						}
+						gui.showMessage(u.getInetAddress().getHostAddress() + " is joining...");
+//						for (User i : userList) {
+//							if (i.getInetAddress().equals(u.getInetAddress())) {
+//								userList.remove(i);
+//							}
+//						}
 						userList.add(u);
 						broadcastWithAlias(u.getName() + " has joined.");
 						gui.showMessage(u.getName() + " has ip " + getIp(u.getName()));
