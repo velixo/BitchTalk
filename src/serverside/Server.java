@@ -78,7 +78,7 @@ public class Server {
 		Iterator<User> iter = userList.iterator();
 		while (iter.hasNext()) {
 			User u = iter.next();
-			gui.showMessage("server.wreckNonRespondingUsers() Connection problems: " + u.getName() + u.getInetAddress().getHostAddress());
+			gui.showMessage("Connection problems: " + u.getName() + ": " + u.getInetAddress().getHostAddress());
 			if (usersToBeWrecked.contains(u)) {
 				String username = u.getName();
 				u.closeCrap();
