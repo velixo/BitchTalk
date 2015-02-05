@@ -1,5 +1,6 @@
 package serverside;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -17,6 +18,7 @@ public class Aliasizer {
 	}
 	//FIXME problem med specialtecken.
 	public String Aliasify(String s){
+		
 		StringTokenizer st = new StringTokenizer(s);
 		StringBuilder sb = new StringBuilder();
 		while(st.hasMoreTokens()){
