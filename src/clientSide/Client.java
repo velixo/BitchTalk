@@ -8,8 +8,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
-import command.ClientCommandFactory;
 import command.Command;
+import command.clientside.ClientCommandFactory;
 
 public class Client {
 	
@@ -144,7 +144,7 @@ public class Client {
 					Object received = input.readObject();
 					if (received instanceof String) {
 						String message = (String) received;
-						System.out.println(message);
+						System.out.println("Client.ListenForMessagesThread: " + message);
 						if (message.charAt(0) == '/') {
 							Command c = factory.build(message);
 							c.run();

@@ -20,7 +20,7 @@ public class TestAlias {
 		ali.set("dig","deg");
 		ali.set("saknar", "äter");
 		ali.set("deg", "kneg");
-		assertEquals("Jag äter deg.", ali.Aliasify("Jag saknar dig."));
+		assertEquals("Jag äter deg.", ali.aliasify("Jag saknar dig."));
 	}
 
 }

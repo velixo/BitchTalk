@@ -1,9 +1,8 @@
 package command.serverside;
 
-import java.io.IOException;
-
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class GetIp implements Command {
@@ -19,14 +18,10 @@ public class GetIp implements Command {
 
 	@Override
 	public void run() {
-		try {
-			if (u.isAdmin()) {
-				String ip = s.getIp(username);
-				u.send("Bitch " + username + "'s IP is " + ip);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			s.wreck(u);	//check if this is alright
+		if (u.isAdmin()) {
+			String ip = s.getIp(username);
+			//TODO send is dangerous - fixed, i think
+			u.send("Bitch " + username + "'s IP is " + ip);
 		}
 	}
 

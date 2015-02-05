@@ -1,4 +1,4 @@
-package command;
+package command.clientside;
 
 import java.io.File;
 import java.util.StringTokenizer;
@@ -6,26 +6,14 @@ import java.util.StringTokenizer;
 import statics.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
-
-import command.clientside.AlreadyConnected;
-import command.clientside.ClientSound;
-import command.clientside.Connect;
-import command.clientside.Help;
-import command.clientside.Mute;
-import command.clientside.Unmute;
+import command.Command;
+import command.NotACommand;
 
 public class ClientCommandFactory {
 	public final static String HELP = StaticVariables.HELP;
 	public final static String MUTE = StaticVariables.MUTE;
 	public final static String UNMUTE = StaticVariables.UNMUTE;
 	public final static String CONNECT = StaticVariables.CONNECT;
-	
-//	public final static String SERVERWOOLOOLOO = StaticVariables.SERVERWOOLOOLOO;
-//	public final static String SERVERBOSSASSBITCH = StaticVariables.SERVERBOSSASSBITCH;
-//	public final static String SERVERWHATSGOINGON = StaticVariables.SERVERWHATSGOINGON;
-//	public final static String SERVERMOVEBITCHGETOUTDAWAY = StaticVariables.SERVERMOVEBITCHGETOUTDAWAY;
-//	public final static String SERVEROPEN = StaticVariables.SERVEROPEN;
-//	public final static String SERVERCELEBRATE = StaticVariables.SERVERCELEBRATE;
 	
 	private Client client;
 	private ClientGui clientGui;
@@ -81,15 +69,12 @@ public class ClientCommandFactory {
 	}
 	
 	private boolean isSound(String input) {
-		String soundName = new String(input);
-		String adminSoundName = new String(input);
-		soundName.replace("/:", "");
-		adminSoundName.replace("/:", "admin_");
+		String soundName = input.replace("/:", "");
 		
 		File soundFolder = new File("res/");
 		File[] sounds = soundFolder.listFiles();
 		for (File sound : sounds){
-			if (sound.getName().equals(soundName + ".wav") || sound.getName().equals(adminSoundName + ".wav"))
+			if (sound.getName().equals(soundName + ".wav"))
 				return true;
 		}
 		return false;

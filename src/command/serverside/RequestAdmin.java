@@ -1,9 +1,8 @@
 package command.serverside;
 
-import java.io.IOException;
-
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class RequestAdmin implements Command {
@@ -19,16 +18,13 @@ public class RequestAdmin implements Command {
 
 	@Override
 	public void run() {
-		try {
-			if (s.pinIsCorrect(pin)) {
-				u.setAdmin(true);
-				u.send("Congrats, bitch. You're now an admin. Big fucking whoop.");
-			} else {
-					u.send("Incorrect pin, bitch. You sure you're ready to be an admin?");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (s.pinIsCorrect(pin)) {
+			u.setAdmin(true);
+			//TODO send is dangerous - fixed, i think
+			u.send("Congrats, bitch. You're now an admin. Big fucking whoop.");
+		} else {
+			//TODO send is dangerous - fixed, i think
+			u.send("Incorrect pin, bitch. You sure you're ready to be an admin?");
 		};
 	}
 

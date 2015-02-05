@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.List;
 
 import command.Command;
-import command.ServerCommandFactory;
+import command.serverside.ServerCommandFactory;
 
 public class User {
 	private String name;
@@ -32,30 +32,24 @@ public class User {
 		checkmail.start();
 	}
 	
-	public void send(String message) throws IOException {
-		output.writeObject(message);
-		output.flush();
+	//TODO maybe needs to be throws exception again...? we need to know when send is used in a for-loop that removes users from Server.userList
+	public void send(String message){
+		try {
+			output.writeObject(message);
+			output.flush();
+		} catch (IOException e) {
+			server.addUserToBeWrecked(me);
+		}
+		
 	}
 	
-	public void sendUserList(List<String> list) throws IOException {
-		output.writeObject(list);
-		output.flush();
-	}
-	
-	public String name() {
-		return name;
-	}
-	
-	public InetAddress getInetAddress() {
-		return connection.getInetAddress();
-	}
-
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-	
-	public void setAdmin(boolean b) {
-		isAdmin = b;
+	public void sendUserList(List<String> list) {
+		try {
+			output.writeObject(list);
+			output.flush();
+		} catch (IOException e) {
+			server.addUserToBeWrecked(me);
+		}
 	}
 	
 	public void setName(String newName) {
@@ -63,18 +57,39 @@ public class User {
 		server.broadcastUsernameList();
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public InetAddress getInetAddress() {
+		return connection.getInetAddress();
+	}
+	
+	public void setAdmin(boolean b) {
+		isAdmin = b;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	
 	public void closeCrap() {
 		try{
 			output.close();
 			input.close();
 			connection.close();
-         }catch(IOException ioe){
+			
+			//TODO ask isak if we should do this
+//			output = null;
+//			input = null;
+//			connection = null;
+         } catch(IOException ioe) {
         	ioe.printStackTrace();
          }
 	}
 	
 	Thread checkmail = new Thread(){
-		public void run(){
+		public void run() {
 			boolean wrecked = false;
 			while(!wrecked){
 				try {
@@ -84,11 +99,11 @@ public class User {
 						c.run();
 					}
 					else{
-						server.broadcast(name() + ": " + m);						
+						server.broadcastWithAlias(name + ": " + m);
 					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
-					server.wreck(me);
+					server.addUserToBeWrecked(me);
 				}				
 			}
 			

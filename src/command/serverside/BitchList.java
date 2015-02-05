@@ -1,10 +1,10 @@
 package command.serverside;
 
-import java.io.IOException;
 import java.util.List;
 
 import serverside.Server;
 import serverside.User;
+
 import command.Command;
 
 public class BitchList implements Command{
@@ -18,17 +18,13 @@ public class BitchList implements Command{
 
 	@Override
 	public void run() {
-		try {
-			List<String> uNameList = s.getUsernamesList();
-			String message = "Deez bitches in da house:";
-			for (String uName : uNameList) {
-				message += "\n" + uName;
-			}
-			u.send(message);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		List<String> uNameList = s.getUsernamesList();
+		String message = "Deez bitches in da house:";
+		for (String uName : uNameList) {
+			message += "\n" + uName;
 		}
+		//TODO send is dangerous - fixed, i think
+		u.send(message);
 	}
 	
 }

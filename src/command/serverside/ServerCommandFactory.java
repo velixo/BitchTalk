@@ -1,18 +1,13 @@
-package command;
+package command.serverside;
 
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
 import statics.StaticVariables;
 
-import command.serverside.BitchList;
-import command.serverside.GetIp;
-import command.serverside.Kick;
-import command.serverside.RequestAdmin;
-import command.serverside.ServerSound;
-import command.serverside.SetName;
+import command.Command;
+import command.NotACommand;
 
 public class ServerCommandFactory {
 	public final static String BITCHLIST = StaticVariables .BITCHLIST;
@@ -20,6 +15,10 @@ public class ServerCommandFactory {
 	public final static String REQUESTADMIN = StaticVariables.REQUESTADMIN;
 	public final static String KICK = StaticVariables.KICK;
 	public final static String GETIP = StaticVariables.GETIP;
+	public final static String GETALIASES = StaticVariables.GETALIASES;
+	public final static String ALIAS = StaticVariables.ALIAS;
+	public final static String SENDTRUE = StaticVariables.SENDTRUE;
+	
 	public final static String OLD_WOOLOOLOO = "/woolooloo";
 	public final static String OLD_BOSSASSBITCH = "/bossassbitch";
 	
@@ -53,14 +52,20 @@ public class ServerCommandFactory {
 		case GETIP:
 			username = input.replace(GETIP + " ", "");
 			return new GetIp(server, u, username);
+			
+		case GETALIASES:
+			return new GetAliases(server, u);
+			
+		case ALIAS:
+			return new Alias(server, u, input);
+			
+		case SENDTRUE:
+			return new SendTrue(server, u, input);
 		
 		default:
 			if(isOldCommand(input)) {
-				try {
-					u.send("Bitch, you need an update. The fucking file is where you found the last one, bitch.");
-				} catch (IOException e) {
-					server.wreck(u);
-				}
+				//TODO u.send is dangerous - fixed, i think
+				u.send("Bitch, you need an update. The fucking file is where you found the last one, bitch.");
 			} else if(isAdminSound(input) && u.isAdmin()) {
 				return new ServerSound(server, encodeSoundString(input));
 			} else if(isNormalSound(input)) {

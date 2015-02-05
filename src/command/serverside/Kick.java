@@ -21,8 +21,6 @@ public class Kick implements Command {
 		if (u.isAdmin()) {
 			s.kick(u, username);
 		}
-		// TODO Auto-generated method stub
-		
 	}
 
 }
