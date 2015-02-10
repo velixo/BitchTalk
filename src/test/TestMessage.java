@@ -1,26 +1,97 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import org.junit.After;
 import org.junit.Test;
 
 import shared.Message;
+import shared.StaticVariables;
 
+@SuppressWarnings("rawtypes")
 public class TestMessage {
+	private String testFilePath = "test_files/test.txt";
+	private String sender = "velixo";
 
 	@Test
 	public void testTextMessage() {
-		fail("Not yet implemented");
+		String text = "hej bajs";
+		Message<String> expectedMessage = new Message<String>(sender, Message.TEXT, text);
+		writeToTestFile(expectedMessage);
+		Message actualMessage = readMessageFromTestFile();
+		
+		assertEquals(expectedMessage, actualMessage);
 	}
 	
 	@Test
 	public void testCommand() {
-		fail("Not yet implemented");
+		String command = StaticVariables.HELP;
+		Message<String> expectedMessage = new Message<String>(sender, Message.COMMAND, command);
+		writeToTestFile(expectedMessage);
+		Message actualMessage = readMessageFromTestFile();
+		
+		assertEquals(expectedMessage, actualMessage);
 	}
 	
 	@Test
 	public void testUserList() {
-		fail("Not yet implemented");
+		ArrayList<String> userList = new ArrayList<String>();
+		userList.add("voidcase");
+		userList.add("bottomBitch");
+		userList.add("Bitch King");
+		
+		Message<ArrayList<String>> expectedMessage = new Message<ArrayList<String>>(
+				sender, Message.COMMAND, userList);
+		writeToTestFile(expectedMessage);
+		Message actualMessage = readMessageFromTestFile();
+		
+		assertEquals(expectedMessage, actualMessage);
 	}
-
+	
+	@After
+	public void deleteTestFiles() {
+		try {
+			Files.deleteIfExists(Paths.get(testFilePath));
+		} catch (IOException e) {
+			System.out.println("Error deleting file");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	private Message readMessageFromTestFile() {
+		Message actualMessage = null;
+		try {
+			ObjectInputStream input = new ObjectInputStream(new FileInputStream(testFilePath));
+			actualMessage = (Message) input.readObject();
+			input.close();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return actualMessage;
+	}
+	
+	private void writeToTestFile(Message expectedMessage) {
+		try {
+			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(testFilePath));
+			output.writeObject(expectedMessage);
+			output.flush();
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
