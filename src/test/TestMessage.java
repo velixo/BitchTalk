@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import shared.Message;
@@ -19,9 +21,15 @@ import shared.StaticVariables;
 
 @SuppressWarnings("rawtypes")
 public class TestMessage {
-	private String testFilePath = "test_files/test.txt";
+	private String testFileDir = "test_files";
+	private String testFilePath = testFileDir + "/test.txt";
 	private String sender = "velixo";
 
+	@Before
+	public void setUpTestFilesFolder() {
+		new File(testFileDir).mkdir();
+	}
+	
 	@Test
 	public void testTextMessage() {
 		String text = "hej bajs";
@@ -61,6 +69,7 @@ public class TestMessage {
 	public void deleteTestFiles() {
 		try {
 			Files.deleteIfExists(Paths.get(testFilePath));
+			Files.deleteIfExists(Paths.get(testFileDir));
 		} catch (IOException e) {
 			System.out.println("Error deleting file");
 			e.printStackTrace();
