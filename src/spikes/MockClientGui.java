@@ -1,10 +1,11 @@
 package spikes;
 
 import java.util.List;
-
+import java.io.Serializable;
 import clientSide.ClientGui;
 
-public class MockClientGui implements ClientGui {
+public class MockClientGui implements ClientGui, Serializable {
+	private static final long serialVersionUID = 3359182350238006507L;
 	private boolean muted;
 	
 	public MockClientGui() {
@@ -30,5 +31,12 @@ public class MockClientGui implements ClientGui {
 	public void updateUsersWindow(List<String> usersInConvo) {}
 	@Override
 	public void playSound(String soundName) {}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof MockClientGui) {
+			return muted == ((MockClientGui) o).muted;
+		}
+		return false;
+	}
 }

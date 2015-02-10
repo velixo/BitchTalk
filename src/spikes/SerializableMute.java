@@ -16,5 +16,13 @@ public class SerializableMute implements SerializableCommand {
 		c.setMuteNotificationSound(true);
 		c.showMessage("Notification sound muted, bitch.");
 	}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof SerializableMute) {
+			SerializableMute mute = (SerializableMute) o;
+			return c.equals(mute.c);
+		}
+		return false;
+	}
 }
