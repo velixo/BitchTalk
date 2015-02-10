@@ -22,7 +22,7 @@ import shared.StaticVariables;
 @SuppressWarnings("rawtypes")
 public class TestMessage {
 	private String testFileDir = "test_files";
-	private String testFilePath = testFileDir + "/test.txt";
+	private String testFilePath = testFileDir + "/testMessage.txt";
 	private String sender = "velixo";
 
 	@Before
