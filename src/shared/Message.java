@@ -7,7 +7,7 @@ public class Message<E extends Serializable> implements Serializable {
 	private String sender;
 	private E content;
 	
-	public Message(E content, String sender) {
+	public Message(String sender, E content) {
 		this.sender = sender;
 		this.content = content;
 	}
