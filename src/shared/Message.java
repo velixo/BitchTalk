@@ -12,6 +12,7 @@ public class Message<E extends Serializable> implements Serializable {
 	private String sender;
 	private E content;
 	
+	//TODO fix this documentation
 	/**
 	 * ASDASDASDASD
 	 * 
