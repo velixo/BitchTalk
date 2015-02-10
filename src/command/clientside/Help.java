@@ -4,9 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import statics.StaticVariables;
+import shared.StaticVariables;
 import clientSide.ClientGui;
-
 import command.Command;
 
 public class Help implements Command {

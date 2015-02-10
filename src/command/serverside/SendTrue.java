@@ -2,7 +2,7 @@ package command.serverside;
 
 import serverside.Server;
 import serverside.User;
-import statics.StaticVariables;
+import shared.StaticVariables;
 import command.Command;
 
 public class SendTrue implements Command {

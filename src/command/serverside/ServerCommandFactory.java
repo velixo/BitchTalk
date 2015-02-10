@@ -4,8 +4,7 @@ import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
-import statics.StaticVariables;
-
+import shared.StaticVariables;
 import command.Command;
 import command.NotACommand;
 

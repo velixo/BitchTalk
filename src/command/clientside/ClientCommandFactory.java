@@ -3,7 +3,7 @@ package command.clientside;
 import java.io.File;
 import java.util.StringTokenizer;
 
-import statics.StaticVariables;
+import shared.StaticVariables;
 import clientSide.Client;
 import clientSide.ClientGui;
 import command.Command;

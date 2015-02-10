@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import statics.StaticVariables;
+import shared.StaticVariables;
 
 public class Server {
 	private ServerSocket gatekeeper;

@@ -2,7 +2,7 @@ package command;
 
 import serverside.ServerGui;
 import serverside.User;
-import statics.StaticVariables;
+import shared.StaticVariables;
 import clientSide.ClientGui;
 
 public class NotACommand implements Command {

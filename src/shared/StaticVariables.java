@@ -1,4 +1,4 @@
-package statics;
+package shared;
 
 public abstract class StaticVariables {
 	/** Variables used when a command is sent from the server to a client*/
