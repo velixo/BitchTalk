@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.List;
 
-import command.Command;
+import shared.command.Command;
 
 public class User {
 	private String name;

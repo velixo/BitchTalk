@@ -6,9 +6,8 @@ import java.util.List;
 
 import serverside.User;
 import shared.StaticVariables;
+import shared.command.Command;
 import clientSide.Client;
-
-import command.Command;
 
 public class Help implements Command {
 	private static final long serialVersionUID = 5833972601159022991L;

@@ -1,9 +1,8 @@
 package command.serverside;
 
 import serverside.User;
+import shared.command.Command;
 import clientSide.Client;
-
-import command.Command;
 
 public class Unban implements Command {
 	private static final long serialVersionUID = 1738028001989064575L;

@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import command.Command;
+import shared.command.Command;
 import command.clientside.ClientCommandFactory;
 
 public class Client {

@@ -1,9 +1,8 @@
 package command.serverside;
 
 import serverside.User;
+import shared.command.Command;
 import clientSide.Client;
-
-import command.Command;
 
 public class Kick implements Command {
 	private static final long serialVersionUID = -4476051316009716491L;

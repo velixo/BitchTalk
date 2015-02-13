@@ -1,9 +1,8 @@
 package command.clientside;
 
 import serverside.User;
+import shared.command.Command;
 import clientSide.Client;
-
-import command.Command;
 
 public class Connect implements Command{
 	private static final long serialVersionUID = -3359363378018918205L;

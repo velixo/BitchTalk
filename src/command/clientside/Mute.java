@@ -1,9 +1,9 @@
 package command.clientside;
 
 import serverside.User;
+import shared.command.Command;
 import clientSide.Client;
 import clientSide.ClientGui;
-import command.Command;
 
 public class Mute implements Command {
 	private static final long serialVersionUID = 213503265396113746L;

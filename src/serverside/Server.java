@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 
 import shared.StaticVariables;
-import command.Command;
-import command.Disconnect;
-import command.Message;
-import command.Sound;
-import command.UpdateUsersWindow;
+import shared.command.Command;
+import shared.command.Disconnect;
+import shared.command.Message;
+import shared.command.Sound;
+import shared.command.UpdateUsersWindow;
 import command.serverside.BitchList;
 
 public class Server {
@@ -65,22 +67,29 @@ public class Server {
 	 * */
 	private synchronized void wreckNonRespondingUsers() {
 		Iterator<User> iter = userList.iterator();
+		Map<String, String> usernameAndIp = new TreeMap<String, String>();
 		boolean somebodyGotWrecked = false;
 		while (iter.hasNext()) {
 			User u = iter.next();
 			if (usersToBeWrecked.contains(u)) {
 				somebodyGotWrecked = true;
-				gui.showMessage("Connection problems: " + u.getName() + ": " + u.getInetAddress().getHostAddress());
 				String username = u.getName();
+				String ip = u.getInetAddress().getHostAddress();
+				usernameAndIp.put(username, ip);
 				u.closeCrap();
 				iter.remove();
-				broadcast(new Message(username + " decided to be uncool. What a bitch."));
-				updateUsersWindow();
 			}
 		}
 		usersToBeWrecked.clear();
-		if (somebodyGotWrecked)
+		if (somebodyGotWrecked) {
 			broadcast(new Sound(StaticVariables.SERVER_LEAVECHAT));
+			for (String username : usernameAndIp.keySet()) {
+				broadcast(new Message(username + " decided to be uncool. What a bitch."));
+				gui.showMessage("Connection problems: " + username + ": " + usernameAndIp.get(username));
+			}
+			wreckNonRespondingUsers();
+			updateUsersWindow();
+		}
 	}
 
 	public List<String> getUsernamesList() {

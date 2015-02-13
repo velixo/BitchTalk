@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Set;
 
 import serverside.User;
+import shared.command.Command;
+import shared.command.Message;
 import clientSide.Client;
-
-import command.Command;
-import command.Message;
 
 public class GetAliases implements Command {
 	private static final long serialVersionUID = -1135758666242445802L;

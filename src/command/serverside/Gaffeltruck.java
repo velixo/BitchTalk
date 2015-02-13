@@ -1,10 +1,9 @@
 package command.serverside;
 
 import serverside.User;
+import shared.command.Command;
+import shared.command.Message;
 import clientSide.Client;
-
-import command.Command;
-import command.Message;
 
 public class Gaffeltruck implements Command {
 	private static final long serialVersionUID = 4620349428799104021L;

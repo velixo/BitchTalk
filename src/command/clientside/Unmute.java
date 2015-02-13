@@ -1,9 +1,9 @@
 package command.clientside;
 
 import serverside.User;
+import shared.command.Command;
 import clientSide.Client;
 import clientSide.ClientGui;
-import command.Command;
 
 public class Unmute implements Command {
 	private static final long serialVersionUID = 480681111321782893L;

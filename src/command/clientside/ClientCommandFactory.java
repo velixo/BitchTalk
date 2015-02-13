@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 import shared.StaticVariables;
-import command.Command;
-import command.Message;
-import command.NotACommand;
-import command.Sound;
-import command.UnrecognizedCommand;
+import shared.command.Command;
+import shared.command.Message;
+import shared.command.NotACommand;
+import shared.command.Sound;
+import shared.command.UnrecognizedCommand;
 
 public class ClientCommandFactory {
 	public final static String HELP = StaticVariables.HELP;
@@ -22,10 +22,7 @@ public class ClientCommandFactory {
 	}
 	
 	public static Command build(String input) {
-		
 		StringTokenizer st = new StringTokenizer(input);
-		
-		
 		switch (st.nextToken()) {
 		case HELP:
 			return new Help();

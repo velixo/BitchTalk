@@ -1,4 +1,4 @@
-package command;
+package shared.command;
 
 
 import serverside.User;

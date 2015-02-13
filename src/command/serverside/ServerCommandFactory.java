@@ -5,9 +5,8 @@ import java.util.StringTokenizer;
 import serverside.Server;
 import serverside.User;
 import shared.StaticVariables;
-
-import command.Command;
-import command.NotACommand;
+import shared.command.Command;
+import shared.command.NotACommand;
 
 public class ServerCommandFactory {
 	public final static String BITCHLIST = StaticVariables .BITCHLIST;

@@ -3,8 +3,8 @@ package command.serverside;
 import clientSide.Client;
 import serverside.Server;
 import serverside.User;
-import command.Command;
-import command.Message;
+import shared.command.Command;
+import shared.command.Message;
 
 public class SetName implements Command {
 	private static final long serialVersionUID = -6606767886670860536L;

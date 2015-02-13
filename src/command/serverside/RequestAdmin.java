@@ -2,10 +2,9 @@ package command.serverside;
 
 import serverside.Server;
 import serverside.User;
+import shared.command.Command;
+import shared.command.Message;
 import clientSide.Client;
-
-import command.Command;
-import command.Message;
 
 public class RequestAdmin implements Command {
 	private static final long serialVersionUID = -4380450940661031447L;

@@ -4,10 +4,9 @@ import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
+import shared.command.Command;
+import shared.command.Message;
 import clientSide.Client;
-
-import command.Command;
-import command.Message;
 
 public class Alias implements Command {
 	private static final long serialVersionUID = -8822250186749949747L;

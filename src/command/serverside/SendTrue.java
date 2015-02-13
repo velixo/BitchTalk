@@ -2,10 +2,9 @@ package command.serverside;
 
 import serverside.User;
 import shared.StaticVariables;
+import shared.command.Command;
+import shared.command.Message;
 import clientSide.Client;
-
-import command.Command;
-import command.Message;
 
 public class SendTrue implements Command {
 	private static final long serialVersionUID = -55731115128113331L;
