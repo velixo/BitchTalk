@@ -16,6 +16,7 @@ import command.Command;
 import command.Disconnect;
 import command.Message;
 import command.Sound;
+import command.UpdateUsersWindow;
 import command.serverside.BitchList;
 
 public class Server {
@@ -123,6 +124,7 @@ public class Server {
 			usernames.add(u.getName());
 		}
 		gui.updateUsersWindow(usernames);
+		broadcast(new UpdateUsersWindow(usernames));
 	}
 
 	public String getIp(String username) {
