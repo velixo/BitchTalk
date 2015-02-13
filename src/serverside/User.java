@@ -105,6 +105,7 @@ public class User {
 				try {
 					Command c = (Command) input.readObject();
 					c.serverRun(me);
+					System.out.println("User.checkmail, c.getClass().getSimpleName() == " + c.getClass().getSimpleName());
 					
 //					String m = (String) input.readObject();
 //					if(m.charAt(0)=='/'){

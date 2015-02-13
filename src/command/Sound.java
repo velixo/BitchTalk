@@ -16,6 +16,7 @@ public class Sound implements Command {
 	public void serverRun(User u) {
 		Server server = u.getServer();
 		server.broadcast(this);
+		System.out.println("Sound.serverRun(), soundName == " + soundName);
 		server.getServerGui().showMessage("BARK: " + soundName);
 	}
 
@@ -27,6 +28,7 @@ public class Sound implements Command {
 
 	@Override
 	public void clientRunRecieved(Client c) {
+		System.out.println("Sound.clientRunRecieved()");
 		c.getGui().playSound(soundName);
 	}
 
