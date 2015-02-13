@@ -60,7 +60,6 @@ public class User {
 	
 	public void setName(String newName) {
 		name = newName;
-//		server.broadcastUsernameList();
 	}
 	
 	public String getName() {
@@ -106,15 +105,6 @@ public class User {
 					Command c = (Command) input.readObject();
 					c.serverRun(me);
 					System.out.println("User.checkmail, c.getClass().getSimpleName() == " + c.getClass().getSimpleName());
-					
-//					String m = (String) input.readObject();
-//					if(m.charAt(0)=='/'){
-//						Command c = commander.build(m);
-//						c.serverRun(me);
-//					}
-//					else{
-//						server.broadcastWithAlias(name + ": " + m);
-//					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
 					server.addUserToBeWrecked(me);

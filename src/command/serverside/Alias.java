@@ -22,29 +22,25 @@ public class Alias implements Command {
 		Server server = u.getServer();
 		StringTokenizer st = new StringTokenizer(input);
 		st.nextToken();
-		if (st.hasMoreTokens()) {	//input == "/alias *"
+		if (st.hasMoreTokens()) {
 			String word = st.nextToken();
-			if (st.hasMoreTokens()) {	//input == "/alias <word> *"
+			if (st.hasMoreTokens()) {
 				String alias = st.nextToken();
 				server.getAliasizer().set(word, alias);;
-			} else	//input != "/alias <word> *"
-				//TODO send is dangerous - fixed, i think
+			} else
 				u.send(new Message("Bitch, you need an alias."));
 			
-		} else	//input != "/alias *"
-			//TODO send is dangerous - fixed, i think
+		} else
 			u.send(new Message("Bitch, you need a word to be aliased."));
 	}
 
 	@Override
 	public void clientRun(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 

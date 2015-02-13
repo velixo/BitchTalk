@@ -22,12 +22,10 @@ public class Sound implements Command {
 	@Override
 	public void clientRun(Client c) {
 		c.send(this);
-		
 	}
 
 	@Override
 	public void clientRunRecieved(Client c) {
 		c.getGui().playSound(soundName);
 	}
-
 }

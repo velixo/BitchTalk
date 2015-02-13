@@ -8,7 +8,6 @@ public class Disconnect implements Command {
 
 	@Override
 	public void serverRun(User u) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -19,7 +18,6 @@ public class Disconnect implements Command {
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 

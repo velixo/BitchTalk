@@ -18,20 +18,17 @@ public class GetIp implements Command {
 	public void serverRun(User u) {
 		if (u.isAdmin()) {
 			String ip = u.getServer().getIp(username);
-			//TODO send is dangerous - fixed, i think
 			u.send(new Message("Bitch " + username + "'s IP is " + ip));
 		}
 	}
 
 	@Override
 	public void clientRun(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 }

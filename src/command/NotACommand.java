@@ -8,12 +8,9 @@ import clientSide.Client;
 public class NotACommand implements Command {
 	private static final long serialVersionUID = 1L;
 	private final String NACMSG = StaticVariables.NOTACOMMANDMESSAGE;
-	
-	//TODO what the fuck, man
 
 	@Override
 	public void serverRun(User u) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -23,6 +20,5 @@ public class NotACommand implements Command {
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 	}
 }

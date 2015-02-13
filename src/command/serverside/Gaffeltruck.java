@@ -17,12 +17,11 @@ public class Gaffeltruck implements Command {
 
 	@Override
 	public void clientRun(Client c) {
-		// TODO Auto-generated method stub
-		
+		//TODO implement
 	}
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
-		
-	}}
+		//TODO implement
+	}
+}

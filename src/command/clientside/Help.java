@@ -42,13 +42,11 @@ public class Help implements Command {
 
 	@Override
 	public void serverRun(User u) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 

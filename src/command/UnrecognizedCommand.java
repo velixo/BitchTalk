@@ -26,7 +26,6 @@ public class UnrecognizedCommand implements Command {
 
 	@Override
 	public void clientRunRecieved(Client c) {
-		// TODO Auto-generated method stub
 		
 	}
 

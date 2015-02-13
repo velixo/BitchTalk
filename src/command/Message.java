@@ -13,7 +13,6 @@ public class Message implements Command {
 		this.text = s;
 	}
 
-
 	@Override
 	public void serverRun(User u) {
 		Aliasizer aliasizer = u.getServer().getAliasizer();
@@ -32,5 +31,4 @@ public class Message implements Command {
 	public void clientRun(Client c) {
 		c.send(this);
 	}
-
 }
