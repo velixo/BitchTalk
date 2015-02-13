@@ -88,9 +88,11 @@ public class Server {
 	 * */
 	private synchronized void wreckNonRespondingUsers() {
 		Iterator<User> iter = userList.iterator();
+		boolean somebodyGotWrecked = false;
 		while (iter.hasNext()) {
 			User u = iter.next();
 			if (usersToBeWrecked.contains(u)) {
+				somebodyGotWrecked = true;
 				gui.showMessage("Connection problems: " + u.getName() + ": " + u.getInetAddress().getHostAddress());
 				String username = u.getName();
 				u.closeCrap();
@@ -100,6 +102,8 @@ public class Server {
 			}
 		}
 		usersToBeWrecked.clear();
+		if (somebodyGotWrecked)
+			broadcast(new Sound(StaticVariables.SERVER_LEAVECHAT));
 	}
 
 	public List<String> getUsernamesList() {
@@ -128,7 +132,7 @@ public class Server {
 			if (u.getName().equals(username)) {
 				//TODO wreckNonRespondingUsers will be called here, which is quite unsafe considering we're in a for-loop.
 				// create new broadcast that doesn't call wreckNonRespondingUsers()?
-				broadcast(new Sound(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY)); //TODO creating a command outside of factory
+				broadcast(new Sound(StaticVariables.SERVER_MOVEBITCH)); //TODO creating a command outside of factory
 				broadcast(new Message(u.getName() + ", fuck off bitch.")); //TODO creating a command outside of factory
 				//TODO send is dangerous
 				u.send(new Disconnect());
@@ -228,7 +232,7 @@ public class Server {
 
 	/******************************** THREAD DECLARATIONS *********************************************/
 
-	Thread waitForConnectionThread = new Thread() {
+	private Thread waitForConnectionThread = new Thread() {
 		public void run() {
 			while (!Thread.currentThread().isInterrupted()) {
 				Socket s;
@@ -244,8 +248,8 @@ public class Server {
 //						}
 						userList.add(u);
 						broadcast(new Message(u.getName() + " has joined."));
+						broadcast(new Sound(StaticVariables.SERVER_JOINCHAT));
 						gui.showMessage(u.getName() + " has ip " + u.getInetAddress().getHostAddress());
-						// u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();
 					} else {
@@ -254,7 +258,7 @@ public class Server {
 						s.close();
 					}
 				} catch (IOException e) {
-					gui.showMessage("some bitch really sucks at connecting.");
+					gui.showMessage("Some bitch really sucks at connecting.");
 					e.printStackTrace();
 				}
 			}

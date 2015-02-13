@@ -2,7 +2,9 @@ package shared;
 
 public abstract class StaticVariables {
 	/** Variables used when a command is sent from the server to a client*/
-	public final static String SERVERMOVEBITCHGETOUTDAWAY = "other_movebitch";
+	public final static String SERVER_MOVEBITCH = "other_movebitch";
+	public final static String SERVER_LEAVECHAT = "other_leavechat";
+	public final static String SERVER_JOINCHAT = "other_joinchat";
 	
 	/** Variables used when a command is sent from a client to the server*/
 	public final static String HELP = "/help";
