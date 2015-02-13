@@ -27,7 +27,7 @@ public class ClientCommandFactory {
 //	}
 	
 	public static String help(){
-		return "type /connect <ip-address> to connect, bitch.";
+		return "type /connect <ip-address> to connect and /help for help, bitch.";
 	}
 	
 	public static Command build(String input) {
@@ -54,7 +54,6 @@ public class ClientCommandFactory {
 		default:
 			String soundName = getSoundName(input);
 			if(!soundName.equals(NOT_A_SOUND)) {
-				System.out.println("ClientCommandFactory.build().default, " + soundName + " is a sound");
 				return new Sound(soundName);
 //				return new ClientSound(clientGui, soundName);
 			} else if(isPossibleCommand(input))
@@ -89,7 +88,6 @@ public class ClientCommandFactory {
 //	}
 	
 	private static String getSoundName(String input) {
-		System.out.println("ClientCommandFactory.getSoundName()");
 		String normalSoundName = input.replace("/", "");
 		String adminSoundName = input.replace("/", "admin_");
 		String otherSoundName = input.replace("/", "other_");

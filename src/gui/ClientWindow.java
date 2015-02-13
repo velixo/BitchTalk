@@ -165,7 +165,6 @@ public class ClientWindow extends JFrame implements ClientGui {
 			int max = scrollPane.getVerticalScrollBar().getMaximum();
 			int topOffset = scrollPane.getVerticalScrollBar().getValue(); //how far down from the start the scrollbar currently is
 			int length = scrollPane.getVerticalScrollBar().getModel().getExtent();
-			System.out.println("asdasd = " + (max - (topOffset + length)));
 			if (max - (topOffset + length) < margin) {
 				scrollPane.getVerticalScrollBar().setValue(max);
 			}
