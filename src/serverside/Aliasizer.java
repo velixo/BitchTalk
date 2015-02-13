@@ -1,13 +1,11 @@
 package serverside;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Aliasizer {
-	
-	HashMap<String,String> aliases;
+	private HashMap<String,String> aliases;
 	
 	public Aliasizer(){
 		aliases = new HashMap<String,String>();		
@@ -42,18 +40,5 @@ public class Aliasizer {
 			aliasifedInp = aliasifedInp.replace(hash, alias);
 		}
 		return aliasifedInp;
-		
-//		StringTokenizer st = new StringTokenizer(s);
-//		StringBuilder sb = new StringBuilder();
-//		while(st.hasMoreTokens()){
-//			String t = st.nextToken();
-//			String a = aliases.get(t);
-//			if(a!=null){
-//				sb.append(a + " ");				
-//			}
-//			else sb.append(t + " ");
-//		}
-//		
-//		return sb.toString();
 	}
 }

@@ -4,38 +4,48 @@ import java.util.StringTokenizer;
 
 import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
+import command.Message;
 
 public class Alias implements Command {
-	private Server server;
-	private User u;
+	private static final long serialVersionUID = -8822250186749949747L;
 	private String input;
 	
-	public Alias(Server s, User u, String input) {
-		server = s;
-		this.u = u;
+	public Alias(String input) {
 		this.input = input;
 	}
 
 	@Override
-	public void run() {
+	public void serverRun(User u) {
+		Server server = u.getServer();
 		StringTokenizer st = new StringTokenizer(input);
 		st.nextToken();
-		String word = "";
-		String alias = "";
 		if (st.hasMoreTokens()) {	//input == "/alias *"
-			word = st.nextToken();
+			String word = st.nextToken();
 			if (st.hasMoreTokens()) {	//input == "/alias <word> *"
-				alias = st.nextToken();
+				String alias = st.nextToken();
 				server.getAliasizer().set(word, alias);;
 			} else	//input != "/alias <word> *"
 				//TODO send is dangerous - fixed, i think
-				u.send("Bitch, you need an alias.");
+				u.send(new Message("Bitch, you need an alias."));
 			
 		} else	//input != "/alias *"
 			//TODO send is dangerous - fixed, i think
-			u.send("Bitch, you need a word to be aliased.");
+			u.send(new Message("Bitch, you need a word to be aliased."));
+	}
+
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,21 +1,28 @@
 package command.serverside;
 
-import command.Command;
+import serverside.User;
+import clientSide.Client;
 
-import serverside.Server;
+import command.Command;
+import command.Message;
 
 public class Gaffeltruck implements Command {
-	private Server server;
+	private static final long serialVersionUID = 4620349428799104021L;
 	private final static String message = "hejsan här kommer en gaffeltruck\n";
-	
-	public Gaffeltruck(Server s) {
-		server = s;
+
+	@Override
+	public void serverRun(User u) {
+		u.getServer().broadcast(new Message(message));
 	}
 
 	@Override
-	public void run() {
+	public void clientRun(Client c) {
 		// TODO Auto-generated method stub
-		server.broadcast(message);
+		
 	}
 
-}
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
+	}}

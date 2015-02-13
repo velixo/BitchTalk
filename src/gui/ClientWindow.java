@@ -121,7 +121,8 @@ public class ClientWindow extends JFrame implements ClientGui {
 		return notificationMuted;
 	}
 
-	public void playSound(String soundFileName) {
+	public void playSound(String soundName) {
+		String soundFileName = soundName + ".wav";
 		try {
 			Clip sound = AudioSystem.getClip();
 			File file = new File("res/" + soundFileName);
@@ -145,7 +146,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		public void actionPerformed(ActionEvent e) {
 			String message = chatInput.getText();
 			if (!message.equals("")) {
-				client.send(message);
+				client.buildAndRun(message);
 				chatInput.setText("");
 			}
 		}

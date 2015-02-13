@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.List;
 
 import command.Command;
-import command.serverside.ServerCommandFactory;
 
 public class User {
 	private String name;
@@ -18,7 +17,6 @@ public class User {
 	protected static int userCount = 0;
 	private Server server;
 	private User me = this;
-	ServerCommandFactory commander;
 	private boolean isAdmin = false;
 	
 	public User(Socket c, Server s) throws IOException {
@@ -28,19 +26,27 @@ public class User {
 		output.flush();
 		name = "Bitch nr" + userCount++;
 		server = s;
-		commander = new ServerCommandFactory(this, server);	//lol
 		checkmail.start();
 	}
 	
 	//TODO maybe needs to be throws exception again...? we need to know when send is used in a for-loop that removes users from Server.userList
-	public void send(String message){
+//	public void send(String message){
+//		try {
+//			output.writeObject(message);
+//			output.flush();
+//		} catch (IOException e) {
+//			server.addUserToBeWrecked(me);
+//		}
+//		
+//	}
+	
+	public void send(Command c) {
 		try {
-			output.writeObject(message);
+			output.writeObject(c);
 			output.flush();
 		} catch (IOException e) {
 			server.addUserToBeWrecked(me);
 		}
-		
 	}
 	
 	public void sendUserList(List<String> list) {
@@ -54,7 +60,7 @@ public class User {
 	
 	public void setName(String newName) {
 		name = newName;
-		server.broadcastUsernameList();
+//		server.broadcastUsernameList();
 	}
 	
 	public String getName() {
@@ -88,19 +94,26 @@ public class User {
          }
 	}
 	
+	public Server getServer() {
+		return server;
+	}
+	
 	Thread checkmail = new Thread(){
 		public void run() {
 			boolean wrecked = false;
 			while(!wrecked){
 				try {
-					String m = (String) input.readObject();
-					if(m.charAt(0)=='/'){
-						Command c = commander.build(m);
-						c.run();
-					}
-					else{
-						server.broadcastWithAlias(name + ": " + m);
-					}
+					Command c = (Command) input.readObject();
+					c.serverRun(me);
+					
+//					String m = (String) input.readObject();
+//					if(m.charAt(0)=='/'){
+//						Command c = commander.build(m);
+//						c.serverRun(me);
+//					}
+//					else{
+//						server.broadcastWithAlias(name + ": " + m);
+//					}
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
 					server.addUserToBeWrecked(me);

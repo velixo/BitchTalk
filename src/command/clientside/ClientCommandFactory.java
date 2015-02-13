@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 import shared.StaticVariables;
-import clientSide.Client;
-import clientSide.ClientGui;
 import command.Command;
+import command.Message;
 import command.NotACommand;
+import command.Sound;
+import command.UnrecognizedCommand;
 
 public class ClientCommandFactory {
 	public final static String HELP = StaticVariables.HELP;
@@ -15,60 +16,52 @@ public class ClientCommandFactory {
 	public final static String UNMUTE = StaticVariables.UNMUTE;
 	public final static String CONNECT = StaticVariables.CONNECT;
 	
-	private Client client;
-	private ClientGui clientGui;
+//	public boolean canBuild(String in){
+//		return !(build(in) instanceof NotACommand);
+//	}
 	
-	public ClientCommandFactory(ClientGui cg, Client c) {
-		clientGui = cg;
-		client = c;
-		
-	}
-	public boolean canBuild(String in){
-		return !(build(in) instanceof NotACommand);
-	}
-	public String help(){
+	public static String help(){
 		return "type /connect <ip-address> to connect, bitch.";
 	}
 	
-	public Command build(String input) {
+	public static Command build(String input) {
 		
 		StringTokenizer st = new StringTokenizer(input);
 		
 		
 		switch (st.nextToken()) {
 		case HELP:
-			return new Help(clientGui);
+			return new Help();
 		
 		case MUTE:
-			return new Mute(clientGui);
+			return new Mute();
 			
 		case UNMUTE:
-			return new Unmute(clientGui);
+			return new Unmute();
 		
 		case CONNECT:
-			if (client.connected())
-				return new AlreadyConnected(clientGui);
 			if(st.hasMoreTokens())
-				return new Connect(st.nextToken(),client);
+				return new Connect(st.nextToken());
 			else
-				return new NotACommand(clientGui);
+				return new NotACommand();
 		
 		default:
-			if(isServerCommand(input)) {
-				if(isSound(input)) {
-					String soundName = input.replace("/:", "") + ".wav";
-					return new ClientSound(clientGui, soundName);
-				}
-			}
-			return new NotACommand(clientGui);
+			if(isSound(input)) {
+				String soundName = input.replace("/:", "");
+				return new Sound(soundName);
+//				return new ClientSound(clientGui, soundName);
+			} else if(isPossibleCommand(input))
+				return new UnrecognizedCommand(input);
+			return new Message(input);
+//			return new NotACommand();
 		}
 	}
 	
-	private boolean isServerCommand(String input) {
-		return (input.charAt(0)=='/' && input.charAt(1)==':');
+	private static boolean isPossibleCommand(String input) {
+		return input.charAt(0) == '/';
 	}
 	
-	private boolean isSound(String input) {
+	private static boolean isSound(String input) {
 		String soundName = input.replace("/:", "");
 		
 		File soundFolder = new File("res/");

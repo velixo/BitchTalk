@@ -3,33 +3,38 @@ package command.serverside;
 import java.util.HashMap;
 import java.util.Set;
 
-import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
+import command.Message;
 
 public class GetAliases implements Command {
-	private Server server;
-	private User user;
-	
-	
-	public GetAliases(Server s, User u) {
-		server = s;
-		user = u;
-	}
+	private static final long serialVersionUID = -1135758666242445802L;
 
 	@Override
-	public void run() {
+	public void serverRun(User user) {
 		if (user.isAdmin()) {
-			HashMap<String, String> aliases = server.getAliasizer().getAliases();
+			HashMap<String, String> aliases = user.getServer().getAliasizer().getAliases();
 			Set<String> words = aliases.keySet();
 			String message = "";
 			for (String word : words) {
 				message += word + " => " + aliases.get(word) + "\n";
 			}
 			//TODO send is dangerous - fixed, i think
-			user.send(message);
+			user.send(new Message(message));
 		}
 	}
 
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
 }

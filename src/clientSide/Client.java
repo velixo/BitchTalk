@@ -19,59 +19,81 @@ public class Client {
 	
 	private ClientGui gui;
 	private ListenForMessagesThread listenForMessagesThread = new ListenForMessagesThread();
-	private ClientCommandFactory factory;
+	private Client me = this;
 	
 	public Client(ClientGui g){
 		gui = g;
-		factory = new ClientCommandFactory(gui,this);
-		gui.showMessage(factory.help());
+		gui.showMessage(ClientCommandFactory.help());
 	}
 	
 	//TODO check that this code is correct
-	public boolean connected() {
+	private boolean connected() {
 		if (connection != null)
 			return !connection.isClosed();
 		return false;
 	}
 	
 	public void connect(String ip){
-		try {
-			connection = new Socket(InetAddress.getByName(ip),9513);
-			output = new ObjectOutputStream(connection.getOutputStream());
-			output.flush();
-			input = new ObjectInputStream(connection.getInputStream());
-			if (listenForMessagesThread != null)
-				listenForMessagesThread.stopThread();
-			listenForMessagesThread = new ListenForMessagesThread();
-			listenForMessagesThread.start();
-		} catch (IOException e) {
-			gui.showMessage("I'm afraid I can't let you do that, bitch.");
+		if (connected()) {
+			
+		} else {
+			try {
+				connection = new Socket(InetAddress.getByName(ip),9513);
+				output = new ObjectOutputStream(connection.getOutputStream());
+				output.flush();
+				input = new ObjectInputStream(connection.getInputStream());
+				if (listenForMessagesThread != null)
+					listenForMessagesThread.stopThread();
+				listenForMessagesThread = new ListenForMessagesThread();
+				listenForMessagesThread.start();
+			} catch (IOException e) {
+				gui.showMessage("I'm afraid I can't let you do that, bitch.");
+			}
 		}
 	}
-	public void send(String message){
+	
+	public void buildAndRun(String input) {
+		Command c = ClientCommandFactory.build(input);
+		c.clientRun(this);
+	}
+	
+	public void send(Command c){
 		try {
-			if (message.charAt(0) == '/' && message.charAt(1) != ':' && factory.canBuild(message)) {
-				Command c = factory.build(message);
-				c.run();
-			} else if(isSound(message)) {
-				sendAsSound(message);
-				
-			} else if(isAdminSound(message)) {
-				sendAsAdminSound(message);
-				
-			} else if(output!=null){
-				output.writeObject(message);
+			if(output!=null){
+				output.writeObject(c);
 				output.flush();
-				System.out.println("flushed, bitch");
 			}
-			else{
-				gui.showMessage("You are not connected to any server.");
-			}
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		try {
+//			if (message.charAt(0) == '/' && message.charAt(1) != ':' && factory.canBuild(message)) {
+//				Command ca = factory.build(message);
+//				ca.clientRun(this);
+//			} else if(isSound(message)) {
+//				sendAsSound(message);
+//				
+//			} else if(isAdminSound(message)) {
+//				sendAsAdminSound(message);
+//				
+//			} else if(output!=null){
+//				output.writeObject(message);
+//				output.flush();
+//				System.out.println("flushed, bitch");
+//			}
+//			else{
+//				gui.showMessage("You are not connected to any server.");
+//			}
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+	
+	public ClientGui getGui() {
+		return gui;
 	}
 	
 	private boolean isSound(String input) {
@@ -118,7 +140,7 @@ public class Client {
 		}
 	}
 	
-	private void closeCrap(){
+	public void closeCrap(){
 		gui.showMessage("bitch, I'm out.");
 		try{
 			output.close();
@@ -140,22 +162,28 @@ public class Client {
 			//TODO disconnect functionality
 			while(runThread) {
 				try {
+					Command c = (Command) input.readObject();
+					c.clientRunRecieved(me);
+					
+					
+					
+					
 					//TODO refactor this code. assuming the object is a String or a List<String> is iffy design.
-					Object received = input.readObject();
-					if (received instanceof String) {
-						String message = (String) received;
-						System.out.println("Client.ListenForMessagesThread: " + message);
-						if (message.charAt(0) == '/') {
-							Command c = factory.build(message);
-							c.run();
-						} else {
-							gui.showMessage(message);
-						}
-					} else if (received instanceof List){
-						@SuppressWarnings("unchecked")
-						List<String> usernames = (List<String>) received;	//since the only time we send over a list is when we update userList, we presume its a list of usernames.
-						gui.updateUsersWindow(usernames);
-					}
+//					Object received = input.readObject();
+//					if (received instanceof String) {
+//						String message = (String) received;
+//						System.out.println("Client.ListenForMessagesThread: " + message);
+//						if (message.charAt(0) == '/') {
+//							Command c = factory.build(message);
+//							c.serverRun();
+//						} else {
+//							gui.showMessage(message);
+//						}
+//					} else if (received instanceof List){
+//						@SuppressWarnings("unchecked")
+//						List<String> usernames = (List<String>) received;	//since the only time we send over a list is when we update userList, we presume its a list of usernames.
+//						gui.updateUsersWindow(usernames);
+//					}
 				} catch (ClassNotFoundException | IOException e) {
 					gui.showMessage("Disconnected from server");
 					closeCrap();
@@ -168,5 +196,4 @@ public class Client {
 			runThread = false;
 		}
 	}
-	
 }

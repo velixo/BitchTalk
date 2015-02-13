@@ -1,26 +1,34 @@
 package command.serverside;
 
-import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
 
 public class Ban implements Command {
-	private Server s;
-	private User unbanner;
+	private static final long serialVersionUID = 4591173403796749271L;
 	private String username;
 	
-	public Ban(Server s, User unbanner, String username) {
-		this.s = s;
-		this.unbanner = unbanner;
+	public Ban(String username) {
 		this.username = username;
 	}
 
 	@Override
-	public void run() {
-		if (unbanner.isAdmin()) {
-			s.ban(unbanner, username);
+	public void serverRun(User u) {
+		if (u.isAdmin()) {
+			u.getServer().ban(u, username);
 		}
 	}
 
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
 }

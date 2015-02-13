@@ -1,25 +1,34 @@
 package command.serverside;
 
-import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
 
 public class Unban implements Command {
-	private Server s;
-	private User unbanner;
+	private static final long serialVersionUID = 1738028001989064575L;
 	private String ip;
 	
-	public Unban(Server s, User unbanner, String ip) {
-		this.s = s;
-		this.unbanner = unbanner;
+	public Unban(String ip) {
 		this.ip = ip;
 	}
 
 	@Override
-	public void run() {
-		if (unbanner.isAdmin()) {
-			s.unban(unbanner, ip);
+	public void serverRun(User u) {
+		if (u.isAdmin()) {
+			u.getServer().unban(u, ip);
 		}
+	}
+
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
 	}
 }

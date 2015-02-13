@@ -4,27 +4,36 @@ import java.util.List;
 
 import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
+import command.Message;
 
 public class BitchList implements Command{
-	private Server s;
-	private User u;
-	
-	public BitchList(Server s, User u) {
-		this.s = s;
-		this.u = u;
-	}
+	private static final long serialVersionUID = 1023418125074564655L;
 
 	@Override
-	public void run() {
-		List<String> uNameList = s.getUsernamesList();
-		String message = "Deez bitches in da house:";
+	public void serverRun(User u) {
+		Server server = u.getServer();
+		List<String> uNameList = server.getUsernamesList();
+		String message = "Deez bitches in da hoose:";
 		for (String uName : uNameList) {
 			message += "\n" + uName;
 		}
 		//TODO send is dangerous - fixed, i think
-		u.send(message);
+		u.send(new Message(message));
 	}
-	
+
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

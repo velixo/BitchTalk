@@ -12,6 +12,11 @@ import java.util.Random;
 import java.util.Set;
 
 import shared.StaticVariables;
+import command.Command;
+import command.Disconnect;
+import command.Message;
+import command.Sound;
+import command.serverside.BitchList;
 
 public class Server {
 	private ServerSocket gatekeeper;
@@ -43,28 +48,35 @@ public class Server {
 		}
 	}
 
-	public void broadcastWithAlias(String m) {
-		String aliasedMessage = aliasizer.aliasify(m);
-		broadcast(aliasedMessage);
-	}
+//	public void broadcastWithAlias(String m) {
+//		String aliasedMessage = aliasizer.aliasify(m);
+//		broadcast(aliasedMessage);
+//	}
 
-	public void broadcast(String message) {
-		gui.showMessage(message);
-		//TODO user.send might wreck himself. this happens inside a for-each statement, which is not safe. - fixed, i think
+	public void broadcast(Command c) {
 		for (User u : userList) {
-			//TODO send is dangerous - fixed, i think
-			u.send(message);
+			u.send(c);
 		}
 		wreckNonRespondingUsers();
 	}
-
-	public void broadcastUsernameList() {
-		List<String> usernames = getUsernamesList();
-		for (User u : userList) {
-			u.sendUserList(usernames);
-		}
-		wreckNonRespondingUsers();
-	}
+	
+//	public void broadcast(String message) {
+//		gui.showMessage(message);
+//		//TODO user.send might wreck himself. this happens inside a for-each statement, which is not safe. - fixed, i think
+//		for (User u : userList) {
+//			//TODO send is dangerous - fixed, i think
+//			u.send(message);
+//		}
+//		wreckNonRespondingUsers();
+//	}
+//
+//	public void broadcastUsernameList() {
+//		List<String> usernames = getUsernamesList();
+//		for (User u : userList) {
+//			u.sendUserList(usernames);
+//		}
+//		wreckNonRespondingUsers();
+//	}
 	
 	public synchronized void addUserToBeWrecked(User u) {
 		usersToBeWrecked.add(u);
@@ -83,9 +95,8 @@ public class Server {
 				String username = u.getName();
 				u.closeCrap();
 				iter.remove();
-				broadcastWithAlias(username + " decided to be uncool. What a bitch.");
+				broadcast(new Message(username + " decided to be uncool. What a bitch."));
 				updateUsersWindow();
-				broadcastUsernameList();
 			}
 		}
 		usersToBeWrecked.clear();
@@ -117,10 +128,10 @@ public class Server {
 			if (u.getName().equals(username)) {
 				//TODO wreckNonRespondingUsers will be called here, which is quite unsafe considering we're in a for-loop.
 				// create new broadcast that doesn't call wreckNonRespondingUsers()?
-				broadcastWithAlias(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY);
-				broadcastWithAlias(u.getName() + ", fuck off bitch.");
+				broadcast(new Sound(StaticVariables.SERVERMOVEBITCHGETOUTDAWAY)); //TODO creating a command outside of factory
+				broadcast(new Message(u.getName() + ", fuck off bitch.")); //TODO creating a command outside of factory
 				//TODO send is dangerous
-				u.send(StaticVariables.DISCONNECT);
+				u.send(new Disconnect());
 				u.closeCrap();
 				userList.remove(u);
 				updateUsersWindow();
@@ -129,8 +140,14 @@ public class Server {
 			}
 		}
 		//TODO send is dangerous - fixed, i think
-		kicker.send("That bitch isn't in this chat, yo.");
+		kicker.send(new Message("That bitch isn't in this chat, yo."));
 		wreckNonRespondingUsers();
+	}
+
+	private void broadcastUsernameList() {
+		for(User u : userList) {
+			(new BitchList()).serverRun(u); //TODO creating a command outside of factory
+		}
 	}
 
 	private void updateUsersWindow() {
@@ -144,7 +161,7 @@ public class Server {
 	public String getIp(String username) {
 		for (User u : userList) {
 			if (u.getName().equals(username)) {
-				return u.getInetAddress().toString().replace("/", "");
+				return u.getInetAddress().getHostAddress();
 			}
 		}
 		return null;
@@ -157,9 +174,8 @@ public class Server {
 	public void ban(User unbanner, String username) {
 		for (User u : userList) {
 			if (u.getName().equals(username)) {
-//				wreck(u);
 				addUserToBeWrecked(u);
-				blackList.add(u.getInetAddress().toString());
+				blackList.add(u.getInetAddress().getHostAddress());
 			}
 		}
 		wreckNonRespondingUsers();
@@ -169,24 +185,29 @@ public class Server {
 		if (blackList.contains(ip)) {
 			blackList.remove(ip);
 			//TODO send is dangerous - fixed, i think
-			unbanner.send(ip
-					+ " was removed from the ban list. Hope the bitch keeps his manners this time.");
+			unbanner.send(new Message(ip
+					+ " was removed from the ban list. Hope the bitch keeps his manners this time."));
 		} else {
 			//TODO send is dangerous - fixed, i think
-			unbanner.send(ip + " isn't banned.");
+			unbanner.send(new Message(ip + " isn't banned."));
 		}
 		wreckNonRespondingUsers();
 	}
 
-	public void sendBannedList(User u) {
-		StringBuilder message = new StringBuilder(
-				"The following IP's are banned: \n");
-		for (String ip : blackList) {
-			message.append(ip + "\n");
-		}
-		//TODO send is dangerous - fixed, i think
-		u.send(message.toString());
+//	public void sendBannedList(User u) {
+//		StringBuilder message = new StringBuilder(
+//				"The following IP's are banned: \n");
+//		for (String ip : blackList) {
+//			message.append(ip + "\n");
+//		}
+//		//TODO send is dangerous - fixed, i think
+//		u.send(message.toString());
+//		wreckNonRespondingUsers();
+//	}
+	
+	public List<String> getBannedList() {
 		wreckNonRespondingUsers();
+		return blackList;
 	}
 
 	public boolean pinIsCorrect(String pinGuess) {
@@ -222,8 +243,8 @@ public class Server {
 //							}
 //						}
 						userList.add(u);
-						broadcastWithAlias(u.getName() + " has joined.");
-						gui.showMessage(u.getName() + " has ip " + getIp(u.getName()));
+						broadcast(new Message(u.getName() + " has joined."));
+						gui.showMessage(u.getName() + " has ip " + u.getInetAddress().getHostAddress());
 						// u.send("Bitch, we've updated the app. New version's in the facebook group. In the new version there are new sounds and commands. Type /help to see them, bitch.");
 						updateUsersWindow();
 						broadcastUsernameList();

@@ -4,19 +4,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import serverside.User;
 import shared.StaticVariables;
-import clientSide.ClientGui;
+import clientSide.Client;
+
 import command.Command;
 
 public class Help implements Command {
-	private ClientGui c;
-	
-	public Help(ClientGui c) {
-		this.c = c;
-	}
+	private static final long serialVersionUID = 5833972601159022991L;
 
 	@Override
-	public void run() {
+	public void clientRun(Client c) {
 		String help = "\nBitch needed some commands?\n" +
 				StaticVariables.HELP + "\n" +
 				StaticVariables.CONNECT + "\n" +
@@ -28,7 +26,7 @@ public class Help implements Command {
 		for(String sound : sounds) {
 			help += "/" + sound + "\n";
 		}
-		c.showSilentMessage(help);
+		c.getGui().showSilentMessage(help);
 	}
 	
 	private List<String> getNormalSoundNames() {
@@ -40,6 +38,18 @@ public class Help implements Command {
 			}
 		}
 		return soundList;
+	}
+
+	@Override
+	public void serverRun(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

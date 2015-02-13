@@ -1,26 +1,34 @@
 package command.serverside;
 
-import serverside.Server;
 import serverside.User;
+import clientSide.Client;
 
 import command.Command;
 
 public class Kick implements Command {
-	private Server s;
-	private User u;
+	private static final long serialVersionUID = -4476051316009716491L;
 	private String username;
 	
-	public Kick(Server s, User u, String username) {
-		this.s = s;
-		this.u = u;
+	public Kick(String username) {
 		this.username = username;
 	}
 
 	@Override
-	public void run() {
+	public void serverRun(User u) {
 		if (u.isAdmin()) {
-			s.kick(u, username);
+			u.getServer().kick(u, username);
 		}
 	}
 
+	@Override
+	public void clientRun(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clientRunRecieved(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
 }
