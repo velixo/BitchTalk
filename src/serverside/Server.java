@@ -189,7 +189,7 @@ public class Server {
 					+ " was removed from the ban list. Hope the bitch keeps his manners this time."));
 		} else {
 			//TODO send is dangerous - fixed, i think
-			unbanner.send(new Message(ip + " isn't banned."));
+			unbanner.send(new Message(ip + " isn't banned, bitch."));
 		}
 		wreckNonRespondingUsers();
 	}
