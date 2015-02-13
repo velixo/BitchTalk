@@ -35,9 +35,9 @@ public class ClientWindow extends JFrame implements ClientGui {
 	
 	private boolean notificationMuted = false;
 	
-	private final static String USERJOINED = "other_joinchatsound.wav";
-	private final static String USERLEFT = "other_leavechatsound.wav";
-	private final static String NOTIFICATION ="other_notificationsound.wav";
+	private final static String USERJOINED = "other_joinchatsound";
+	private final static String USERLEFT = "other_leavechatsound";
+	private final static String NOTIFICATION ="other_notificationsound";
 	
 	public ClientWindow() {
 		super("Talking to dem bitchez: ");
@@ -146,7 +146,7 @@ public class ClientWindow extends JFrame implements ClientGui {
 		public void actionPerformed(ActionEvent e) {
 			String message = chatInput.getText();
 			if (!message.equals("")) {
-				client.buildAndRun(message);
+				client.buildAndRunCommand(message);
 				chatInput.setText("");
 			}
 		}

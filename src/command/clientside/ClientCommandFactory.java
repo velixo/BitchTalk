@@ -62,12 +62,20 @@ public class ClientCommandFactory {
 	}
 	
 	private static boolean isSound(String input) {
-		String soundName = input.replace("/:", "");
+		System.out.println("ClientCommandFactory.isSound()");
+		String normalSoundName = input.replace("/", "");
+		String adminSoundName = input.replace("/", "admin_");
+		String otherSoundName = input.replace("/", "other_");
+		String hiddenSoundName = input.replace("/", "hidden_");
 		
 		File soundFolder = new File("res/");
 		File[] sounds = soundFolder.listFiles();
 		for (File sound : sounds){
-			if (sound.getName().equals(soundName + ".wav"))
+			String sName = sound.getName();
+			if(sName.equals(normalSoundName + ".wav")
+			|| sName.equals(adminSoundName + ".wav")
+			|| sName.equals(otherSoundName + ".wav")
+			|| sName.equals(hiddenSoundName + ".wav"))
 				return true;
 		}
 		return false;

@@ -2,7 +2,6 @@ package command;
 
 import java.io.Serializable;
 
-import serverside.Server;
 import serverside.User;
 import clientSide.Client;
 

@@ -6,6 +6,7 @@ import serverside.User;
 import clientSide.Client;
 
 public class UnrecognizedCommand implements Command {
+	private static final long serialVersionUID = -8445019066399527186L;
 	private String input;
 	
 	public UnrecognizedCommand(String input) {

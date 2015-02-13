@@ -1,12 +1,10 @@
 package clientSide;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.List;
 
 import command.Command;
 import command.clientside.ClientCommandFactory;
@@ -35,7 +33,7 @@ public class Client {
 	
 	public void connect(String ip){
 		if (connected()) {
-			
+			gui.showMessage("Bitch, you're already connected. Get a fucking grip.");
 		} else {
 			try {
 				connection = new Socket(InetAddress.getByName(ip),9513);
@@ -52,7 +50,7 @@ public class Client {
 		}
 	}
 	
-	public void buildAndRun(String input) {
+	public void buildAndRunCommand(String input) {
 		Command c = ClientCommandFactory.build(input);
 		c.clientRun(this);
 	}
@@ -96,49 +94,49 @@ public class Client {
 		return gui;
 	}
 	
-	private boolean isSound(String input) {
-		String soundName = input.replace("/", "") + ".wav";
-		return soundExists(soundName);
-	}
+//	private boolean isSound(String input) {
+//		String soundName = input.replace("/", "") + ".wav";
+//		return soundExists(soundName);
+//	}
+//	
+//	private boolean isAdminSound(String input) {
+//		String soundName = input.replace("/", "admin_") + ".wav";
+//		return soundExists(soundName);
+//	}
 	
-	private boolean isAdminSound(String input) {
-		String soundName = input.replace("/", "admin_") + ".wav";
-		return soundExists(soundName);
-	}
+//	private boolean soundExists(String soundName) {
+//		File soundFolder = new File("res/");
+//		File[] sounds = soundFolder.listFiles();
+//		for (File sound : sounds){
+//			if (sound.getName().equals(soundName))
+//				return true;
+//		}
+//		return false;
+//	}
 	
-	private boolean soundExists(String soundName) {
-		File soundFolder = new File("res/");
-		File[] sounds = soundFolder.listFiles();
-		for (File sound : sounds){
-			if (sound.getName().equals(soundName))
-				return true;
-		}
-		return false;
-	}
+//	private void sendAsAdminSound(String message) throws IOException {
+//		message = message.replace("/", "/:a:");
+//		if(output!=null){
+//			output.writeObject(message);
+//			output.flush();
+//			System.out.println("flushed, bitch");
+//		}
+//		else{
+//			gui.showMessage("You are not connected to any server.");
+//		}
+//	}
 	
-	private void sendAsAdminSound(String message) throws IOException {
-		message = message.replace("/", "/:a:");
-		if(output!=null){
-			output.writeObject(message);
-			output.flush();
-			System.out.println("flushed, bitch");
-		}
-		else{
-			gui.showMessage("You are not connected to any server.");
-		}
-	}
-	
-	private void sendAsSound(String message) throws IOException {
-		message = message.replace("/", "/:s:");
-		if(output!=null){
-			output.writeObject(message);
-			output.flush();
-			System.out.println("flushed, bitch");
-		}
-		else{
-			gui.showMessage("You are not connected to any server.");
-		}
-	}
+//	private void sendAsSound(String message) throws IOException {
+//		message = message.replace("/", "/:s:");
+//		if(output!=null){
+//			output.writeObject(message);
+//			output.flush();
+//			System.out.println("flushed, bitch");
+//		}
+//		else{
+//			gui.showMessage("You are not connected to any server.");
+//		}
+//	}
 	
 	public void closeCrap(){
 		gui.showMessage("bitch, I'm out.");
@@ -150,7 +148,6 @@ public class Client {
         	ioe.printStackTrace();
          }
 	}
-	
 	
 	private class ListenForMessagesThread extends Thread {
 		private boolean runThread;
