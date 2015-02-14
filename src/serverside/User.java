@@ -85,9 +85,9 @@ public class User {
 			connection.close();
 			
 			//TODO ask isak if we should do this
-//			output = null;
-//			input = null;
-//			connection = null;
+			output = null;
+			input = null;
+			connection = null;
          } catch(IOException ioe) {
         	ioe.printStackTrace();
          }
