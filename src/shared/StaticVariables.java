@@ -5,6 +5,7 @@ public abstract class StaticVariables {
 	public final static String SERVER_MOVEBITCH = "other_movebitch";
 	public final static String SERVER_LEAVECHAT = "other_leavechat";
 	public final static String SERVER_JOINCHAT = "other_joinchat";
+	public static final String INCHARGE = "other_incharge";
 	
 	/** Variables used when a command is sent from a client to the server*/
 	public final static String HELP = "/help";

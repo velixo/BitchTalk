@@ -2,8 +2,10 @@ package command.serverside;
 
 import serverside.Server;
 import serverside.User;
+import shared.StaticVariables;
 import shared.command.Command;
 import shared.command.Message;
+import shared.command.Sound;
 import clientSide.Client;
 
 public class RequestAdmin implements Command {
@@ -20,6 +22,7 @@ public class RequestAdmin implements Command {
 		if (server.pinIsCorrect(pin)) {
 			u.setAdmin(true);
 			u.send(new Message("Congrats, bitch. You're now an admin. Big fucking whoop."));
+			u.send(new Sound(StaticVariables.INCHARGE));
 		} else {
 			u.send(new Message("Incorrect pin, bitch. You sure you're ready to be an admin?"));
 		};
