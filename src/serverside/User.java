@@ -97,7 +97,7 @@ public class User {
 		return server;
 	}
 	
-	Thread checkmail = new Thread(){
+	private Thread checkmail = new Thread(){
 		public void run() {
 			boolean wrecked = false;
 			while(!wrecked){
@@ -113,4 +113,13 @@ public class User {
 			
 		}
 	};
+
+	public void ping() {
+		try {
+			connection.getInputStream();
+			connection.getOutputStream();
+		} catch (IOException e) {
+			server.addUserToBeWrecked(me);
+		}
+	}
 }

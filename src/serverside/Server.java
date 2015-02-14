@@ -45,6 +45,7 @@ public class Server {
 			blackList = new ArrayList<String>();
 			usersToBeWrecked = new HashSet<User>();
 			waitForConnectionThread.start();
+			autoWrecking.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -215,6 +216,23 @@ public class Server {
 					}
 				} catch (IOException e) {
 					gui.showMessage("Some bitch really sucks at connecting.");
+					e.printStackTrace();
+				}
+			}
+		}
+	};
+	
+	private Thread autoWrecking = new Thread() {
+		private long waitTime = 5* 1000;
+		public void run() {
+			while (!isInterrupted()) {
+				try {
+					for (User u : userList) {
+						u.ping();
+					}
+					wreckNonRespondingUsers();
+					sleep(waitTime);
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
