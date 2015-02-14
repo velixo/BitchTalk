@@ -104,7 +104,6 @@ public class User {
 				try {
 					Command c = (Command) input.readObject();
 					c.serverRun(me);
-					System.out.println("User.checkmail, c.getClass().getSimpleName() == " + c.getClass().getSimpleName());
 				} catch (ClassNotFoundException | IOException e) {
 					wrecked = true;
 					server.addUserToBeWrecked(me);
