@@ -44,11 +44,14 @@ public class Server {
 			gui.showMessage("Admin access pin: " + adminPin);
 			blackList = new ArrayList<String>();
 			usersToBeWrecked = new HashSet<User>();
-			waitForConnectionThread.start();
-			autoWrecking.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void init(){
+		autoWrecking.start();
+		waitForConnectionThread.start();		
 	}
 
 	public void broadcast(Command c) {
@@ -67,6 +70,7 @@ public class Server {
 	 * users in usersToBeWrecked. 
 	 * */
 	private synchronized void wreckNonRespondingUsers() {
+		System.out.println("wrecking nonresponding users");
 		Iterator<User> iter = userList.iterator();
 		Map<String, String> usernameAndIp = new TreeMap<String, String>();
 		boolean somebodyGotWrecked = false;
@@ -195,6 +199,7 @@ public class Server {
 	/******************************** THREAD DECLARATIONS *********************************************/
 
 	private Thread waitForConnectionThread = new Thread() {
+		@Override
 		public void run() {
 			while (!Thread.currentThread().isInterrupted()) {
 				Socket s;
@@ -222,9 +227,10 @@ public class Server {
 		}
 	};
 	
-	private Thread autoWrecking = new Thread() {
-		private long waitTime = 5* 1000;
+	private Thread autoWrecking = new Thread(){
+		@Override
 		public void run() {
+			long waitTime = 5* 1000;
 			while (!isInterrupted()) {
 				try {
 					for (User u : userList) {

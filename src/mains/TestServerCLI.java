@@ -8,6 +8,7 @@ public class TestServerCLI {
 
 	public static void main(String[] args) {
 		ServerGui s = new ServerCLI();
-		new Server(s);
+		Server bts = new Server(s);
+		bts.init();
 	}
 }
