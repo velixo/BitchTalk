@@ -230,7 +230,7 @@ public class Server {
 	private Thread autoWrecking = new Thread(){
 		@Override
 		public void run() {
-			long waitTime = 5* 1000;
+			long waitTime = 1000;
 			while (!isInterrupted()) {
 				try {
 					for (User u : userList) {
