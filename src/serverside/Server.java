@@ -70,7 +70,7 @@ public class Server {
 	 * users in usersToBeWrecked. 
 	 * */
 	private synchronized void wreckNonRespondingUsers() {
-		System.out.println("wrecking nonresponding users");
+//		System.out.println("wrecking nonresponding users");
 		Iterator<User> iter = userList.iterator();
 		Map<String, String> usernameAndIp = new TreeMap<String, String>();
 		boolean somebodyGotWrecked = false;
